@@ -12,7 +12,7 @@ class PerfilController {
     public function list() {
 
         $data["usuario"] = $this->perfilModel->getData();
-        $this->renderer->render("data", $data);
+        $this->renderer->render("perfil", $data);
     }
 
     public function add(){
