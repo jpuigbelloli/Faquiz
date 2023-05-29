@@ -11,7 +11,7 @@ class PerfilController {
 
     public function list() {
 
-        $data["usuario"] = $this->perfilModel->getData();
+        $data["usuario"] = $this->perfilModel->generarArray();
         $this->renderer->render("perfil", $data);
     }
 

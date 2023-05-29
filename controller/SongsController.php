@@ -11,6 +11,9 @@ class SongsController {
 
     public function list() {
         $data["canciones"] = $this->songsModel->getSongs();
+        echo '<pre>';
+        var_dump($data);
+        echo '</pre>';
         $this->renderer->render("songs", $data);
     }
 
