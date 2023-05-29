@@ -46,7 +46,7 @@ class PerfilModel
 
         $arrayDatosTest = array(
             'user_name' => 'Popolon22',
-            'foto_perfil' => '../public/002.png',
+            'foto_perfil' => '../public/imgs/002.png',
             'nombreCompleto' => 'Marcelo Sorrento',
             'email' => 'marchelo@gmail.com',
             'edad' => '25',
