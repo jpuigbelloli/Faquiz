@@ -1,5 +1,4 @@
 <?php
-
 class UsuarioModel {
 
     private $database;
@@ -11,19 +10,18 @@ class UsuarioModel {
     public function registrarse($nombre,$apellido,$fecha_nac,$genero, $ubicacion,$email,$user_name,$contrasenia,$foto_perfil){
        $sql = 'SELECT user_name FROM Usuario';
        $usuarios = $this->database->query($sql);
-       if($user_name != $usuarios){
-        return $this->database->query(
-            'INSERT INTO Usuario (nombre,apellido, fecha_nac,genero, ubicacion,email,user_name,contrasenia,foto_perfil) 
-             VALUES ($nombre,$apellido,$fecha_nac,$genero,$ubicacion,$email,$user_name,$contrasenia,$foto_perfil)');
-        } else {
+       if($user_name = $usuarios){
            die('Ya existe un usuario con ese nombre');
+        } else {
+           $this->database->query("INSERT INTO Usuario (nombre,apellido, fecha_nac,genero, ubicacion,email,user_name,contrasenia,foto_perfil) 
+             VALUES ('$nombre','$apellido','$fecha_nac','$genero','$ubicacion','$email','$user_name','$contrasenia','$foto_perfil')");
        }
-    }
 
+    }
     public function verificar($usuario,$contrasenia){
         //me devuelve la contraseña hasheada
-        $query = $this->database->query("SELECT id,clave FROM usuario
-                                WHERE username = '$usuario'");
+        $query = $this->database->query("SELECT id_usuario,contrasenia FROM usuario
+                                WHERE user_name = '$usuario'");
         //todo OR email = $usuario
 
         if($query->num_rows === 1){
@@ -34,7 +32,6 @@ class UsuarioModel {
                 session_start();
                 $_SESSION['usuario']=$usuario;
                 $_SESSION['id'] = $fila["id"];
-
                 header("Location:/");
                 exit();
             } else {

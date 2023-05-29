@@ -1,57 +1,53 @@
 {{> header}}
-<!-- Registro Section -->
-<div class='w3-container w3-content w3-padding-64' style='max-width:800px' id='registro'>
-    <h2 class='w3-wide'>Registrarse</h2>
-    <p class='w3-opacity'><i>¡Registrate y empezá a jugar!</i></p>
-    <div class='w3-row w3-padding-32 '>
-        <div>
-            <form class= 'w3-container w3-row 'action="usuarioModel->registrarse" method="post" enctype="multipart/form-data">
-                <div>
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" name="nombre" id="nombre" placeholder="Nombre" required>
-                    <br><br>
-                    <label for="apellido">Apellido:</label>
-                    <input type="text" name="apellido" id="apellido" placeholder="Apellido" required>
-                    <br><br>
-                    <label for="fecha_nac">Fecha de Nacimiento:</label>
-                    <input type="date" name="fecha_nac" id="fecha_nac" placeholder="Fecha Nacimiento" required>
-                    <br><br>
-                    <label for="genero">Genero:</label>
-                    <select required name="genero" id="genero" placeholder="Seleccionar">
-                        <option selected value="">Genero</option>
-                        <option value="1">Femenino</option>
-                        <option value="2">Masculino</option>
-                        <option value="3">No especificar</option>
-                    </select>
-                    <br><br>
-                    <label for="userName">Usuario:</label>
-                    <input type="text" name="userName" id="userName" placeholder="Nombre de Usuario">
-                    <br><br>
-                    <label for="contrasenia">Contraseña:</label>
-                    <input type="password" name="contrasenia" id="contrasenia" placeholder="Contraseña">
-                    <br><br>
-                    <label for="contrasenia">Repetir Contraseña:</label>
-                    <input type="password" name="contrasenia" id="contrasenia" placeholder="Repetir Contraseña">
-                    <br><br>
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" placeholder="Email">
-                    <br><br>
-                    <label for="fotoPerfil">Foto de perfil:</label>
-                    <input type="file" name="fotoPerfil" id="fotoPerfil" placeholder="Subir Archivo">
-                    <br><br>
-                    <label for="ubicacion" >Ubicacion:</label>
-                    <input type="hidden" id="ubicacion" name="ubicacion" required>
-                    <br><br>
 
-                    <button type="submit" name="registrarse">Registrarme</button>
-                </div>
-            </form>
+<body  class="bd-image" style="background-image: url('public/imgs/Fondo.png')">
+
+        <div class='m-auto ' style='max-width:800px' id='registro'>
+            <h2 class='fadeIn first'style="color: ghostwhite"><i>¡Registrate y empezá a jugar!</i></h2>
+                        <p class=''></p>
+                        <div class='cols-sm-12 '>
+                            <div>
+                                <form class= 'fadeIn second' style="color: ghostwhite" action="" method="post" enctype="multipart/form-data">
+                                    <div>
+                                        <label class='form-label' for="nombre">Nombre</label>
+                                        <input class="form-control-sm" type="text" name="nombre" id="nombre" placeholder="Nombre" required>
+                                        <label  for="apellido"></label>
+                                        <input class="form-control-sm" type="text" name="apellido" id="apellido" placeholder="Apellido" required>
+                                        <br><br>
+                                        <label  class="form-label" for="fecha_nac">Fecha Nacimiento:</label>
+                                        <input class="form-control-sm" type="date" name="fecha_nac" id="fecha_nac" placeholder="Fecha Nacimiento" required>
+                                        <label class="form-label" for="genero">Genero:</label>
+                                        <select class="form-control-sm" required name="genero" id="genero" placeholder="Seleccionar">
+                                            <option selected value="">Genero</option>
+                                            <option value="1">Femenino</option>
+                                            <option value="2">Masculino</option>
+                                            <option value="3">No especificar</option>
+                                        </select>
+                                        <br><br>
+                                        <label for="email">Email:</label>
+                                        <input type="email" name="email" id="email" placeholder="Email">
+                                        <label for="userName">Usuario:</label>
+                                        <input type="text" name="userName" id="userName" placeholder="Nombre de Usuario">
+                                        <br><br>
+                                        <label for="contrasenia">Contraseña:</label>
+                                        <input type="password" name="contrasenia" id="contrasenia" placeholder="Contraseña">
+                                        <label for="contrasenia">Repetir </label>
+                                        <input type="password" name="contrasenia" id="contrasenia" placeholder="Repetir Contraseña">
+                                        <br><br>
+                                        <label for="fotoPerfil">Foto de perfil:</label>
+                                        <input type="file" name="fotoPerfil" id="fotoPerfil" placeholder="Subir Archivo">
+                                        <br><br>
+                                        <label for="ubicacion" >Ubicacion:</label>
+                                        <input type="search" id="ubicacion" name="ubicacion" placeholder="MAPA" >
+                                        <br><br>
+
+                                        <button class="wrapper btn-outline-primary" type="submit" name="registrarse">Registrarme</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
         </div>
-    </div>
-
-
-    </div>
-</div>
+</body>
 
 <!-- End Page Content -->
 </div>

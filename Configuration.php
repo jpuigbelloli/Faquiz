@@ -10,8 +10,7 @@ include_once ('model/UsuarioModel.php');
 include_once('controller/ToursController.php');
 include_once('controller/SongsController.php');
 include_once('controller/InicioSinLogController.php');
-include_once('controller/UsuarioController.php');
-include_once('controller/UserController.php');
+include_once('controller/RegistroController.php');
 include_once('controller/LoginController.php');
 
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
@@ -23,24 +22,12 @@ class Configuration {
     public function __construct() {
     }
 
-    public function getToursController() {
-        return new ToursController(
-            new ToursModel($this->getDatabase()),
-            $this->getRenderer());
-    }
-
-    public function getSongsController() {
-        return new SongsController(
-            new SongsModel($this->getDatabase()),
-            $this->getRenderer());
-    }
-
     public function getInicioSinLogController() {
         return new InicioSinLogController($this->getRenderer());
     }
 
-    public function getUsuarioController(){
-        return new UsuarioController(
+    public function getRegistroController(){
+        return new RegistroController(
             new UsuarioModel($this->getDatabase()),
                 $this->getRenderer());
     }

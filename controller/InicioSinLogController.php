@@ -14,7 +14,7 @@ class InicioSinLogController {
     }
 
     public function getVistaLogin(){
-        $this->renderer->render('autenticacion');
+        $this->renderer->render('login');
     }
 
     public function getVistaResgistro(){

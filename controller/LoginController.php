@@ -28,5 +28,6 @@ class LoginController
         $datos = $this->usuarioModel->verificar($usuario,$contrasenia);
 
         var_dump($datos);
+        $this->renderer->render('login');
     }
 }
