@@ -5,11 +5,14 @@ include_once('helpers/Router.php');
 
 include_once ("model/ToursModel.php");
 include_once('model/SongsModel.php');
+include_once('model/PerfilModel.php');
 
 include_once('controller/ToursController.php');
 include_once('controller/SongsController.php');
 include_once('controller/LaBandaController.php');
 include_once('controller/UserController.php');
+include_once('controller/PerfilController.php');
+
 
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
 
@@ -41,7 +44,9 @@ class Configuration {
     }
 
     public function getPerfilController(){
-        return new PerfilController($this->getRenderer());
+        return new PerfilController(
+            new PerfilModel($this->getDatabase()),
+            $this->getRenderer());
     }
     private function getArrayConfig() {
         return parse_ini_file($this->configFile);
