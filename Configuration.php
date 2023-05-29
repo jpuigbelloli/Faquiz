@@ -5,11 +5,13 @@ include_once('helpers/Router.php');
 
 include_once ("model/ToursModel.php");
 include_once('model/SongsModel.php');
+include_once('model/UsuarioModel.php');
 
 include_once('controller/ToursController.php');
 include_once('controller/SongsController.php');
 include_once('controller/LaBandaController.php');
 include_once('controller/UserController.php');
+include_once('controller/LoginController.php');
 
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
 
@@ -39,6 +41,13 @@ class Configuration {
     public function getRegistroController(){
         return new UserController($this->getRenderer());
     }
+
+    public function getLoginController(){
+        return new LoginController(
+            new UsuarioModel($this->getDatabase()),
+            $this->getRenderer());
+    }
+
     private function getArrayConfig() {
         return parse_ini_file($this->configFile);
     }

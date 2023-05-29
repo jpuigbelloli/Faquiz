@@ -19,8 +19,15 @@ class MySqlDatabase {
         mysqli_close($this->connection);
     }
 
-    public function query($sql) {
+    public function query_assoc($sql) {
         $result = mysqli_query($this->connection, $sql);
-        return mysqli_fetch_all($result, MYSQLI_BOTH);
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+    public function query_num($sql) {
+        $result = mysqli_query($this->connection, $sql);
+        return $result->num_rows;
+    }
+    public function query($sql) {
+        return mysqli_query($this->connection, $sql);
     }
 }
