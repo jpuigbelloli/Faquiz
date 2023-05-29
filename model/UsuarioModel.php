@@ -10,28 +10,30 @@ class UsuarioModel
         $this->database = $database;
     }
 
-    public function verificar($usuario,$contrasenia){
+    public function verificarCredenciales($usuario,$contrasenia){
         //me devuelve la contraseña hasheada
-        $query = $this->database->query("SELECT id,clave FROM usuario
-                                WHERE username = '$usuario'");
+        $query = $this->database->query_normal("SELECT id_usuario,contrasenia FROM usuario
+                                WHERE user_name = '$usuario'");
         //todo OR email = $usuario
 
         if($query->num_rows === 1){
             $fila = $query->fetch_assoc();
-            $contraseniaHasheada = $fila["clave"];
-//            if(password_verify($contrasenia,$contraseniaHasheada)){
-            if($contrasenia == $fila["clave"]){
+            $contraseniaHasheada = $fila["contrasenia"];
+            if(password_verify($contrasenia,$contraseniaHasheada)){
+//            if($contrasenia == $fila["clave"]){
                 session_start();
                 $_SESSION['usuario']=$usuario;
                 $_SESSION['id'] = $fila["id"];
 
+                //deberia redireccionar al lobby
                 header("Location:/");
                 exit();
             } else {
-                return "Contraseña inválida. Intentá otra vez";
+                echo "Contraseña inválida. Intentá otra vez";
             }
         } else {
-            return "No existe ese usuario";
+//            $error["error"] = "No existe ese usuario";
+            echo "No existe ese usuario";
         }
     }
 }
