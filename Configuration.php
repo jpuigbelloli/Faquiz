@@ -39,6 +39,10 @@ class Configuration {
     public function getRegistroController(){
         return new UserController($this->getRenderer());
     }
+
+    public function getPerfilController(){
+        return new PerfilController($this->getRenderer());
+    }
     private function getArrayConfig() {
         return parse_ini_file($this->configFile);
     }
