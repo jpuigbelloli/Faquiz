@@ -1,25 +1,45 @@
 {{> header}}
 <link rel="stylesheet" href="./public/css/login.css">
 
-<body  class="bd-image" style="background-image: url('public/imgs/Fondo.png')">
+<body  class="bd-image" style="background-image: url('./public/imgs/Fondo.png')">
 
-    <main>
-        <div class='flex-row fadeIn Down  ' style='margin: 10%'>
+<!--    <main>-->
+<!--        <div class='flex-row fadeIn Down  ' style='margin: 10%'>-->
 
-                <div class= 'p-5' id="formContent" style='max-width:50%' id='inicio'>
-                    <h1 class='fadeIn First'>Bienvenidos a Faquiz</h1>
-                    <h2 class=''>Poné a prueba tu conocimiento y formá parte de nuestro Ranking Global</h2>
-                    <p class=''><i>No te quedes afuera. Empezá a jugar</i></p>
-                    <div class='fadeIn Second' >
-                        <form method="POST">
-                            <button class='fadeIn third '  type="submit" name="iniciarSesion"  alt='login' style='width:80%'>Iniciar Sesion</button>
-                            <br><br>
-                            <button type="submit" class='fadeIn fourth' alt='registro' style='width:80%' name="registro">Registrarse</a> </button>
-                        </form>
-                    </div>
-                </div>
+<!--                <div class= 'p-5' id="formContent" style='max-width:50%' id='inicio'>-->
+<!--                    <h1 class='fadeIn First'>Bienvenidos a Faquiz</h1>-->
+<!--                    <h2 class=''>Poné a prueba tu conocimiento y formá parte de nuestro Ranking Global</h2>-->
+<!--                    <p class=''><i>No te quedes afuera. Empezá a jugar</i></p>-->
+<!--                    <div class='fadeIn Second' >-->
+<!--&lt;!&ndash;                        <form method="POST">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <button class='fadeIn third '  type="submit" name="iniciarSesion"  alt='login' style='width:80%'>Iniciar Sesion</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <br><br>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <button type="submit" class='fadeIn fourth' alt='registro' style='width:80%' name="registro">Registrarse</a> </button>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </form>&ndash;&gt;-->
+<!--                        <a href="/login"><button type="button" class='fadeIn third'>Iniciar Sesión</button></a>-->
+<!--                        <a href="/registro"><button type="button" class='fadeIn fourth'>Registro</button></a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--        </div>-->
+<!--    </main>-->
+<main>
+    <div class="wrapper fadeInDown" >
+        <div id="formContent" class="p-5" style='max-width:50%;margin-top: 5em;' >
+            <div class="fadeIn first">
+                <h1 class='fadeIn First'>Bienvenidos a Faquiz</h1>
+                <h2 class=''>Poné a prueba tu conocimiento y formá parte de nuestro Ranking Global</h2>
+                <p class=''><i>No te quedes afuera. Empezá a jugar</i></p>
+            </div>
+
+            <div class='fadeIn Second'>
+                <a href="/login"><button type="button" class='fadeIn third'>Iniciar Sesión</button></a>
+                <a href="/registro"><button type="button" class='fadeIn fourth'>Registro</button></a>
+            </div>
         </div>
-    </main>
+    </div>
+</main>
+
+
 </body>
 
 

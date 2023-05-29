@@ -3,12 +3,9 @@ include_once('helpers/MySqlDatabase.php');
 include_once("helpers/MustacheRender.php");
 include_once('helpers/Router.php');
 
-include_once ("model/ToursModel.php");
 include_once('model/SongsModel.php');
 include_once ('model/UsuarioModel.php');
 
-include_once('controller/ToursController.php');
-include_once('controller/SongsController.php');
 include_once('controller/InicioSinLogController.php');
 include_once('controller/RegistroController.php');
 include_once('controller/LoginController.php');
@@ -59,7 +56,7 @@ class Configuration {
         return new Router(
             $this,
             "getInicioSinLogController",
-            "redirigir"
+            "list"
     );
     }
 }

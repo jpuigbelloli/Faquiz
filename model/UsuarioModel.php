@@ -18,6 +18,26 @@ class UsuarioModel {
        }
 
     }
+
+
+    /*INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `fecha_nac`, `genero`, `ubicacion`, `email`, `user_name`, `contrasenia`, `foto_perfil`, `fecha_ingreso`, `id_rol`) VALUES (NULL, 'pedro', 'pika', '2023-05-29 19:24:20.000000', '1', ST_GeomFromText(''), 'email@gmail.com', 'email233', 'lelele', NULL, current_timestamp(), '1')
+     * */
+    public function registrar($nombre,$apellido,$fecha_nac,$genero,$email,$user_name,$hash){
+        $query = $this->database->query_normal(
+            "INSERT INTO usuario (nombre,apellido,fecha_nac,genero,email,user_name,contrasenia)
+             VALUES ('$nombre','$apellido','$fecha_nac','$genero','$email','$user_name','$hash')"
+        );
+    }
+
+    public function validarUsername($username){
+        $query = $this->database->query_normal(
+            "SELECT user_name
+            FROM usuario
+            WHERE user_name = '$username'"
+        );
+
+        return $query->num_rows === 0;
+    }
     public function verificar($usuario,$contrasenia){
         //me devuelve la contraseña hasheada
         $query = $this->database->query("SELECT id_usuario,contrasenia FROM usuario
