@@ -11,6 +11,8 @@ include_once('controller/ToursController.php');
 include_once('controller/SongsController.php');
 include_once('controller/InicioSinLogController.php');
 include_once('controller/UsuarioController.php');
+include_once('controller/UserController.php');
+include_once('controller/LoginController.php');
 
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
 
@@ -41,6 +43,12 @@ class Configuration {
         return new UsuarioController(
             new UsuarioModel($this->getDatabase()),
                 $this->getRenderer());
+    }
+
+    public function getLoginController(){
+        return new LoginController(
+            new UsuarioModel($this->getDatabase()),
+            $this->getRenderer());
     }
 
     private function getArrayConfig() {
