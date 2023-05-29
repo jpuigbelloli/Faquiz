@@ -12,8 +12,7 @@ class LoginController
     }
 
     public function list() {
-        $a = array("a");
-        $this->renderer->render('login', $a);
+        $this->renderer->render('login');
     }
 
     public function irALogin()
@@ -22,12 +21,16 @@ class LoginController
     }
 
     public function validar(){
-        $usuario = $_POST["usuario"] ?? "";
+        $usuario = $_POST["user_name"] ?? "";
         $contrasenia = $_POST["contrasenia"] ?? "";
 
-        $datos = $this->usuarioModel->verificar($usuario,$contrasenia);
+        $msg["mensaje"] = $this->usuarioModel->verificarCredenciales($usuario,$contrasenia);
 
-        var_dump($datos);
-        $this->renderer->render('login');
+
+        if($msg){
+            header('Location:/login');
+            $this->renderer->render('login',$msg);
+            exit();
+        }
     }
 }
