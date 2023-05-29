@@ -5,11 +5,12 @@ include_once('helpers/Router.php');
 
 include_once ("model/ToursModel.php");
 include_once('model/SongsModel.php');
+include_once ('model/UsuarioModel.php');
 
 include_once('controller/ToursController.php');
 include_once('controller/SongsController.php');
-include_once('controller/LaBandaController.php');
-include_once('controller/UserController.php');
+include_once('controller/InicioSinLogController.php');
+include_once('controller/UsuarioController.php');
 
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
 
@@ -32,13 +33,16 @@ class Configuration {
             $this->getRenderer());
     }
 
-    public function getLaBandaController() {
-        return new LaBandaController($this->getRenderer());
+    public function getInicioSinLogController() {
+        return new InicioSinLogController($this->getRenderer());
     }
 
-    public function getRegistroController(){
-        return new UserController($this->getRenderer());
+    public function getUsuarioController(){
+        return new UsuarioController(
+            new UsuarioModel($this->getDatabase()),
+                $this->getRenderer());
     }
+
     private function getArrayConfig() {
         return parse_ini_file($this->configFile);
     }
@@ -59,7 +63,8 @@ class Configuration {
     public function getRouter() {
         return new Router(
             $this,
-            "getLaBandaController",
-            "list");
+            "getInicioSinLogController",
+            "redirigir"
+    );
     }
 }

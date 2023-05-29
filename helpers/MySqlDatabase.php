@@ -1,5 +1,4 @@
 <?php
-
 class MySqlDatabase {
     private $connection;
 
