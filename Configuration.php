@@ -4,11 +4,13 @@ include_once("helpers/MustacheRender.php");
 include_once('helpers/Router.php');
 
 include_once('model/SongsModel.php');
+include_once('model/PerfilModel.php');
 include_once ('model/UsuarioModel.php');
 
 include_once('controller/InicioSinLogController.php');
 include_once('controller/RegistroController.php');
 include_once('controller/LoginController.php');
+include_once('controller/PerfilController.php');
 
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
 
