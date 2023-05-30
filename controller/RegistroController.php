@@ -15,10 +15,14 @@ class RegistroController
         $this->renderer = $renderer;
     }
 
-    public function list()
-    {
+    public function list(){
         $a = array("a");
         $this->renderer->render('registro', $a);
+    }
+
+    public function autent(){
+        $a = array("a");
+        $this->renderer->render('autenticacion', $a);
     }
 
     public function hashearClave($clave)
@@ -26,9 +30,8 @@ class RegistroController
         return password_hash($clave, PASSWORD_DEFAULT);
     }
 
-    public function validarEmail($email)
-    {
-        return filter_var($email, FILTER_VALIDATE_EMAIL);
+    public function validarEmail($email){
+    return $email= filter_var($email,FILTER_VALIDATE_EMAIL);
     }
 
     public function mailDeValidacion($email)
@@ -51,43 +54,43 @@ class RegistroController
         }
     }
 
-//    function verificarImagen($imagen, $nombre){
-//        $uploadOk = 1;
-//        $target_dir = "imgs/";
-//        $target_file = $target_dir . basename($_FILES['imagen']['name']);
-//        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-//        $new_file_name = $target_dir . $nombre . '.' . $imageFileType;
-//
-//        if (file_exists($new_file_name)) {
-//            echo "Lo siento, ya hay una imagen cargada con ese nombre de archivo. ";
-//            $uploadOk = 0;
-//        }
-//
-//        if ($_FILES['imagen']['size'] > 500000) {
-//            echo "Lo siento, la imagen seleccionada es demasiado grande. ";
-//            $uploadOk = 0;
-//        }
-//
-//        if ($imageFileType != 'png') {
-//            echo "Solo se permiten imágenes en formato .PNG. ";
-//            $uploadOk = 0;
-//        }
-//
-//        if ($uploadOk == 0) {
-//            echo "Intente nuevamente más tarde. ";
-//            exit();
-//        } else {
-//            if (move_uploaded_file($_FILES['imagen']['tmp_name'], $new_file_name)) {
-//                echo "Carga exitosa";
-////            echo "El archivo " . htmlspecialchars(basename($_FILES["imagen"]["name"])) . " ha sido subido con el nombre " . basename($new_file_name) . ".";
-//                //header("Location: index.php");
-//                //exit;
-//            } else {
-//                echo "Lo siento, ha ocurrido un error, intente nuevamente más tarde. ";
-//            }
-//        }
-//
-//    }
+    /*function verificarImagen($imagen, $nombre){
+        $uploadOk = 1;
+        $target_dir = "imgs/";
+        $target_file = $target_dir . basename($_FILES['imagen']['name']);
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        $new_file_name = $target_dir . $nombre . '.' . $imageFileType;
+
+        if (file_exists($new_file_name)) {
+            echo "Lo siento, ya hay una imagen cargada con ese nombre de archivo. ";
+            $uploadOk = 0;
+        }
+
+        if ($_FILES['imagen']['size'] > 500000) {
+            echo "Lo siento, la imagen seleccionada es demasiado grande. ";
+            $uploadOk = 0;
+        }
+
+        if ($imageFileType != 'png') {
+            echo "Solo se permiten imágenes en formato .PNG. ";
+            $uploadOk = 0;
+        }
+
+        if ($uploadOk == 0) {
+            echo "Intente nuevamente más tarde. ";
+            exit();
+        } else {
+            if (move_uploaded_file($_FILES['imagen']['tmp_name'], $new_file_name)) {
+                echo "Carga exitosa";
+//            echo "El archivo " . htmlspecialchars(basename($_FILES["imagen"]["name"])) . " ha sido subido con el nombre " . basename($new_file_name) . ".";
+                //header("Location: index.php");
+                //exit;
+            } else {
+                echo "Lo siento, ha ocurrido un error, intente nuevamente más tarde. ";
+            }
+        }
+
+    }*/
     public function registrarse()
     {
         if (isset($_POST['registrarse'])) {

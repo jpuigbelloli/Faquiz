@@ -38,12 +38,12 @@ class UsuarioModel {
 
         return $query->num_rows === 0;
     }
-    public function verificarCredenciales($usuario,$contrasenia){
+   /* public function verificarCredenciales($usuario,$contrasenia){
         //me devuelve la contraseña hasheada
         $query = $this->database->query_normal("SELECT id_usuario,contrasenia FROM usuario
                                 WHERE user_name = '$usuario'");
         //todo OR email = $usuario
-
+        var_dump($query);
         if($query->num_rows === 1){
             $fila = $query->fetch_assoc();
             $contraseniaHasheada = $fila["contrasenia"];
@@ -57,12 +57,23 @@ class UsuarioModel {
                 header("Location:/");
                 exit();
             } else {
-                echo "Contraseña inválida. Intentá otra vez";
+                return "Contraseña inválida. Intentá otra vez";
             }
         } else {
 //            $error["error"] = "No existe ese usuario";
-            echo "No existe ese usuario";
+            return "No existe ese usuario";
         }
+    }*/
+
+    public function verificarCredenciales($usuario,$contrasenia){
+
+        $sql = "SELECT id_usuario,contrasenia 
+                FROM usuario
+                WHERE user_name = '$usuario' AND contrasenia = MD5('$contrasenia')";
+
+        $query = $this->database->query_normal($sql);
+
+        return $query->num_rows == 1;
     }
 
 }

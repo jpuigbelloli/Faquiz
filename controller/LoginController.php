@@ -12,7 +12,8 @@ class LoginController
     }
 
     public function list() {
-        $this->renderer->render('login');
+        $data["error"] = !empty($_GET["error"]);
+        $this->renderer->render('login',$data);
     }
 
     public function irALogin()
@@ -24,13 +25,25 @@ class LoginController
         $usuario = $_POST["user_name"] ?? "";
         $contrasenia = $_POST["contrasenia"] ?? "";
 
-        $msg["mensaje"] = $this->usuarioModel->verificarCredenciales($usuario,$contrasenia);
+        $usuarioValido = $this->usuarioModel->verificarCredenciales($usuario,$contrasenia);
+
+        if( $usuarioValido ){
+            session_start();
+            $_SESSION['usuario']=$usuario;
+            header('Location:/');
+            exit();
+        } else {
+            $msg = 'Usuariro o contrasenia invalida';
+            header('Location:/login&error=1');
+            exit();
+        }
+       /* $msg["mensaje"] = $this->usuarioModel->verificarCredenciales($usuario,$contrasenia);
 
 
         if($msg){
-            header('Location:/login');
+//            header('Location:/login');
             $this->renderer->render('login',$msg);
-            exit();
-        }
+//            exit();
+        }*/
     }
 }

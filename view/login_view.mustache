@@ -10,9 +10,9 @@
                 <h3>Faquiz</h3>
             </div>
 
-        {{#mensaje}}
-            <h2>{{error}}</h2>
-        {{/mensaje}}
+        {{#error}}
+            <h2>error al loguearse</h2>
+        {{/error}}
 
         <!-- Login Form -->
         <form action="/login/validar" method="POST">

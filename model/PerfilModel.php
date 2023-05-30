@@ -53,10 +53,9 @@ class PerfilModel
             'pais' => 'Argentina'
         );
 
-        echo '<pre>';
+        /*echo '<pre>';
         var_dump($arrayDatosTest);
-        echo '</pre>';
-
+        echo '</pre>';*/
 
         return $arrayDatosTest;
     }
