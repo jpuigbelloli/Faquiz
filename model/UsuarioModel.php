@@ -23,14 +23,14 @@ class UsuarioModel {
     /*INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `fecha_nac`, `genero`, `ubicacion`, `email`, `user_name`, `contrasenia`, `foto_perfil`, `fecha_ingreso`, `id_rol`) VALUES (NULL, 'pedro', 'pika', '2023-05-29 19:24:20.000000', '1', ST_GeomFromText(''), 'email@gmail.com', 'email233', 'lelele', NULL, current_timestamp(), '1')
      * */
     public function registrar($nombre,$apellido,$fecha_nac,$genero,$email,$user_name,$hash){
-        $query = $this->database->query_normal(
+        $query = $this->database->query(
             "INSERT INTO usuario (nombre,apellido,fecha_nac,genero,email,user_name,contrasenia)
              VALUES ('$nombre','$apellido','$fecha_nac','$genero','$email','$user_name','$hash')"
         );
     }
 
     public function validarUsername($username){
-        $query = $this->database->query_normal(
+        $query = $this->database->query(
             "SELECT user_name
             FROM usuario
             WHERE user_name = '$username'"
@@ -69,11 +69,15 @@ class UsuarioModel {
 
         $sql = "SELECT id_usuario,contrasenia 
                 FROM usuario
-                WHERE user_name = '$usuario' AND contrasenia = MD5('$contrasenia')";
+                WHERE user_name = '$usuario'";
 
-        $query = $this->database->query_normal($sql);
+        $query = $this->database->query($sql);
 
-        return $query->num_rows == 1;
+        $fila = $query->fetch_assoc();
+
+        $contraseniaHasheada = $fila["contrasenia"];
+
+        return password_verify($contrasenia,$contraseniaHasheada);
     }
 
 }

@@ -33,17 +33,8 @@ class LoginController
             header('Location:/');
             exit();
         } else {
-            $msg = 'Usuariro o contrasenia invalida';
-            header('Location:/login&error=1');
+            header('Location:/login?error=1');
             exit();
         }
-       /* $msg["mensaje"] = $this->usuarioModel->verificarCredenciales($usuario,$contrasenia);
-
-
-        if($msg){
-//            header('Location:/login');
-            $this->renderer->render('login',$msg);
-//            exit();
-        }*/
     }
 }
