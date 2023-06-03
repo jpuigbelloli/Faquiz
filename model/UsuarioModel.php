@@ -22,10 +22,10 @@ class UsuarioModel {
 
     /*INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `fecha_nac`, `genero`, `ubicacion`, `email`, `user_name`, `contrasenia`, `foto_perfil`, `fecha_ingreso`, `id_rol`) VALUES (NULL, 'pedro', 'pika', '2023-05-29 19:24:20.000000', '1', ST_GeomFromText(''), 'email@gmail.com', 'email233', 'lelele', NULL, current_timestamp(), '1')
      * */
-    public function registrar($nombre,$apellido,$fecha_nac,$genero,$email,$user_name,$hash){
+    public function registrar($nombre,$apellido,$fecha_nac,$genero,$email,$user_name,$hash,$ruta_imagen){
         $query = $this->database->query(
-            "INSERT INTO usuario (nombre,apellido,fecha_nac,genero,email,user_name,contrasenia)
-             VALUES ('$nombre','$apellido','$fecha_nac','$genero','$email','$user_name','$hash')"
+            "INSERT INTO usuario (nombre,apellido,fecha_nac,genero,email,user_name,contrasenia,foto_perfil)
+             VALUES ('$nombre','$apellido','$fecha_nac','$genero','$email','$user_name','$hash','$ruta_imagen')"
         );
     }
 
@@ -78,6 +78,27 @@ class UsuarioModel {
         $contraseniaHasheada = $fila["contrasenia"];
 
         return password_verify($contrasenia,$contraseniaHasheada);
+    }
+
+    public function validarEmail($email){
+        return filter_var($email,FILTER_VALIDATE_EMAIL);
+    }
+
+    public function hashearClave($clave){
+        return password_hash($clave, PASSWORD_DEFAULT);
+    }
+
+    public function validarImagen($imagen_nombre,$user_name){
+        $targetDir = "foto_perfil/";
+        $targetFile = $targetDir . $user_name. basename($imagen_nombre);
+        $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+        $new_file_name = $targetDir .$user_name. $imagen_nombre ;
+        $validExtensions = array("jpg", "jpeg", "png");
+        if (in_array($imageFileType, $validExtensions)){
+            if(move_uploaded_file($_FILES["foto_perfil"]["tmp_name"], $targetFile)){
+                return $new_file_name;
+            }
+        }
     }
 
 }

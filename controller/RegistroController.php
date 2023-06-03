@@ -15,24 +15,26 @@ class RegistroController
         $this->renderer = $renderer;
     }
 
-    public function list(){
-        $a = array("a");
-        $this->renderer->render('registro', $a);
+    public function list()
+    {
+        $data["error"] = !empty($_GET["error"]);
+        $this->renderer->render('registro', $data);
     }
 
-    public function autent(){
+    public function autent()
+    {
         $a = array("a");
         $this->renderer->render('autenticacion', $a);
     }
 
-    public function hashearClave($clave)
+    /*public function hashearClave($clave)
     {
         return password_hash($clave, PASSWORD_DEFAULT);
     }
 
     public function validarEmail($email){
-    return $email= filter_var($email,FILTER_VALIDATE_EMAIL);
-    }
+        return filter_var($email,FILTER_VALIDATE_EMAIL);
+    }*/
 
     public function mailDeValidacion($email)
     {
@@ -102,20 +104,17 @@ class RegistroController
             $email = $_POST['email'] ?? "";
             $clave = $_POST['contrasenia'] ?? "";
             $clave_rep = $_POST['contrasenia_rep'] ?? "";
+            $imagen_nombre = $_FILES["foto_perfil"]["name"] ?? "";
 
-            if ($this->usuarioModel->validarUsername($user_name)) {
-                if ($this->validarEmail($email)) {
-                    if ($clave === $clave_rep) {
-                        $hash = $this->hashearClave($clave);
-                        $this->usuarioModel->registrar($nombre, $apellido, $fecha_nac, $genero, $email, $user_name, $hash);
-                    } else {
-                        echo "Contraseña no coincide";
-                    }
-                } else {
-                    echo "Email inválido";
-                }
-            } else {
-                echo "Username ya existe";
+            if ($this->usuarioModel->validarUsername($user_name) && $this->usuarioModel->validarEmail($email) && $clave === $clave_rep) {
+                $hash = $this->usuarioModel->hashearClave($clave);
+                $ruta_imagen = $this->usuarioModel->validarImagen($imagen_nombre,$user_name);
+                $this->usuarioModel->registrar($nombre, $apellido, $fecha_nac, $genero, $email, $user_name, $hash,$ruta_imagen);
+                header('Location:/');
+                exit();
+            }else{
+                header('Location:/registro?error=1');
+                exit();
             }
         }
 //            if (($this->validarEmail($email))) {
