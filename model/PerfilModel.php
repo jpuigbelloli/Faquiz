@@ -23,7 +23,7 @@ class PerfilModel
 
     public function generarArray()
     {
-/*        $arrayDatos = [];
+        $arrayDatos = [];
 
         $user_name = $this->getData('user_name');
         array_push($arrayDatos, $user_name);
@@ -42,16 +42,16 @@ class PerfilModel
 
         $pais = $this->obtenerPais();
         array_push($arrayDatos, $pais);
-*/
 
-        $arrayDatosTest = array(
+
+       /* $arrayDatosTest = array(
             'user_name' => 'Popolon22',
             'foto_perfil' => '../public/imgs/002.png',
             'nombreCompleto' => 'Marcelo Sorrento',
             'email' => 'marchelo@gmail.com',
             'edad' => '25',
-            'pais' => 'Argentina'
-        );
+            'pais' => 'Argentina'*/
+       // );
 
         /*echo '<pre>';
         var_dump($arrayDatosTest);

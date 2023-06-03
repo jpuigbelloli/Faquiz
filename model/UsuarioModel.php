@@ -7,33 +7,19 @@ class UsuarioModel {
         $this->database = $database;
     }
 
-    public function registrarse($nombre,$apellido,$fecha_nac,$genero, $ubicacion,$email,$user_name,$contrasenia,$foto_perfil){
-       $sql = 'SELECT user_name FROM Usuario';
-       $usuarios = $this->database->query($sql);
-       if($user_name = $usuarios){
-           die('Ya existe un usuario con ese nombre');
-        } else {
-           $this->database->query("INSERT INTO Usuario (nombre,apellido, fecha_nac,genero, ubicacion,email,user_name,contrasenia,foto_perfil) 
-             VALUES ('$nombre','$apellido','$fecha_nac','$genero','$ubicacion','$email','$user_name','$contrasenia','$foto_perfil')");
-       }
-
-    }
-
-
-    /*INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `fecha_nac`, `genero`, `ubicacion`, `email`, `user_name`, `contrasenia`, `foto_perfil`, `fecha_ingreso`, `id_rol`) VALUES (NULL, 'pedro', 'pika', '2023-05-29 19:24:20.000000', '1', ST_GeomFromText(''), 'email@gmail.com', 'email233', 'lelele', NULL, current_timestamp(), '1')
-     * */
-    public function registrar($nombre,$apellido,$fecha_nac,$genero,$email,$user_name,$hash){
+        public function registrar($nombre,$apellido,$fecha_nac,$genero,$email,$user_name,$hash,$foto_perfil){
         $query = $this->database->query_normal(
-            "INSERT INTO usuario (nombre,apellido,fecha_nac,genero,email,user_name,contrasenia)
-             VALUES ('$nombre','$apellido','$fecha_nac','$genero','$email','$user_name','$hash')"
+            "INSERT INTO usuario (nombre,apellido,fecha_nac,genero,email,user_name,contrasenia,foto_perfil)
+             VALUES             ('$nombre','$apellido','$fecha_nac','$genero','$email','$user_name','$hash','$foto_perfil')"
         );
+        return $query;
     }
 
     public function validarUsername($username){
         $query = $this->database->query_normal(
             "SELECT user_name
-            FROM usuario
-            WHERE user_name = '$username'"
+                FROM usuario
+                WHERE user_name = '$username'"
         );
 
         return $query->num_rows === 0;
@@ -75,5 +61,21 @@ class UsuarioModel {
 
         return $query->num_rows == 1;
     }
+
+    public function actualizarNombreImg($nombre,$imgFileTye){
+        $nombreActualizado = $nombre . '.' . $imgFileTye;
+        $sql = "UPDATE Usuario 
+                SET foto_perfil = '$nombreActualizado'
+                WHERE user_name = '$nombre'";
+        $this->database->query_normal($sql);
+    }
+
+    public function getHeader($id_usuario){
+          return $this->database->query_normal("SELECT user_name as nombre, SUM(puntaje) puntaje
+                                                FROM   usuario U INNER JOIN
+                                                        partida P ON u.id_usuario = p.id_usuario
+                                                WHERE id_usuario = '$id_usuario'");
+    }
+
 
 }
