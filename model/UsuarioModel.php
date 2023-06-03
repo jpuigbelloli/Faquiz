@@ -12,14 +12,13 @@ class UsuarioModel {
             "INSERT INTO usuario (nombre,apellido,fecha_nac,genero,email,user_name,contrasenia,foto_perfil)
              VALUES             ('$nombre','$apellido','$fecha_nac','$genero','$email','$user_name','$hash','$foto_perfil')"
         );
-        return $query;
     }
 
     public function validarUsername($username){
         $query = $this->database->query_normal(
             "SELECT user_name
-                FROM usuario
-                WHERE user_name = '$username'"
+            FROM usuario
+            WHERE user_name = '$username'"
         );
 
         return $query->num_rows === 0;
@@ -55,11 +54,15 @@ class UsuarioModel {
 
         $sql = "SELECT id_usuario,contrasenia 
                 FROM usuario
-                WHERE user_name = '$usuario' AND contrasenia = MD5('$contrasenia')";
+                WHERE user_name = '$usuario'";
 
-        $query = $this->database->query_normal($sql);
+        $query = $this->database->query($sql);
 
-        return $query->num_rows == 1;
+        $fila = $query->fetch_assoc();
+
+        $contraseniaHasheada = $fila["contrasenia"];
+
+        return password_verify($contrasenia,$contraseniaHasheada);
     }
 
     public function actualizarNombreImg($nombre,$imgFileTye){
