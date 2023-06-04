@@ -19,7 +19,7 @@ class LobbyController
     public function tituloLobby(){
         $id_usuario = $_SESSION['id_usuario'];
         $data['nombre']['puntaje'] = $this->usuarioModel->getHeader($id_usuario);
-        $this->renderer->render('Lobby',$data);
+        $this->renderer->render('lobby',$data);
     }
 
 

@@ -8,14 +8,14 @@ class UsuarioModel {
     }
 
         public function registrar($nombre,$apellido,$fecha_nac,$genero,$email,$user_name,$hash,$foto_perfil){
-        $query = $this->database->query_normal(
+        $query = $this->database->query(
             "INSERT INTO usuario (nombre,apellido,fecha_nac,genero,email,user_name,contrasenia,foto_perfil)
              VALUES             ('$nombre','$apellido','$fecha_nac','$genero','$email','$user_name','$hash','$foto_perfil')"
         );
     }
 
     public function validarUsername($username){
-        $query = $this->database->query_normal(
+        $query = $this->database->query(
             "SELECT user_name
             FROM usuario
             WHERE user_name = '$username'"
@@ -70,11 +70,11 @@ class UsuarioModel {
         $sql = "UPDATE Usuario 
                 SET foto_perfil = '$nombreActualizado'
                 WHERE user_name = '$nombre'";
-        $this->database->query_normal($sql);
+        $this->database->query($sql);
     }
 
     public function getHeader($id_usuario){
-          return $this->database->query_normal("SELECT user_name as nombre, SUM(puntaje) puntaje
+          return $this->database->query("SELECT user_name as nombre, SUM(puntaje) puntaje
                                                 FROM   usuario U INNER JOIN
                                                         partida P ON u.id_usuario = p.id_usuario
                                                 WHERE id_usuario = '$id_usuario'");

@@ -100,7 +100,7 @@ class RegistroController
             $email      = $_POST['email'] ?? "";
             $clave      = $_POST['contrasenia'] ?? "";
             $clave_rep  = $_POST['contrasenia_rep'] ?? "";
-            $target_dir = "imgs/";
+            $target_dir = "imgsPerfil/";
             $rutaImagen = $target_dir . basename($_FILES['foto_perfil']['name']);
             $foto_perfil= $_FILES['foto_perfil'];
             if ($this->usuarioModel->validarUsername($user_name)) {

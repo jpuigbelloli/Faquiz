@@ -10,8 +10,7 @@ class PerfilController {
     }
 
     public function list() {
-
-        $data["usuario"] = $this->perfilModel->generarArray();
+        $data["usuario"] = $this->perfilModel->getData($_SESSION['usuario']);
         $this->renderer->render("perfil", $data);
     }
 
@@ -23,3 +22,4 @@ class PerfilController {
         die('llame a delete');
     }
 }
+

@@ -30,7 +30,7 @@ class LoginController
         if( $usuarioValido ){
             session_start();
             $_SESSION['usuario']=$usuario;
-            header('Location:/');
+            header('Location:/perfil');
             exit();
         } else {
             header('Location:/login?error=1');
