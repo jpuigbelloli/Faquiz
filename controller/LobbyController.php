@@ -16,10 +16,14 @@ class LobbyController
         $this->renderer->render('lobby',$a);
     }
 
-    public function tituloLobby(){
-        $id_usuario = $_SESSION['id_usuario'];
-        $data['nombre']['puntaje'] = $this->usuarioModel->getHeader($id_usuario);
+    public function execute(){
+        $usuario = $_SESSION['usuario'];
+        $data['usuario'] = $this->usuarioModel->getHeader($usuario);
         $this->renderer->render('lobby',$data);
+        if(isset($_POST['jugar'])){
+            $a = array('a');
+            $this->renderer->render('partida',$a);
+        }
     }
 
 

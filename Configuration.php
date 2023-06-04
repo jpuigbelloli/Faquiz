@@ -6,11 +6,14 @@ include_once('helpers/Router.php');
 include_once('model/SongsModel.php');
 include_once('model/PerfilModel.php');
 include_once ('model/UsuarioModel.php');
+include_once ('model/PartidaModel.php');
 
 include_once('controller/InicioSinLogController.php');
 include_once('controller/RegistroController.php');
 include_once('controller/LoginController.php');
 include_once('controller/PerfilController.php');
+include_once ('controller/LobbyController.php');
+include_once ('controller/PartidaController.php');
 
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
 
@@ -36,17 +39,24 @@ class Configuration {
             new UsuarioModel($this->getDatabase()),
             $this->getRenderer());
     }
+    public function getLobbyController(){
+        return new LobbyController(
+            new UsuarioModel($this->getDatabase()),
+            $this->getRenderer());
+    }
 
     public function getPerfilController(){
         return new PerfilController(
             new PerfilModel($this->getDatabase()),
             $this->getRenderer());
     }
-    public function getLobbyController(){
-        return new LobbyController(
-            new UsuarioModel($this->getDatabase()),
+
+    public function getPartidaController(){
+        return new PartidaController(
+            new PartidaModel($this->getDatabase()),
             $this->getRenderer());
     }
+
 
     private function getArrayConfig() {
         return parse_ini_file($this->configFile);

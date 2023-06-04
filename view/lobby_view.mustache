@@ -1,51 +1,57 @@
-{{> header}}
+{{> header_sesion}}
 
-<body>
+<body class="bd-image " style="background-image: url('./public/imgs/Fondo.png'); color: ghostwhite">
 
-    <head>
-        <div>
-            <table>
-                <tr>
-                    <th>    <h1>{{nombre}}</h1> </th>
-                    <th>    <h1>Puntos acumulados: {{puntuacion}}</h1>></th>
-                </tr>
-            </table>
-        </div>
-    </head>
+    <div class="d-inline-flex  m-4 mb-1">
 
-    <div>historial de partidas</div>
+                {{#usuario}}
+                    <h1 class="me-auto"> Hola {{user_name}} </h1>
 
-    <div> <button>Jugar Partida</button> </div>
+                    <h1 class="ms-5">Puntos acumulados: {{puntuacion}}</h1>
 
-    <div>Ranking</div>
+                {{/usuario}}
+    </div>
+    <main class=" d-flex justify-content-around align-items-center m-3">
+            <div  class="card-body flex-lg-grow-1 bg-light-subtle " style="color: gray">
+                <h5 class="card-title text-center mt-2" >Historial de partidas</h5>
+                <table class="card-text  table-bordered mt-3 text-center" style="width: 100% ">
+                    <tr>
+                        <th>Partida</th>
+                        <th>Puntaje</th>
+                        <th>Fecha</th>
+                    </tr>
+                    {{#usuario}}
+                        <tr>
+                            <td>{{idPartida}}</td>
+                            <td>{{puntaje}}</td>
+                            <td>{{fecha}}</td>
+                        </tr>
+                    {{/usuario}}
+                </table>
 
+            </div>
 
+            <div   class="mt-2 m-5" style="justify-items: center"> <button formmethod="POST" type="submit" name="jugar" class="text-center">Jugar Partida</button> </div>
 
+            <div class=" card-body flex-lg-grow-1 bg-light-subtle border border-secundary " style="color: gray">
+                <h5 class="card-title text-center mt-2">Ranking</h5>
+                <table class="mt-3 align-items-center card-text table-bordered text-center" style="width: 100%">
+                    <tr class=>
+                        <th>Puesto</th>
+                        <th>Puntaje</th>
+                        <th>Usuario</th>
+                    </tr>
 
-
+                    {{#usuario}}
+                        <tr>
+                            <td>{{puesto}}</td>
+                            <td>{{puntaje}}</td>
+                            <td> {{jugador}}</td>
+                        </tr>
+                    {{/usuario}}
+                </table>
+            </div>
+    </main>
 
 
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{{>footer}}

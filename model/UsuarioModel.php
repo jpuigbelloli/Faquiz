@@ -73,11 +73,18 @@ class UsuarioModel {
         $this->database->query($sql);
     }
 
-    public function getHeader($id_usuario){
-          return $this->database->query("SELECT user_name as nombre, SUM(puntaje) puntaje
-                                                FROM   usuario U INNER JOIN
-                                                        partida P ON u.id_usuario = p.id_usuario
-                                                WHERE id_usuario = '$id_usuario'");
+    public function getHeader($usuario){
+          $resultado = $this->database->query("SELECT user_name
+                                                FROM usuario
+
+/*SELECT user_name , SUM(puntaje) puntuacion
+                                                FROM   usuario U JOIN
+                                                        partida P ON u.id_usuario = p.id_usuario*/
+                                                WHERE user_name = '$usuario'");
+        if($resultado && $resultado->num_rows > 0){
+            $usuario = $resultado->fetch_assoc();
+        }
+        return $usuario;
     }
 
 
