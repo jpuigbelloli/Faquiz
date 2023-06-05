@@ -66,10 +66,18 @@
 <!--    </div>-->
 
     <div class="container text-center">
+        <div class="d-inline-flex">
+
+                <span>Puntos: {{#pregunta_respuesta}} {{puntos}} {{/pregunta_respuesta}} </span>
+            <span id="temporizador">Tiempo:</span>
+
+
+
+        </div>
         <!--Categoria-->
         <div class="row categoria">
-            <div class="col-12 col-lg-12">
-                <div class="card mx-auto p-4 w-auto">
+            <div class="col-12 col-lg-12 text-center">
+                <div class="card mx-auto p-2 w-50">
                     {{#pregunta_respuestas}}
                         <h2>{{categoria}}</h2>
                     {{/pregunta_respuestas}}
@@ -82,7 +90,7 @@
             <div class="col-12 col-lg-12">
                 <div class="card m-4 p-4">
                     {{#pregunta_respuestas}}
-                    <h2>{{pregunta}}</h2>
+                    <h3>{{pregunta}}</h3>
                     {{/pregunta_respuestas}}
                 </div>
             </div>
@@ -92,59 +100,68 @@
         <!--Respuestas-->
         <div class="row">
 
-
             <div class="col-12 col-lg-6">
-                <a href="/lobby/responder?rta={{A}}">
-                    <div class="card m-4 p-4">
-                        {{#pregunta_respuestas}}
-                            <h2>A) {{A}}</h2>
-                        {{/pregunta_respuestas}}
+                {{#pregunta_respuestas}}
+                <a href="/partida?opcion=A">
+                    <div class="card m-2 p-2 {{#esCorrecta}}correcta{{/esCorrecta}}">
+
+                          <h4>A) {{A}}</h4>
+
                     </div>
                 </a>
+                {{/pregunta_respuestas}}
             </div>
 
-            <div class="col-12 col-lg-6">
-                <a href="/lobby/responder?rta={{B}}">
-                    <div class="card m-4 p-4">
-                        {{#pregunta_respuestas}}
-                            <h2>B) {{B}}</h2>
-                        {{/pregunta_respuestas}}
+            <div class="col-12 col-lg-6 {{#esCorrecta}}correcta{{/esCorrecta}}">
+                 {{#pregunta_respuestas}}
+                <a href="/partida?opcion=B">
+                    <div class="card m-2 p-2">
+
+                            <h4>B) {{B}}</h4>
+
                     </div>
                 </a>
+                 {{/pregunta_respuestas}}
             </div>
 
-            <div class="col-12 col-lg-6">
-                <a href="/lobby/responder?rta={{C}}">
-                <div class="card m-4 p-4">
-                    {{#pregunta_respuestas}}
-                            <h2>C) {{C}}</h2>
-                        {{/pregunta_respuestas}}
+            <div class="col-12 col-lg-6 opcion {{#esCorrecta}}correcta{{/esCorrecta}}">
+                {{#pregunta_respuestas}}
+                <a href="/partida?opcion=C">
+                <div class="card m-2 p-2">
+
+                            <h4>C) {{C}}</h4>
+
                     </div>
                 </a>
+                {{/pregunta_respuestas}}
             </div>
 
-            <div class="col-12 col-lg-6">
-                <a href="/lobby/responder?rta={{D}}">
-                <div class="card m-4 p-4">
-                    {{#pregunta_respuestas}}
-                            <h2>D) {{D}}</h2>
-                        {{/pregunta_respuestas}}
+            <div class="col-12 col-lg-6 {{#esCorrecta}}correcta{{/esCorrecta}}">
+                {{#pregunta_respuestas}}
+                <a href="/partida?opcion=D">
+                <div class="card m-2 p-2">
+
+
+                            <h4>D) {{D}}</h4>
+
+
                     </div>
                 </a>
+                {{/pregunta_respuestas}}
             </div>
         </div>
         <!--Fin Respuestas-->
 
         <!--Acciones-->
-        <div class="row" style="margin-top: 3em;padding: 4em;">
+        <div class="row" style="margin-top: 1em;padding: 4em;">
             <div class="col-6 col-lg-6">
                 <div class="card mx-auto p-2">
-                    <h2>Usar Trampita</h2>
+                    <h6>Usar Trampita</h6>
                 </div>
             </div>
             <div class="col-6 col-lg-6">
                 <div class="card mx-auto p-2 w-auto">
-                    <h2>Reportar Pregunta</h2>
+                    <h6>Reportar Pregunta</h6>
                 </div>
             </div>
         </div>

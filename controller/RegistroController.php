@@ -58,7 +58,7 @@ class RegistroController
 //        }
     }
 
-    function verificarImagen($imagen, $nombre){
+   /* function verificarImagen($imagen, $nombre){
         $uploadOk = 1;
         $target_dir = "imgsPerfil/";
         $target_file = $target_dir . basename($imagen['name']);

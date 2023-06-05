@@ -10,10 +10,10 @@ class PerfilModel
         $this->database = $database;
     }
 
-    private function obtenerIDUsuario()
+   /* private function obtenerIDUsuario()
     {
         return 32;
-    }
+    }*/
 
     public function getData($dato)
     {
