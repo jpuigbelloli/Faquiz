@@ -1,6 +1,6 @@
 {{> header_sesion}}
 
-<body class="bd-image " style="background-image: url('./public/imgs/Fondo.png'); color: ghostwhite">
+<body class="bd-image " style="background-image: url('/public/imgs/Fondo.png'); color: ghostwhite">
 
     <div class="d-inline-flex  m-4 mb-1">
 
@@ -31,7 +31,10 @@
 
             </div>
 
-            <div   class="mt-2 m-5" style="justify-items: center"> <button formmethod="POST" type="submit" name="jugar" class="text-center">Jugar Partida</button> </div>
+            <div   class="mt-2 m-5" style="justify-items: center">
+<!--                <button formmethod="POST" type="submit" name="jugar" class="text-center">Jugar Partida</button>-->
+                <a href="/partida"><button>Jugar Partida</button></a>
+            </div>
 
             <div class=" card-body flex-lg-grow-1 bg-light-subtle border border-secundary " style="color: gray">
                 <h5 class="card-title text-center mt-2">Ranking</h5>

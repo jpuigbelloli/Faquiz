@@ -12,11 +12,12 @@ class LobbyController
     }
 
     public function list(){
-        $a = array('a');
-        $this->renderer->render('lobby',$a);
+        $usuario = $_SESSION['usuario'];
+        $data['usuario'] = $this->usuarioModel->getHeader($usuario);
+        $this->renderer->render('lobby',$data);
     }
 
-    public function execute(){
+    /*public function execute(){
         $usuario = $_SESSION['usuario'];
         $data['usuario'] = $this->usuarioModel->getHeader($usuario);
         $this->renderer->render('lobby',$data);
@@ -24,7 +25,7 @@ class LobbyController
             $a = array('a');
             $this->renderer->render('partida',$a);
         }
-    }
+    }*/
 
 
 }

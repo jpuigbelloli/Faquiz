@@ -12,6 +12,12 @@ class PartidaController{
 
     public function list()
     {
+        /*$data['preguntas'] = $this->partidaModel->obtenerPreguntasYRespuestas(FALSE);
+        $this->renderer->render('partida', $data);*/
+
+        $data["pregunta_respuestas"] = $this->partidaModel->obtenerPreguntasYRespuestas();
+        $data["pregunta_respuestas"][0]["nro_correctas"] = 0;
+        $this->renderer->render('partida',$data);
         $data['preguntas'] = $this->partidaModel->obtenerPreguntasYRespuestas();
         $id = $data['preguntas']['id_pregunta'];
         $this->esCorrecta($id);
