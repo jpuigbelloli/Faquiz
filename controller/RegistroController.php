@@ -15,24 +15,26 @@ class RegistroController
         $this->renderer = $renderer;
     }
 
-    public function list(){
-        $a = array("a");
-        $this->renderer->render('registro', $a);
+    public function list()
+    {
+        $data["error"] = !empty($_GET["error"]);
+        $this->renderer->render('registro', $data);
     }
 
-    public function autent(){
+    public function autent()
+    {
         $a = array("a");
         $this->renderer->render('autenticacion', $a);
     }
 
-    public function hashearClave($clave)
+    /*public function hashearClave($clave)
     {
         return password_hash($clave, PASSWORD_DEFAULT);
     }
 
     public function validarEmail($email){
-    return $email= filter_var($email,FILTER_VALIDATE_EMAIL);
-    }
+        return filter_var($email,FILTER_VALIDATE_EMAIL);
+    }*/
 
     public function mailDeValidacion($email)
     {   include_once 'Faquiz/mail.php';
@@ -88,39 +90,62 @@ class RegistroController
             }
         }
 
-    }
+    }*/
     public function registrarse()
     {
         if (isset($_POST['registrarse'])) {
-            $nombre     = $_POST['nombre'] ?? "";
-            $apellido   = $_POST['apellido'] ?? "";
-            $fecha_nac  = $_POST['fecha_nac'] ?? "";
-            $genero     = $_POST['genero'] ?? "";
-            $user_name  = $_POST['user_name'] ?? "";
-            $email      = $_POST['email'] ?? "";
-            $clave      = $_POST['contrasenia'] ?? "";
-            $clave_rep  = $_POST['contrasenia_rep'] ?? "";
-            $target_dir = "imgsPerfil/";
-            $rutaImagen = $target_dir . basename($_FILES['foto_perfil']['name']);
-            $foto_perfil= $_FILES['foto_perfil'];
-            if ($this->usuarioModel->validarUsername($user_name)) {
-                if ($this->validarEmail($email)) {
-                    if ($clave === $clave_rep) {
-                        $hash = $this->hashearClave($clave);
-                        $resultado = $this->usuarioModel->registrar($nombre, $apellido, $fecha_nac, $genero, $email, $user_name, $hash,$rutaImagen);
-                        if($resultado){
-                            $this->verificarImagen($foto_perfil,$user_name);
-                            $this->mailDeValidacion($email);
-                        }
-                    } else {
-                        echo "Contraseña no coincide";
-                    }
-                } else {
-                    echo "Email inválido";
-                }
-            } else {
-                echo "Username ya existe";
+            $nombre = $_POST['nombre'] ?? "";
+            $apellido = $_POST['apellido'] ?? "";
+            $fecha_nac = $_POST['fecha_nac'] ?? "";
+            $genero = $_POST['genero'] ?? "";
+            $user_name = $_POST['user_name'] ?? "";
+            $email = $_POST['email'] ?? "";
+            $clave = $_POST['contrasenia'] ?? "";
+            $clave_rep = $_POST['contrasenia_rep'] ?? "";
+            $imagen_nombre = $_FILES["foto_perfil"]["name"] ?? "";
+
+            if ($this->usuarioModel->validarUsername($user_name) && $this->usuarioModel->validarEmail($email) && $clave === $clave_rep) {
+                $hash = $this->usuarioModel->hashearClave($clave);
+                $ruta_imagen = $this->usuarioModel->validarImagen($imagen_nombre,$user_name);
+                $this->usuarioModel->registrar($nombre, $apellido, $fecha_nac, $genero, $email, $user_name, $hash,$ruta_imagen);
+                header('Location:/');
+                exit();
+            }else{
+                header('Location:/registro?error=1');
+                exit();
             }
         }
+//            if (($this->validarEmail($email))) {
+//
+//                if($this->validarUsername())
+//                if ($clave === $clave_rep) {
+//                    $hash = $this->hashearClave($clave);
+//                    if ($hash) {
+//                        $nombre = $_POST['nombre'];
+//                        $apellido = $_POST['apellido'];
+//                        $fecha_nac = $_POST['fecha_nac'];
+//                        $genero = $_POST['genero'];
+////                        $ubicacion = $_POST['ubicacion'];
+//                        $user_name = $_POST['user_name'];
+//                    $target_dir = "imgs/";
+//                    $rutaImagen = $target_dir . basename($_FILES['imagen']['user_name']);
+//                    $foto_perfil    = $_FILES['foto_perfil'];
+////                    $data['usuario'] =$this->usuarioModel->registrarse($nombre,$apellido,$fecha_nac,
+////                        $genero, $ubicacion , $email,$user_name,
+////                        $clave, $rutaImagen);
+////                    $this->verificarImagen($foto_perfil,$user_name);
+//                        $this->mailDeValidacion($email);
+//                        $this->renderer->render('autenticacion');
+//                    } else {
+//                        die ('Ups no inserto nada');
+//                    }
+//                } else {
+//                    return "las contraseñas no coinciden";
+//                }
+//
+//            }
+//        }
+//        $this->renderer->render('registro');
+//    }
     }
 }
