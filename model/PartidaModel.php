@@ -8,18 +8,17 @@ class PartidaModel{
         $this->database = $database;
     }
 
-    public function obtenerPreguntasYRespuestas($dato){
-    $sql = "SELECT id_pregunta,pregunta, respuesta_A A,respuesta_B B, respuesta_C C,respuesta_d D, C.descripcion categoria
+    public function obtenerPreguntasYRespuestas(){
+    $sql = "SELECT id_pregunta,pregunta, respuesta_A AS A,respuesta_B AS B, respuesta_C AS C,respuesta_d AS D, C.descripcion categoria
             FROM pregunta P INNER JOIN 
                 categoria C ON P.id_categoria = C.id_categoria
-            ORDER BY RAND() LIMIT 1;";
-    $pregunta = $this->database->query_assoc($sql);
-    if(empty($dato)){
+            ORDER BY RAND() LIMIT 1";
+    return $this->database->query_assoc($sql);
+   /* if(empty($dato)){
         return $pregunta;
     } else{
         return $pregunta[$dato];
-    }
-
+    }*/
     }
 
     public function agregarPartida($usuario,$puntero){

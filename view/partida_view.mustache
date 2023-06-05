@@ -1,68 +1,152 @@
 {{> header_sesion}}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="/public/css/partida.css">
+<body  class="bd-image" style="background-image: url('/public/imgs/Fondo.png')">
+<!--    <div class="container justify-content-center">-->
+<!--        <div class="main-body">-->
+<!--            <div class=" ">-->
 
-<body  class="bd-image" style="background-image: url('public/imgs/Fondo.png')">
-<div class="container justify-content-center">
-    <div class="main-body">
-        <div class=" ">
+<!--                <div class="">-->
+<!--                    <div class="card m-3">-->
+<!--                        <div>-->
+<!--                            {{#pregunta_respuestas}}-->
+<!--                                <h2 class="text-center">{{categoria}}</h2>-->
+<!--                            {{/pregunta_respuestas}}-->
 
-            <div class="">
-                <div class="card m-3">
-                    <div>
-                        {{#preguntas}}
-                          <h2 class="text-center">{{categoria}}</h2>
-                        {{/preguntas}}
+<!--                        </div>-->
+<!--                        <div class="card-body mt-3">-->
+<!--                            <div class=" text-secondary">-->
+<!--                                {{#pregunta_respuestas}}-->
+<!--                                    <h3 class="text-center">{{pregunta}}</h3>-->
+<!--                                {{/pregunta_respuestas}}-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
-                    </div>
-                    <div class="card-body mt-3">
-                            <div class=" text-secondary">
-                                {{#preguntas}}
-                                    <h3 class="text-center">{{pregunta}}</h3>
-                                {{/preguntas}}
-                            </div>
-                    </div>
+<!--                    <div class="d-flex justify-content-xl-around align-content-center " >-->
+<!--                        <div class="">-->
+<!--                            <div class=" card">-->
+<!--                                <div class="card-body flex-lg-row  ">-->
+<!--                                    <div class=" text-secondary">-->
+<!--                                        {{#pregunta_respuestas}}-->
+<!--                                            <button class="btn-outline-secondary rounded-4" formmethod="post" type="submit" name="Ah5> </button>-->
+<!--                                        {{/pregunta_respuestas}}-->
+<!--                                    </div>-->
+<!--                                    <hr>-->
+<!--                                    <div class="flex-lg-grow-1 text-secondary">-->
+<!--                                        {{#pregunta_respuestas}}-->
+<!--                                            <button class="btn-outline-secondary rounded-4" formmethod="post" type="submit" name="Bh5> </button>-->
+<!--                                        {{/pregunta_respuestas}}-->
+<!--                                    </div>-->
+<!--                                    <hr>-->
+<!--                                    <div class="flex-lg-grow-1 text-secondary">-->
+<!--                                        {{#pregunta_respuestas}}-->
+<!--                                            <button class="btn-outline-secondary rounded-4" formmethod="post" type="submit" name="Ch5> </button>-->
+<!--                                        {{/pregunta_respuestas}}-->
+<!--                                    </div>-->
+<!--                                    <hr>-->
+<!--                                    <div class="flex-lg-grow-1 text-secondary">-->
+<!--                                        {{#pregunta_respuestas}}-->
+<!--                                            <button class="btn-outline-secondary rounded-4" formmethod="post" type="submit" name="Dh5> </button>-->
+<!--                                        {{/pregunta_respuestas}}-->
+<!--                                    </div>-->
+
+
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                        </div>-->
+
+
+
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <div class="container text-center">
+        <!--Categoria-->
+        <div class="row categoria">
+            <div class="col-12 col-lg-12">
+                <div class="card mx-auto p-4 w-auto">
+                    {{#pregunta_respuestas}}
+                        <h2>{{categoria}}</h2>
+                    {{/pregunta_respuestas}}
                 </div>
-
-            <div class="d-flex justify-content-xl-around align-content-center " >
-                <div class="">
-                    <div class=" card">
-                        <div class="card-body flex-lg-row  ">
-                                <div class=" text-secondary">
-                                    {{#preguntas}}
-                                        <button class="btn-outline-secondary rounded-4" formmethod="post" type="submit" name="A">  <h5> A)   {{A}} </h5> </button>
-                                    {{/preguntas}}
-                                </div>
-                                    <hr>
-                                <div class="flex-lg-grow-1 text-secondary">
-                                    {{#preguntas}}
-                                        <button class="btn-outline-secondary rounded-4" formmethod="post" type="submit" name="B">  <h5> B)   {{B}} </h5> </button>
-                                    {{/preguntas}}
-                                </div>
-                                    <hr>
-                                <div class="flex-lg-grow-1 text-secondary">
-                                    {{#preguntas}}
-                                        <button class="btn-outline-secondary rounded-4" formmethod="post" type="submit" name="C">  <h5> C)   {{C}} </h5> </button>
-                                    {{/preguntas}}
-                                </div>
-                                <hr>
-                                <div class="flex-lg-grow-1 text-secondary">
-                                    {{#preguntas}}
-                                        <button class="btn-outline-secondary rounded-4" formmethod="post" type="submit" name="D">  <h5> D)   {{D}} </h5> </button>
-                                    {{/preguntas}}
-                                </div>
-
-
-                    </div>
-                    </div>
-
-                </div>
-
-
-
             </div>
         </div>
 
+        <!--Pregunta-->
+        <div class="row mt-3">
+            <div class="col-12 col-lg-12">
+                <div class="card m-4 p-4">
+                    {{#pregunta_respuestas}}
+                    <h2>{{pregunta}}</h2>
+                    {{/pregunta_respuestas}}
+                </div>
+            </div>
+        </div>
+        <!--Fin Pregunta-->
+
+        <!--Respuestas-->
+        <div class="row">
+
+
+            <div class="col-12 col-lg-6">
+                <a href="/lobby/responder?rta={{A}}">
+                    <div class="card m-4 p-4">
+                        {{#pregunta_respuestas}}
+                            <h2>A) {{A}}</h2>
+                        {{/pregunta_respuestas}}
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <a href="/lobby/responder?rta={{B}}">
+                    <div class="card m-4 p-4">
+                        {{#pregunta_respuestas}}
+                            <h2>B) {{B}}</h2>
+                        {{/pregunta_respuestas}}
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <a href="/lobby/responder?rta={{C}}">
+                <div class="card m-4 p-4">
+                    {{#pregunta_respuestas}}
+                            <h2>C) {{C}}</h2>
+                        {{/pregunta_respuestas}}
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <a href="/lobby/responder?rta={{D}}">
+                <div class="card m-4 p-4">
+                    {{#pregunta_respuestas}}
+                            <h2>D) {{D}}</h2>
+                        {{/pregunta_respuestas}}
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!--Fin Respuestas-->
+
+        <!--Acciones-->
+        <div class="row" style="margin-top: 3em;padding: 4em;">
+            <div class="col-6 col-lg-6">
+                <div class="card mx-auto p-2">
+                    <h2>Usar Trampita</h2>
+                </div>
+            </div>
+            <div class="col-6 col-lg-6">
+                <div class="card mx-auto p-2 w-auto">
+                    <h2>Reportar Pregunta</h2>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 </body>
