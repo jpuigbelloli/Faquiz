@@ -21,6 +21,12 @@ class PartidaController{
 
     public function list()
     {
+
+        if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
+            header('Location: /login');
+            exit();
+        }
+
         $data["pregunta_respuestas"] = $this->partidaModel->obtenerPreguntasYRespuestas();
         $this->respuestaCorrecta = $data["pregunta_respuestas"][0]['correcta'];
 //        '<script src="./public/js/reload.js"></script>';

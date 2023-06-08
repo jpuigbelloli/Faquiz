@@ -28,6 +28,7 @@ class LoginController
         $usuarioValido = $this->usuarioModel->verificarCredenciales($usuario,$contrasenia);
 
         if( $usuarioValido ){
+            $_SESSION['logueado'] = true;
             $_SESSION['usuario']=$usuario;
             header('Location:/lobby');
             exit();
