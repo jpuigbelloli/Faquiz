@@ -31,7 +31,7 @@ class PerfilModel
     }*/
 
     public function getData($nombreDeUsuario) {
-        $resultado = $this->database->query("SELECT user_name, CONCAT('../imsgPerfil/',foto_perfil) AS fotoPerfil,CONCAT(nombre,SPACE(1),apellido) AS nombre,
+        $resultado = $this->database->query("SELECT user_name, foto_perfil AS fotoPerfil,CONCAT(nombre,SPACE(1),apellido) AS nombre,
                                         email ,YEAR(current_date()) - YEAR(fecha_nac) AS edad
                                         FROM usuario 
                                         WHERE user_name ='$nombreDeUsuario'");
