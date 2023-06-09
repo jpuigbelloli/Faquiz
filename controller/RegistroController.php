@@ -108,7 +108,7 @@ class RegistroController
                 $hash = $this->usuarioModel->hashearClave($clave);
                 $ruta_imagen = $this->usuarioModel->validarImagen($imagen_nombre,$user_name);
                 $this->usuarioModel->registrar($nombre, $apellido, $fecha_nac, $genero, $email, $user_name, $hash,$ruta_imagen);
-                header('Location:/');
+                header('Location:/autenticacion');
                 exit();
             }else{
                 header('Location:/registro?error=1');

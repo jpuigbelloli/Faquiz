@@ -89,7 +89,7 @@ class UsuarioModel {
     }
 
     public function validarImagen($imagen_nombre,$user_name){
-        $targetDir = "foto_perfil/";
+        $targetDir = "/public/foto_perfil/";
         $targetFile = $targetDir . $user_name. basename($imagen_nombre);
         $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
         $new_file_name = $targetDir .$user_name. $imagen_nombre ;
