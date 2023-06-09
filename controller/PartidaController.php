@@ -1,4 +1,5 @@
 <?php
+
 class PartidaController{
 
     private $renderer;
@@ -12,10 +13,10 @@ class PartidaController{
     public function __construct($partidaModel,$renderer){
         $this->renderer = $renderer;
         $this->partidaModel = $partidaModel;
-        $this->respuestaCorrecta = NULL;
         $this->id =0;
         $this->puntaje = 0;
         $this->puntos = 0;
+        $this->tiempoTotal = 10;
     }
 
     public function list()
@@ -25,6 +26,14 @@ class PartidaController{
         $_SESSION['respuestas']         =   $this->partidaModel->obtenerRespuestas($this->id);
         $respuestaCorrecta          = $_SESSION['respuestas']['esCorrecta'];
         $this->responder($respuestaCorrecta);
+
+        if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
+            header('Location: /login');
+            exit();
+        }
+
+        $data["pregunta_respuestas"] = $this->partidaModel->obtenerPreguntasYRespuestas();
+        $this->respuestaCorrecta = $data["pregunta_respuestas"][0]['correcta'];
 //        '<script src="./public/js/reload.js"></script>';
         $this->renderer->render('partida',$_SESSION );
     }

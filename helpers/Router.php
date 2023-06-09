@@ -12,10 +12,25 @@ class Router {
         $this->defaultMethod = $defaultMethod;
     }
 
-    public function route($module, $method) {
+    //DEPRECADO **BORRAR**
+/*    public function route($module, $method) {
         $controller = $this->getControllerFrom($module);
         $this->executeMethodFromController($controller,$method);
+    }*/
+
+
+
+    public function route($module, $method) {
+        if ($module === 'perfil') {
+            $controller = $this->configuration->getPerfilController();
+            $nombreDeUsuario = $_GET['usuario'] ?? '';
+            $controller->list($nombreDeUsuario);
+        } else {
+            $controller = $this->getControllerFrom($module);
+            $this->executeMethodFromController($controller, $method);
+        }
     }
+
 
     private function getControllerFrom($module) {
         $controllerName = 'get' . ucfirst($module) . 'Controller';
