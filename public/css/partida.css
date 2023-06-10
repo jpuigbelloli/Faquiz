@@ -13,3 +13,13 @@ a {
 .opcion{
     border-color: #0f5132;
 }
+
+.width-card{
+    width: 65%!important;
+}
+
+@media (min-width: 992px) {
+    .width-card{
+        width: 25%!important;
+    }
+}

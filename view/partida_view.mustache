@@ -1,70 +1,6 @@
 {{> header_sesion}}
 <link rel="stylesheet" href="/public/css/partida.css">
 <body  class="bd-image" style="background-image: url('/public/imgs/Fondo.png')">
-<!--    <div class="container justify-content-center">-->
-<!--        <div class="main-body">-->
-<!--            <div class=" ">-->
-
-<!--                <div class="">-->
-<!--                    <div class="card m-3">-->
-<!--                        <div>-->
-<!--                            {{#pregunta_respuestas}}-->
-<!--                                <h2 class="text-center">{{categoria}}</h2>-->
-<!--                            {{/pregunta_respuestas}}-->
-
-<!--                        </div>-->
-<!--                        <div class="card-body mt-3">-->
-<!--                            <div class=" text-secondary">-->
-<!--                                {{#pregunta_respuestas}}-->
-<!--                                    <h3 class="text-center">{{pregunta}}</h3>-->
-<!--                                {{/pregunta_respuestas}}-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    <div class="d-flex justify-content-xl-around align-content-center " >-->
-<!--                        <div class="">-->
-<!--                            <div class=" card">-->
-<!--                                <div class="card-body flex-lg-row  ">-->
-<!--                                    <div class=" text-secondary">-->
-<!--                                        {{#pregunta_respuestas}}-->
-<!--                                            <button class="btn-outline-secondary rounded-4" formmethod="post" type="submit" name="Ah5> </button>-->
-<!--                                        {{/pregunta_respuestas}}-->
-<!--                                    </div>-->
-<!--                                    <hr>-->
-<!--                                    <div class="flex-lg-grow-1 text-secondary">-->
-<!--                                        {{#pregunta_respuestas}}-->
-<!--                                            <button class="btn-outline-secondary rounded-4" formmethod="post" type="submit" name="Bh5> </button>-->
-<!--                                        {{/pregunta_respuestas}}-->
-<!--                                    </div>-->
-<!--                                    <hr>-->
-<!--                                    <div class="flex-lg-grow-1 text-secondary">-->
-<!--                                        {{#pregunta_respuestas}}-->
-<!--                                            <button class="btn-outline-secondary rounded-4" formmethod="post" type="submit" name="Ch5> </button>-->
-<!--                                        {{/pregunta_respuestas}}-->
-<!--                                    </div>-->
-<!--                                    <hr>-->
-<!--                                    <div class="flex-lg-grow-1 text-secondary">-->
-<!--                                        {{#pregunta_respuestas}}-->
-<!--                                            <button class="btn-outline-secondary rounded-4" formmethod="post" type="submit" name="Dh5> </button>-->
-<!--                                        {{/pregunta_respuestas}}-->
-<!--                                    </div>-->
-
-
-<!--                                </div>-->
-<!--                            </div>-->
-
-<!--                        </div>-->
-
-
-
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
     <div class="container text-center">
         <div class="d-inline-flex">
 
@@ -78,9 +14,9 @@
         <div class="row categoria">
             <div class="col-12 col-lg-12 text-center">
                 <div class="card mx-auto p-2 w-50">
-                    {{#pregunta_respuestas}}
+                    {{#pregunta}}
                         <h2>{{categoria}}</h2>
-                    {{/pregunta_respuestas}}
+                    {{/pregunta}}
                 </div>
             </div>
         </div>
@@ -89,9 +25,9 @@
         <div class="row mt-3">
             <div class="col-12 col-lg-12">
                 <div class="card m-4 p-4">
-                    {{#pregunta_respuestas}}
+                    {{#pregunta}}
                     <h3>{{pregunta}}</h3>
-                    {{/pregunta_respuestas}}
+                    {{/pregunta}}
                 </div>
             </div>
         </div>
@@ -99,58 +35,41 @@
 
         <!--Respuestas-->
         <div class="row">
-
+            {{#pregunta}}
+            {{#respuestas}}
             <div class="col-12 col-lg-6">
-                {{#pregunta_respuestas}}
-                <a href="/partida?opcion=A">
+                <a href="/partida/responder/?opcion={{respuesta}}&id={{id_pregunta}}">
                     <div class="card m-2 p-2 {{#esCorrecta}}correcta{{/esCorrecta}}">
-
-                          <h4>A) {{A}}</h4>
-
+                          <h4> {{respuesta}}</h4>
                     </div>
                 </a>
-                {{/pregunta_respuestas}}
             </div>
-
-            <div class="col-12 col-lg-6 {{#esCorrecta}}correcta{{/esCorrecta}}">
-                 {{#pregunta_respuestas}}
-                <a href="/partida?opcion=B">
-                    <div class="card m-2 p-2">
-
-                            <h4>B) {{B}}</h4>
-
-                    </div>
-                </a>
-                 {{/pregunta_respuestas}}
-            </div>
-
-            <div class="col-12 col-lg-6 opcion {{#esCorrecta}}correcta{{/esCorrecta}}">
-                {{#pregunta_respuestas}}
-                <a href="/partida?opcion=C">
-                <div class="card m-2 p-2">
-
-                            <h4>C) {{C}}</h4>
-
-                    </div>
-                </a>
-                {{/pregunta_respuestas}}
-            </div>
-
-            <div class="col-12 col-lg-6 {{#esCorrecta}}correcta{{/esCorrecta}}">
-                {{#pregunta_respuestas}}
-                <a href="/partida?opcion=D">
-                <div class="card m-2 p-2">
-
-
-                            <h4>D) {{D}}</h4>
-
-
-                    </div>
-                </a>
-                {{/pregunta_respuestas}}
-            </div>
+            {{/respuestas}}
+            {{/pregunta}}
         </div>
         <!--Fin Respuestas-->
+
+        <!--Correcto o Incorrecto-->
+        {{#correcto}}
+            <div class="row">
+                <div class="col-12 col-lg-12 text-center">
+                    <div class="width-card card p-2 mt-5 mx-auto text-bg-success" >
+                        <h4>Correcto! </h4>
+                    </div>
+                </div>
+            </div>
+        {{/correcto}}
+
+        {{#incorrecto}}
+            <div class="row">
+                <div class="col-sm-12 col-lg-12 text-center">
+                    <div class="width-card card p-2 mt-5 mx-auto text-bg-danger">
+                        <h4>Incorrecto! :(</h4>
+                    </div>
+                </div>
+            </div>
+        {{/incorrecto}}
+        <!--Fin Correcto o Incorrecto-->
 
         <!--Acciones-->
         <div class="row" style="margin-top: 1em;padding: 4em;">
