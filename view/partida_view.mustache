@@ -1,5 +1,8 @@
 {{> header_sesion}}
-<link rel="stylesheet" href="/public/css/partida.css">
+<head>
+    <link rel="stylesheet" href="/public/css/partida.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
 <body  class="bd-image" style="background-image: url('/public/imgs/Fondo.png')">
     <div class="container text-center">
         <div class="d-inline-flex">
@@ -13,13 +16,35 @@
         <!--Categoria-->
         <div class="row categoria">
             <div class="col-12 col-lg-12 text-center">
-                <div class="card mx-auto p-2 w-50">
+                <div id="categoria" class="card mx-auto p-2 w-50 {{#pregunta}}{{categoria}}{{/pregunta}}">
                     {{#pregunta}}
                         <h2>{{categoria}}</h2>
                     {{/pregunta}}
                 </div>
             </div>
         </div>
+
+        <!--Correcto o Incorrecto-->
+        {{#correcto}}
+            <div id="correcta" class="row">
+                <div class="col-12 col-lg-12 text-center">
+                    <div class="width-card card p-2 mt-5 mx-auto text-bg-success" >
+                        <h4>Correcto! </h4>
+                    </div>
+                </div>
+            </div>
+        {{/correcto}}
+
+        {{#incorrecto}}
+            <div id="incorrecta" class="row">
+                <div class="col-sm-12 col-lg-12 text-center">
+                    <div class="width-card card p-2 mt-5 mx-auto text-bg-danger">
+                        <h4>Incorrecto! :(</h4>
+                    </div>
+                </div>
+            </div>
+        {{/incorrecto}}
+        <!--Fin Correcto o Incorrecto-->
 
         <!--Pregunta-->
         <div class="row mt-3">
@@ -37,39 +62,16 @@
         <div class="row">
             {{#pregunta}}
             {{#respuestas}}
-            <div class="col-12 col-lg-6">
-                <a href="/partida/responder/?opcion={{respuesta}}&id={{id_pregunta}}">
-                    <div class="card m-2 p-2 {{#esCorrecta}}correcta{{/esCorrecta}}">
-                          <h4> {{respuesta}}</h4>
-                    </div>
-                </a>
-            </div>
+                <div class="col-12 col-lg-6">
+                        <div id="{{numero}}" class="card m-2 p-2 {{#esCorrecta}}correcta{{/esCorrecta}} {{#incorrecto}} gris{{/incorrecto}}">
+                            <button class="boton" onclick='mandarRespuesta("{{respuesta}}","{{id_pregunta}}","{{numero}}");'><h4> {{respuesta}}</h4></button>
+                        </div>
+                    </a>
+                </div>
             {{/respuestas}}
             {{/pregunta}}
         </div>
         <!--Fin Respuestas-->
-
-        <!--Correcto o Incorrecto-->
-        {{#correcto}}
-            <div class="row">
-                <div class="col-12 col-lg-12 text-center">
-                    <div class="width-card card p-2 mt-5 mx-auto text-bg-success" >
-                        <h4>Correcto! </h4>
-                    </div>
-                </div>
-            </div>
-        {{/correcto}}
-
-        {{#incorrecto}}
-            <div class="row">
-                <div class="col-sm-12 col-lg-12 text-center">
-                    <div class="width-card card p-2 mt-5 mx-auto text-bg-danger">
-                        <h4>Incorrecto! :(</h4>
-                    </div>
-                </div>
-            </div>
-        {{/incorrecto}}
-        <!--Fin Correcto o Incorrecto-->
 
         <!--Acciones-->
         <div class="row" style="margin-top: 1em;padding: 4em;">
@@ -84,5 +86,103 @@
                 </div>
             </div>
         </div>
+        <!--Fin Acciones-->
+
+        <!--Partida terminada-->
+        <div id="termino-partida" class="row">
+            <div class="col-12 col-lg-12">
+                <div class="card mx-auto p-2 w-auto">
+                    <h3>La partida finalizó,mejor suerte la próxima (:<br>
+                    --> Ir al Lobby <--</h3>
+                </div>
+            </div>
+        </div>
+        <!--Fin Partida terminada-->
     </div>
 </body>
+<script>
+
+    /*setTimeout(function () {
+        $('#correcta').hide();
+    }, 500);
+
+    setTimeout(function () {
+        $('#incorrecta').hide();
+    }, 500);*/
+
+    $('#termino-partida').hide();
+
+    var categoria_id = '#categoria';
+
+    switch (true){
+        case $(categoria_id).hasClass("Arte"):
+            $(categoria_id).addClass("Arte");
+            break;
+        case $(categoria_id).hasClass("Historia"):
+            $(categoria_id).addClass("Historia");
+            break;
+        case $(categoria_id).hasClass("Geografia"):
+            $(categoria_id).addClass("Geografia");
+            break;
+        case $(categoria_id).hasClass("Ciencia"):
+            $(categoria_id).addClass("Ciencia");
+            break;
+        case $(categoria_id).hasClass("Deportes"):
+            $(categoria_id).addClass("Deportes");
+            break;
+        case $(categoria_id).hasClass("Entretenimiento"):
+            $(categoria_id).addClass("Entretenimiento");
+            break;
+        default:
+            break;
+
+    }
+
+    function mandarRespuesta(respuesta, id_pregunta, id_div) {
+        $.ajax({
+            url: 'http://localhost/partida/esCorrecta',
+            method: 'POST',
+            data: {
+                respuesta: respuesta,
+                id_pregunta: id_pregunta
+            },
+            success: function (response) {
+                // console.log("el response"+response);
+                var correcta = JSON.parse(response);
+
+                if (correcta[0].correcta == 1) {
+                    $('#' + id_div).addClass('verde');
+                    // $.ajax({
+                    //     url: 'http://localhost/partida',
+                    //     method: 'GET',
+                    //     success: function (response) {
+                    //         console.log(response);
+                    //         $('body').empty();
+                    //         $('body').append(response);
+                    //     },
+                    //     error: function (xhr, status, error) {
+                    //
+                    //     }
+                    // })
+
+                    //pasan 500 milisegundos te muestra la opcion correcta en verde y te manda a /partida
+                    setTimeout(function () {
+                        location.reload();
+                    }, 500);
+
+                } else {
+                    $('#' + id_div).addClass('rojo');
+                    // $('#respuesta').attr('disabled', 'disabled');
+                    $('.boton').prop('disabled',true);
+                    $('#termino-partida').show();
+                }
+                console.log(correcta[0].correcta);
+            },
+            error: function (xhr, status, error) {
+                // Handle error response
+                console.error(error);
+            }
+        });
+    }
+
+</script>
