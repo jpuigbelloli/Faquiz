@@ -1,3 +1,9 @@
+/* IMAGEN DE FONDO */
+.bd-image {
+    background-image: url('/public/imgs/Fondo.png');
+    background-size: cover;
+}
+
 
 /* BASIC */
 
