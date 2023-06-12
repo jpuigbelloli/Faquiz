@@ -2,21 +2,37 @@
 <head>
     <link rel="stylesheet" href="/public/css/partida.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/public/js/partida.js"></script>
 </head>
 <body  class="bd-image" style="background-image: url('/public/imgs/Fondo.png')">
     <div class="container text-center">
-        <div class="d-inline-flex">
+        <!--<div class="d-inline-flex">
 
                 <span>Puntos: {{#pregunta_respuesta}} {{puntos}} {{/pregunta_respuesta}} </span>
             <span id="temporizador">Tiempo:</span>
 
 
 
+        </div>-->
+
+        <div class="row" style="margin-top: 1em;padding: 4em;"  >
+            <div class="col-6 col-lg-6">
+                <div class="card mx-auto p-2 w-auto">
+                    <h4>Tiempo: <span id="tiempo">10</span></h4>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-6">
+                <div class="card mx-auto p-2 w-auto">
+                    <h4>Puntos: <span id="puntos">0</span></h4>
+                </div>
+            </div>
         </div>
+
         <!--Categoria-->
         <div class="row">
             <div class="col-12 col-lg-12 text-center">
-                <div id="categoria_columna" class="card mx-auto p-2 w-50">
+                <div id="categoria_columna" class="card mx-auto p-2 w-50 m-3">
 
                         <h2 id="categoria"></h2>
 
@@ -62,7 +78,7 @@
         <!--Acciones-->
         <div class="row" style="margin-top: 1em;padding: 4em;">
             <div class="col-6 col-lg-6">
-                <div class="card mx-auto p-2">
+                <div class="card mx-auto p-2 w-auto">
                     <h6>Usar Trampita</h6>
                 </div>
             </div>
@@ -88,146 +104,5 @@
 </body>
 <script>
 
-$(document).ready(function() {
-    $('#termino-partida').hide();
 
-    function checkearCategoria(categoria) {
-        var categoria_columna = '#categoria_columna';
-
-        switch (categoria) {
-            case "Arte":
-                $(categoria_columna).addClass("Arte");
-                break;
-            case "Historia":
-                $(categoria_columna).addClass("Historia");
-                break;
-            case "Geografia":
-                $(categoria_columna).addClass("Geografia");
-                break;
-            case "Ciencia":
-                $(categoria_columna).addClass("Ciencia");
-                break;
-            case "Deportes":
-                $(categoria_columna).addClass("Deportes");
-                break;
-            case "Entretenimiento":
-                $(categoria_columna).addClass("Entretenimiento");
-                break;
-            default:
-                break;
-        }
-    }
-
-    function mandarRespuesta(respuesta, id_pregunta, id_div) {
-        $.ajax({
-            url: 'http://localhost/partida/esCorrecta',
-            method: 'POST',
-            data: {
-                respuesta: respuesta,
-                id_pregunta: id_pregunta
-            },
-            success: function (response) {
-                // console.log("el response"+response);
-                var correcta = JSON.parse(response);
-
-                if (correcta[0].correcta == 1) {
-                    //
-                    $('#' + id_div).addClass('verde');
-                    console.log("CORRECTOU")
-
-                    // $.ajax({
-                    //     url: 'http://localhost/partida',
-                    //     method: 'GET',
-                    //     success: function (response) {
-                    //         console.log(response);
-                    //         $('body').empty();
-                    //         $('body').append(response);
-                    //     },
-                    //     error: function (xhr, status, error) {
-                    //
-                    //     }
-                    // })
-
-                    //pasan 500 milisegundos te muestra la opcion correcta en verde y te manda a /partida
-                    setTimeout(function () {
-                        $('#' + id_div).removeClass('verde');
-                        nuevaPregunta();
-                    }, 500);
-
-
-
-                } else {
-                    $('#' + id_div).addClass('rojo');
-                    // $('#respuesta').attr('disabled', 'disabled');
-                    console.log("no correct")
-                    $('.boton').prop('disabled',true);
-                    $('#termino-partida').show();
-                }
-                console.log(correcta[0].correcta);
-            },
-            error: function (xhr, status, error) {
-                // Handle error response
-                console.error(error);
-            }
-        });
-    }
-
-    function nuevaPregunta(){
-        $.ajax({
-            url: 'http://localhost/partida/nuevaPregunta',
-            method: 'GET',
-            success:function (respuesta){
-                var data = JSON.parse(respuesta);
-                var pregunta = data.pregunta[0];
-                var respuestas = data.respuestas;
-
-                //---> SETEO DE LOS CAMPOS <---//
-                $('#categoria').text(pregunta.categoria);
-                $('#pregunta').text(pregunta.pregunta);
-
-                var categoria = $("#categoria").text()
-                checkearCategoria(categoria);
-                // console.log($("#categoria").text());
-
-                $('.respuesta').each(function(index){
-                    $(this).text(respuestas[index].respuesta);
-                });
-
-                var misBotones = $('.mi-boton');
-                for (var i = 0; i < respuestas.length; i++) {
-                    var boton = misBotones.eq(i);
-                    var respuesta = respuestas[i];
-                    var parentDivId = 'boton_' + (i + 1);
-
-                    boton.data('param1', respuesta.respuesta);
-                    boton.data('param2', pregunta.id_pregunta);
-                    boton.data('param3', parentDivId);
-
-                    boton.closest('.card').attr('id', parentDivId);
-                    // boton.attr('onclick', 'mandarRespuesta("' + respuesta.respuesta + '", "' + pregunta.id_pregunta + '")');
-                }
-                misBotones.on('click', function() {
-                    var param1 = $(this).data('param1');
-                    var param2 = $(this).data('param2');
-                    var param3 = $(this).data('param3');
-                    mandarRespuesta(param1, param2, param3);
-                });
-                //---> FIN SETEO DE LOS CAMPOS <---//
-
-                /*misBotones.click(function() {
-                    var param1 = $(this).data('param1');
-                    var param2 = $(this).data('param2');
-                    mandarRespuesta(param1, param2);
-                });*/
-            },
-            error: function (xhr, status, error) {
-                console.error(error);
-            }
-        });
-    }
-
-    //Llamada a la primera pregunta
-    nuevaPregunta();
-
-});
 </script>
