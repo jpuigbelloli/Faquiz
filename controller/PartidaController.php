@@ -20,7 +20,19 @@ class PartidaController{
 
     public function list()
     {
+//        $data["pregunta_respuestas"] = $this->partidaModel->obtenerPreguntasYRespuestas();
 
+//        echo '<pre>';
+//        var_dump($data);
+//        echo '</pre>';
+//        $this->respuestaCorrecta = $data["pregunta_respuestas"][0]['correcta'];
+//        '<script src="./public/js/reload.js"></script>';
+//        $this->responder();
+        $this->renderer->render('partida');
+
+    }
+
+    public function nuevaPregunta(){
         if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
             header('Location:/login');
             exit();
@@ -31,19 +43,14 @@ class PartidaController{
             $data["incorrecto"]=$_GET["incorrecto"]??"";
             $data["puntos"]=$_GET["puntos"]??"";
         }
-//        $data["pregunta_respuestas"] = $this->partidaModel->obtenerPreguntasYRespuestas();
+
         $data["pregunta"] = $this->partidaModel->obtenerPregunta();
         $idPregunta = $data["pregunta"][0]["id_pregunta"];
         $data["respuestas"] = $this->partidaModel->obtenerRespuestas($idPregunta);
-//        echo '<pre>';
-//        var_dump($data);
-//        echo '</pre>';
-//        $this->respuestaCorrecta = $data["pregunta_respuestas"][0]['correcta'];
-//        '<script src="./public/js/reload.js"></script>';
-//        $this->responder();
-        $this->renderer->render('partida',$data);
-    }
+        echo json_encode($data);
 
+
+    }
     public function responder()
     {
         $respuesta = $_POST['opcion'];
