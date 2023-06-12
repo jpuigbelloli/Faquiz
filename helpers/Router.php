@@ -12,14 +12,6 @@ class Router {
         $this->defaultMethod = $defaultMethod;
     }
 
-    //DEPRECADO **BORRAR**
-/*    public function route($module, $method) {
-        $controller = $this->getControllerFrom($module);
-        $this->executeMethodFromController($controller,$method);
-    }*/
-
-
-
     public function route($module, $method) {
         if ($module === 'perfil') {
             $controller = $this->configuration->getPerfilController();

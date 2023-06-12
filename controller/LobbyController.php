@@ -6,8 +6,7 @@ class LobbyController
     private $usuarioModel;
     private $renderer;
 
-    public function __construct($usuarioModel, $renderer)
-    {
+    public function __construct($usuarioModel, $renderer){
         $this->usuarioModel = $usuarioModel;
         $this->renderer = $renderer;
     }
@@ -22,7 +21,7 @@ class LobbyController
 
         $usuario = $_SESSION['usuario'];
         $data['usuario'] = $this->usuarioModel->getHeader($usuario);
-        $this->renderer->render('lobby', $data);
+        $this->renderer->render('lobby',$data);
     }
 
     /*public function execute(){
