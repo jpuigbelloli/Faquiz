@@ -30,7 +30,9 @@ class PartidaModel{
                 FROM respuesta R
                 WHERE R.id_pregunta = '$id'";
 
-        return $this->database->query_assoc($sql);
+        $data = $this->database->query_assoc($sql);
+        shuffle($data);
+        return $data;
     }
 
     public function esCorrecta($respuesta,$id_pregunta){

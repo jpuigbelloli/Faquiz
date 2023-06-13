@@ -82,6 +82,7 @@ class PartidaController{
         $respuesta = $_POST['respuesta'] ?? "";
         $id_pregunta = $_POST['id_pregunta'] ?? "";
         $correcta = $this->partidaModel->esCorrecta($respuesta,$id_pregunta);
+        //grabar persi
 //        var_dump($correcta);
         echo json_encode($correcta);
     }
