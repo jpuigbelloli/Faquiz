@@ -26,19 +26,20 @@ class PartidaModel{
     }
 
     public function obtenerRespuestas($id){
-        $sql = "SELECT R.respuesta AS respuesta
+        $sql = "SELECT ROW_NUMBER() OVER (ORDER BY respuesta) AS numero ,R.respuesta AS respuesta
                 FROM respuesta R
                 WHERE R.id_pregunta = '$id'";
 
-        return $this->database->query_assoc($sql);
+        $data = $this->database->query_assoc($sql);
+        shuffle($data);
+        return $data;
     }
 
-    public function esCorrecta($id,$respuesta){
+    public function esCorrecta($respuesta,$id_pregunta){
         $sql = "SELECT R.correcta FROM respuesta R
                 WHERE R.respuesta = '$respuesta'
-                AND R.id_pregunta = '$id'";
+                AND R.id_pregunta = '$id_pregunta'";
         //se podria sacar el AND
-
         return $this->database->query_assoc($sql);
     }
 

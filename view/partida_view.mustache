@@ -1,22 +1,41 @@
 {{> header_sesion}}
-<link rel="stylesheet" href="/public/css/partida.css">
+<head>
+    <link rel="stylesheet" href="/public/css/partida.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/public/js/partida.js"></script>
+</head>
 <body  class="bd-image" style="background-image: url('/public/imgs/Fondo.png')">
     <div class="container text-center">
-        <div class="d-inline-flex">
+        <!--<div class="d-inline-flex">
 
                 <span>Puntos: {{#pregunta_respuesta}} {{puntos}} {{/pregunta_respuesta}} </span>
             <span id="temporizador">Tiempo:</span>
 
 
 
+        </div>-->
+
+        <div class="row" style="margin-top: 1em;padding: 4em;"  >
+            <div class="col-6 col-lg-6">
+                <div class="card mx-auto p-2 w-auto">
+                    <h4>Tiempo: <span id="tiempo">10</span></h4>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-6">
+                <div class="card mx-auto p-2 w-auto">
+                    <h4>Puntos: <span id="puntos">0</span></h4>
+                </div>
+            </div>
         </div>
+
         <!--Categoria-->
-        <div class="row categoria">
+        <div class="row">
             <div class="col-12 col-lg-12 text-center">
-                <div class="card mx-auto p-2 w-50">
-                    {{#pregunta}}
-                        <h2>{{categoria}}</h2>
-                    {{/pregunta}}
+                <div id="categoria_columna" class="card mx-auto p-2 w-50 m-3">
+
+                        <h2 id="categoria"></h2>
+
                 </div>
             </div>
         </div>
@@ -25,9 +44,7 @@
         <div class="row mt-3">
             <div class="col-12 col-lg-12">
                 <div class="card m-4 p-4">
-                    {{#pregunta}}
-                    <h3>{{pregunta}}</h3>
-                    {{/pregunta}}
+                    <h3 id="pregunta"></h3>
                 </div>
             </div>
         </div>
@@ -35,46 +52,33 @@
 
         <!--Respuestas-->
         <div class="row">
-            {{#pregunta}}
-            {{#respuestas}}
             <div class="col-12 col-lg-6">
-                <a href="/partida/responder/?opcion={{respuesta}}&id={{id_pregunta}}">
-                    <div class="card m-2 p-2 {{#esCorrecta}}correcta{{/esCorrecta}}">
-                          <h4> {{respuesta}}</h4>
-                    </div>
-                </a>
+                <div class="card m-2 p-2">
+                    <button class="boton mi-boton"><h4 class="respuesta"></h4></button>
+                </div>
             </div>
-            {{/respuestas}}
-            {{/pregunta}}
+            <div class="col-12 col-lg-6">
+                <div class="card m-2 p-2">
+                    <button class="boton mi-boton"><h4 class="respuesta"></h4></button>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="card m-2 p-2">
+                    <button class="boton mi-boton"><h4 class="respuesta"></h4></button>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="card m-2 p-2">
+                    <button class="boton mi-boton"><h4 class="respuesta"></h4></button>
+                </div>
+            </div>
         </div>
         <!--Fin Respuestas-->
-
-        <!--Correcto o Incorrecto-->
-        {{#correcto}}
-            <div class="row">
-                <div class="col-12 col-lg-12 text-center">
-                    <div class="width-card card p-2 mt-5 mx-auto text-bg-success" >
-                        <h4>Correcto! </h4>
-                    </div>
-                </div>
-            </div>
-        {{/correcto}}
-
-        {{#incorrecto}}
-            <div class="row">
-                <div class="col-sm-12 col-lg-12 text-center">
-                    <div class="width-card card p-2 mt-5 mx-auto text-bg-danger">
-                        <h4>Incorrecto! :(</h4>
-                    </div>
-                </div>
-            </div>
-        {{/incorrecto}}
-        <!--Fin Correcto o Incorrecto-->
 
         <!--Acciones-->
         <div class="row" style="margin-top: 1em;padding: 4em;">
             <div class="col-6 col-lg-6">
-                <div class="card mx-auto p-2">
+                <div class="card mx-auto p-2 w-auto">
                     <h6>Usar Trampita</h6>
                 </div>
             </div>
@@ -84,5 +88,21 @@
                 </div>
             </div>
         </div>
+        <!--Fin Acciones-->
+
+        <!--Partida terminada-->
+        <div id="termino-partida" class="row">
+            <div class="col-12 col-lg-12">
+                <div class="card mx-auto p-2 w-auto">
+                    <h3>La partida finalizó,mejor suerte la próxima (:<br>
+                    --> Ir al Lobby <--</h3>
+                </div>
+            </div>
+        </div>
+        <!--Fin Partida terminada-->
     </div>
 </body>
+<script>
+
+
+</script>
