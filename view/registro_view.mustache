@@ -1,4 +1,10 @@
 {{> header_login}}
+<head>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrhbTzWlqIINJqnB_PU7XDMdXC0ObRBh4&callback=initMap" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="../public/js/mapa.js"></script>
+</head>
 
 <body  class="bd-image" style="background-image: url('public/imgs/Fondo.png')">
 
@@ -37,8 +43,13 @@
                                         <label for="fotoPerfil">Foto de perfil:</label>
                                         <input type="file" name="foto_perfil" id="fotoPerfil" placeholder="Subir Archivo">
                                         <br><br>
+
                                         <label for="ubicacion" >Ubicacion:</label>
-                                        <input type="search" id="ubicacion" name="ubicacion" placeholder="MAPA" >
+                                        <div id="map" style="height: 400px;"></div>
+                                        <input type="hidden" name="lat" id="lat">
+                                        <input type="hidden" name="lng" id="lng">
+                                        <!-- <input type="search" id="ubicacion" name="ubicacion" placeholder="MAPA" > -->
+
                                         <br><br>
 
                                         <button class="wrapper btn-outline-primary" type="submit" name="registrarse">Registrarme</button>

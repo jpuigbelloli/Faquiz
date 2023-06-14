@@ -103,11 +103,15 @@ class RegistroController
             $clave = $_POST['contrasenia'] ?? "";
             $clave_rep = $_POST['contrasenia_rep'] ?? "";
             $imagen_nombre = $_FILES["foto_perfil"]["name"] ?? "";
+            $latitud = $_POST['lat'] ?? "";
+            $longitud = $_POST['lng'] ?? "";
+            $ubicacion = $latitud . ',' . $longitud;
+            echo($ubicacion);
 
             if ($this->usuarioModel->validarUsername($user_name) && $this->usuarioModel->validarEmail($email) && $clave === $clave_rep) {
                 $hash = $this->usuarioModel->hashearClave($clave);
                 $ruta_imagen = $this->usuarioModel->validarImagen($imagen_nombre,$user_name);
-                $this->usuarioModel->registrar($nombre, $apellido, $fecha_nac, $genero, $email, $user_name, $hash,$ruta_imagen);
+                $this->usuarioModel->registrar($nombre, $apellido, $fecha_nac, $genero, $ubicacion, $email, $user_name, $hash, $ruta_imagen);
                 header('Location:/autenticacion');
                 exit();
             }else{
