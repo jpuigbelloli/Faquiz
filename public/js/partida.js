@@ -7,18 +7,26 @@ $(document).ready(function() {
 
     var tiempoElement = $('#tiempo');
     var tiempoValue = parseInt(tiempoElement.text());
+    var timer;
 
-    var timer = setInterval(function() {
-        tiempoValue--;
+    startTimer();
+    function startTimer() {
+        clearInterval(timer);
 
-        if (tiempoValue >= 0) {
-            tiempoElement.text(tiempoValue);
-        } else {
-            clearInterval(timer);
-            // Timer has reached 0, perform any actions or callbacks here
-            console.log('Timer has reached 0');
-        }
-    }, 1000); // Timer will update every 1 second (1000 milliseconds)
+        tiempoValue = 10;
+        tiempoElement.text(tiempoValue);
+
+        timer = setInterval(function() {
+            tiempoValue--;
+
+            if (tiempoValue >= 0) {
+                tiempoElement.text(tiempoValue);
+            } else {
+                clearInterval(timer);
+                console.log('Timer has reached 0');
+            }
+        }, 1000);
+    }
 
     $(document).on('click', '.mi-boton', function() {
         var respuesta = $(this).find('.respuesta').text();
@@ -63,26 +71,23 @@ $(document).ready(function() {
                 id_pregunta: id_pregunta
             },
             success: function (response) {
-                // console.log("el response"+response);
                 var correcta = JSON.parse(response);
 
-
                 if (correcta[0].correcta == 1) {
-                    //
                     $('#' + id_div).addClass('verde');
-                    console.log("CORRECTOU")
                     puntos++;
-                    console.log(puntos);
                     $("#puntos").text(puntos);
+
                     //pasan 500 milisegundos te muestra la opcion correcta en verde
                     setTimeout(function () {
                         $('#' + id_div).removeClass('verde');
+                        startTimer();
                         nuevaPregunta();
                     }, 500);
                 } else {
                     $('#' + id_div).addClass('rojo');
-                    console.log("no correct")
                     $('.boton').prop('disabled',true);
+                    clearInterval(timer); // Stop the current timer
                     $('#termino-partida').show();
                 }
             },
@@ -126,12 +131,6 @@ $(document).ready(function() {
                 });
 
                 //---> FIN SETEO DE LOS CAMPOS <---//
-
-                /*misBotones.click(function() {
-                    var param1 = $(this).data('param1');
-                    var param2 = $(this).data('param2');
-                    mandarRespuesta(param1, param2);
-                });*/
             },
             error: function (xhr, status, error) {
                 console.error(error);

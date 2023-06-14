@@ -20,16 +20,7 @@ class PartidaController{
 
     public function list()
     {
-//        $data["pregunta_respuestas"] = $this->partidaModel->obtenerPreguntasYRespuestas();
-
-//        echo '<pre>';
-//        var_dump($data);
-//        echo '</pre>';
-//        $this->respuestaCorrecta = $data["pregunta_respuestas"][0]['correcta'];
-//        '<script src="./public/js/reload.js"></script>';
-//        $this->responder();
         $this->renderer->render('partida');
-
     }
 
     public function nuevaPregunta(){
@@ -37,20 +28,31 @@ class PartidaController{
             header('Location:/login');
             exit();
         }
-
-        if(isset($_GET["correcto"]) || isset($_GET["incorrecto"]) || isset($_GET["puntos"])){
-            $data["correcto"]=$_GET["correcto"]??"";
-            $data["incorrecto"]=$_GET["incorrecto"]??"";
-            $data["puntos"]=$_GET["puntos"]??"";
-        }
-
+        //Traigo la pregunta al azar
         $data["pregunta"] = $this->partidaModel->obtenerPregunta();
+
+        //guardo el id de pregunta
         $idPregunta = $data["pregunta"][0]["id_pregunta"];
+
+        //traigo respuestas de acuerdo al id de pregunta
         $data["respuestas"] = $this->partidaModel->obtenerRespuestas($idPregunta);
+
         echo json_encode($data);
-
-
     }
+    public function esCorrecta(){
+        if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
+            header('Location:/login');
+            exit();
+        }
+        $respuesta = $_POST['respuesta'] ?? "";
+        $id_pregunta = $_POST['id_pregunta'] ?? "";
+
+        $correcta = $this->partidaModel->esCorrecta($respuesta,$id_pregunta);
+
+        //grabar persistencia?
+        echo json_encode($correcta);
+    }
+
     public function responder()
     {
         $respuesta = $_POST['opcion'];
@@ -76,15 +78,6 @@ class PartidaController{
 
         }
 
-    }
-
-    public function esCorrecta(){
-        $respuesta = $_POST['respuesta'] ?? "";
-        $id_pregunta = $_POST['id_pregunta'] ?? "";
-        $correcta = $this->partidaModel->esCorrecta($respuesta,$id_pregunta);
-        //grabar persi
-//        var_dump($correcta);
-        echo json_encode($correcta);
     }
 
 
