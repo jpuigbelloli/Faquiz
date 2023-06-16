@@ -11,6 +11,7 @@ include_once('helpers/MySqlDatabase.php');
 include_once("helpers/MustacheRender.php");
 include_once('helpers/Router.php');
 include_once('helpers/QRHelper.php');
+include_once('helpers/Logger.php');
 
 //MODELS
 include_once('model/SongsModel.php');
