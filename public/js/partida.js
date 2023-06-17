@@ -64,7 +64,7 @@ $(document).ready(function() {
 
     function mandarRespuesta(respuesta, id_pregunta,id_div) {
         $.ajax({
-            url: 'http://localhost/partida/esCorrecta',
+            url: 'http://localhost/partida/responder',
             method: 'POST',
             data: {
                 respuesta: respuesta,
@@ -72,7 +72,6 @@ $(document).ready(function() {
             },
             success: function (response) {
                 var correcta = JSON.parse(response);
-
                 if (correcta[0].correcta == 1) {
                     $('#' + id_div).addClass('verde');
                     puntos++;

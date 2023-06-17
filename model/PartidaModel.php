@@ -31,6 +31,7 @@ class PartidaModel{
                 WHERE R.id_pregunta = '$id'";
 
         $data = $this->database->query_assoc($sql);
+        //Randomizado del orden de las respuestas
         shuffle($data);
         return $data;
     }
@@ -43,25 +44,29 @@ class PartidaModel{
         return $this->database->query_assoc($sql);
     }
 
-    public function agregarPartida($usuario,$puntero){
+    public function agregarPartida($userId,$puntaje){
          $sql = "INSERT INTO partida (id_usuario, puntaje) VALUES 
-                                       ($usuario,$puntero);";
+                                       ('$userId','$puntaje');";
          return$this->database->query($sql);
     }
+    public function guardarPreguntaCorrecta($id_pregunta,$respuesta,$userId){
+        $sql = "INSERT INTO `estadistica` (`id_pregunta`, `respuesta`,`id_usuario`) 
+                VALUES ('$id_pregunta', '$respuesta','$userId')";
 
-    public function respuestaCorrecta($id_pregunta){
-        $sql = "SELECT CASE 
-                           WHEN respuesta_A = respuesta_correcta THEN 'A'
-                           WHEN respuesta_B = respuesta_correcta THEN 'B'
-                           WHEN respuesta_C = respuesta_correcta THEN 'C'
-                           WHEN respuesta_D = respuesta_correcta THEN 'D'
-                       END AS respuesta
-                FROM pregunta
-                WHERE id_pregunta = '$id_pregunta'";
+        $this->database->query($sql);
+    }
+
+    public function getUserId($username){
+        $sql = "SELECT U.id_usuario AS id
+                FROM usuario U
+                WHERE U.user_name = '$username'";
         return $this->database->query_assoc($sql);
+    }
 
-        }
+    public function guardarPartida($id,$puntaje){
+        $sql = "INSERT INTO partida (id_usuario,puntaje)
+                VALUES('$id','$puntaje')";
 
-
-
+        $this->database->query($sql);
+    }
 }
