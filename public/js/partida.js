@@ -2,6 +2,11 @@ $(document).ready(function() {
     var puntos = 0;
     $('#termino-partida').hide();
 
+    $('#myModal').modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+
     //Llamada a la primera pregunta
     nuevaPregunta();
 
@@ -23,7 +28,7 @@ $(document).ready(function() {
                 tiempoElement.text(tiempoValue);
             } else {
                 clearInterval(timer);
-                console.log('Timer has reached 0');
+                finPartida();
             }
         }, 1000);
     }
@@ -63,12 +68,14 @@ $(document).ready(function() {
     }
 
     function mandarRespuesta(respuesta, id_pregunta,id_div) {
+        var jsTime = new Date().getTime()
         $.ajax({
             url: 'http://localhost/partida/responder',
             method: 'POST',
             data: {
                 respuesta: respuesta,
-                id_pregunta: id_pregunta
+                id_pregunta: id_pregunta,
+                tiempo:jsTime
             },
             success: function (response) {
                 var correcta = JSON.parse(response);
@@ -86,7 +93,7 @@ $(document).ready(function() {
                 } else {
                     $('#' + id_div).addClass('rojo');
                     $('.boton').prop('disabled',true);
-                    clearInterval(timer); // Stop the current timer
+                    clearInterval(timer);
                     $('#termino-partida').show();
                 }
             },
@@ -130,6 +137,22 @@ $(document).ready(function() {
                 });
 
                 //---> FIN SETEO DE LOS CAMPOS <---//
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+
+    function finPartida(){
+        $.ajax({
+            url: 'http://localhost/partida/fin',
+            method: 'GET',
+            success:function (respuesta){
+                var data = JSON.parse(respuesta);
+                var puntaje = data.puntaje;
+                $('#misPuntos').text(puntaje);
+                $('#myModal').modal('show');
             },
             error: function (xhr, status, error) {
                 console.error(error);

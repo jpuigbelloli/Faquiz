@@ -49,7 +49,7 @@ class PartidaModel{
                                        ('$userId','$puntaje');";
          return$this->database->query($sql);
     }
-    public function guardarPreguntaCorrecta($id_pregunta,$respuesta,$userId){
+    public function guardarPreguntaCorrectaOIncorrecta($id_pregunta,$respuesta,$userId){
         $sql = "INSERT INTO `estadistica` (`id_pregunta`, `respuesta`,`id_usuario`) 
                 VALUES ('$id_pregunta', '$respuesta','$userId')";
 

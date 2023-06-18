@@ -1,5 +1,6 @@
 <?php
 include_once('Configuration.php');
+date_default_timezone_set('America/Argentina/Buenos_Aires');
 $configuration = new Configuration();
 $db=$configuration->getDatabase();
 $router = $configuration->getRouter();
