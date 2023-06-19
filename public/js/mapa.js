@@ -21,3 +21,4 @@ function initMap() {
         $('#lng').val(event.latLng.lng());
     });
 }
+

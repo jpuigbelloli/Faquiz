@@ -13,7 +13,7 @@ class UsuarioModel {
        if($user_name = $usuarios){
            die('Ya existe un usuario con ese nombre');
         } else {
-           $this->database->query("INSERT INTO Usuario (nombre,apellido, fecha_nac,genero, ubicacion,email,user_name,contrasenia,foto_perfil) 
+           $this->database->query("INSERT INTO Usuario (nombre, apellido, fecha_nac, genero, ubicacion, email, user_name, contrasenia, foto_perfil) 
              VALUES ('$nombre','$apellido','$fecha_nac','$genero','$ubicacion','$email','$user_name','$contrasenia','$foto_perfil')");
        }
 
@@ -123,5 +123,14 @@ class UsuarioModel {
         return $usuario;
     }
 
+/*
+    public function verificarUbicacion($ubicacion){
+        if(empty($ubicacion) || strpos($ubicacion, ',') === false){
+            die("Ubicacion vacía o inválida");
+        } else{
+            return $ubicacion;
+        }
+    }
+*/
 
 }
