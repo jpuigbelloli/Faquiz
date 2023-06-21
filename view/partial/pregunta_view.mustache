@@ -1,0 +1,38 @@
+{> header}}
+<div class='w3-container w3-content w3-center w3-padding-64' style='max-width:800px' id='band'>
+    <h2 class='w3-wide'>Preguntas</h2>
+
+    <button onclick='preguntar()'>Jugar</button>
+
+    <div id='pregunta'></div>
+    <div id='respuesta_a'></div>
+    <div id='respuesta_b'></div>
+    <div id='respuesta_c'></div>
+    <div id='respuesta_d'></div>
+
+</div>
+
+
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script>
+    function pregunta(){
+        $.ajax({
+            url: 'http://localhost/pregunta/nuevapregunta',
+            method: 'GET',
+            success: function (preguntatxt){
+                //manejar respuesta del backend
+                var pregunta = JSON.parse(preguntatxt);
+                $('#pregunta').text(pregunta.pregunta);
+                $('#respuesta_a').text(pregunta.respuesta_a);
+                $('#respuesta_b').text(pregunta.respuesta_b);
+                $('#respuesta_c').text(pregunta.respuesta_c);
+                $('#respuesta_d').text(pregunta.respuesta_d);
+            },
+            error: function(xhr, status, error){
+                //manejar errores acá
+                alert('Error, algo se rompió');
+            }
+        });
+    }
+</script>
+{{> footer}}
