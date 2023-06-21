@@ -2,14 +2,15 @@
 
 class LobbyController
 {
-
     private $usuarioModel;
+    private $lobbyModel;
     private $renderer;
 
-    public function __construct($usuarioModel, $renderer)
+    public function __construct($usuarioModel,$lobbyModel,$renderer)
     {
         $this->usuarioModel = $usuarioModel;
         $this->renderer = $renderer;
+        $this->lobbyModel = $lobbyModel;
     }
 
     public function list()
