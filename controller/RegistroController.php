@@ -1,6 +1,7 @@
 <?php
 include_once "Configuration.php";
 
+
 class RegistroController
 {
 
@@ -94,6 +95,7 @@ class RegistroController
     public function registrarse()
     {
         if (isset($_POST['registrarse'])) {
+
             $nombre = $_POST['nombre'] ?? "";
             $apellido = $_POST['apellido'] ?? "";
             $fecha_nac = $_POST['fecha_nac'] ?? "";
@@ -103,16 +105,25 @@ class RegistroController
             $clave = $_POST['contrasenia'] ?? "";
             $clave_rep = $_POST['contrasenia_rep'] ?? "";
             $imagen_nombre = $_FILES["foto_perfil"]["name"] ?? "";
+            $latitud = $_POST['lat'] ?? "";
+            $longitud = $_POST['lng'] ?? "";
 
-            if ($this->usuarioModel->validarUsername($user_name) && $this->usuarioModel->validarEmail($email) && $clave === $clave_rep) {
-                $hash = $this->usuarioModel->hashearClave($clave);
-                $ruta_imagen = $this->usuarioModel->validarImagen($imagen_nombre,$user_name);
-                $this->usuarioModel->registrar($nombre, $apellido, $fecha_nac, $genero, $email, $user_name, $hash,$ruta_imagen);
-                header('Location:/autenticacion');
-                exit();
-            }else{
+            if(empty($nombre) || empty($apellido) || empty($fecha_nac) || empty($genero) || empty($user_name) || empty($email) || empty($clave) || empty($clave_rep) || empty($imagen_nombre) || empty($latitud) || empty($longitud)){
                 header('Location:/registro?error=1');
                 exit();
+            } else{
+                $ubicacion = $latitud . ',' . $longitud;
+                if ($this->usuarioModel->validarUsername($user_name) && $this->usuarioModel->validarEmail($email) && $clave === $clave_rep) {
+                    $hash = $this->usuarioModel->hashearClave($clave);
+                    $ruta_imagen = $this->usuarioModel->validarImagen($imagen_nombre,$user_name);
+                    echo $ruta_imagen;
+                    $this->usuarioModel->registrar($nombre, $apellido, $fecha_nac, $genero, $ubicacion, $email, $user_name, $hash, $ruta_imagen);
+                    header('Location:/autenticacion');
+                    exit();
+                }else{
+                    header('Location:/registro?error=1');
+                    exit();
+                }
             }
         }
 //            if (($this->validarEmail($email))) {

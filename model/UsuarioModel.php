@@ -13,7 +13,7 @@ class UsuarioModel {
        if($user_name = $usuarios){
            die('Ya existe un usuario con ese nombre');
         } else {
-           $this->database->query("INSERT INTO Usuario (nombre,apellido, fecha_nac,genero, ubicacion,email,user_name,contrasenia,foto_perfil) 
+           $this->database->query("INSERT INTO Usuario (nombre, apellido, fecha_nac, genero, ubicacion, email, user_name, contrasenia, foto_perfil) 
              VALUES ('$nombre','$apellido','$fecha_nac','$genero','$ubicacion','$email','$user_name','$contrasenia','$foto_perfil')");
        }
 
@@ -22,10 +22,10 @@ class UsuarioModel {
 
     /*INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `fecha_nac`, `genero`, `ubicacion`, `email`, `user_name`, `contrasenia`, `foto_perfil`, `fecha_ingreso`, `id_rol`) VALUES (NULL, 'pedro', 'pika', '2023-05-29 19:24:20.000000', '1', ST_GeomFromText(''), 'email@gmail.com', 'email233', 'lelele', NULL, current_timestamp(), '1')
      * */
-    public function registrar($nombre,$apellido,$fecha_nac,$genero,$email,$user_name,$hash,$ruta_imagen){
+    public function registrar($nombre,$apellido,$fecha_nac,$genero,$ubicacion,$email,$user_name,$hash,$ruta_imagen){
         $query = $this->database->query(
-            "INSERT INTO usuario (nombre,apellido,fecha_nac,genero,email,user_name,contrasenia,foto_perfil)
-             VALUES ('$nombre','$apellido','$fecha_nac','$genero','$email','$user_name','$hash','$ruta_imagen')"
+            "INSERT INTO usuario (nombre,apellido,fecha_nac,genero,ubicacion,email,user_name,contrasenia,foto_perfil)
+             VALUES ('$nombre','$apellido','$fecha_nac','$genero','$ubicacion','$email','$user_name','$hash','$ruta_imagen')"
         );
     }
 
@@ -123,5 +123,14 @@ class UsuarioModel {
         return $usuario;
     }
 
+/*
+    public function verificarUbicacion($ubicacion){
+        if(empty($ubicacion) || strpos($ubicacion, ',') === false){
+            die("Ubicacion vacía o inválida");
+        } else{
+            return $ubicacion;
+        }
+    }
+*/
 
 }
