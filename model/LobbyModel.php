@@ -19,8 +19,19 @@ class LobbyModel
     public function getPartidas($id){
         $sql = "SELECT P.id_partida, P.fecha, P.puntaje
                 FROM partida P
-                WHERE id_usuario = '$id'";
-        return $this->database->query_assoc($sql);
+                WHERE id_usuario = '$id'
+                ORDER BY P.fecha DESC
+                LIMIT 10";
+        $resultado = $this->database->query_assoc($sql);
+
+        //conversion de la fecha a tipo d/m/y
+        foreach ($resultado as &$result){
+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $result["fecha"]);
+            $formattedDate = $date->format('d/m/y');
+            $result["fecha"] = $formattedDate;
+        }
+
+        return $resultado;
     }
 
     public function getPuntosAcumuladosYPartidasJugadas($id){
@@ -29,6 +40,4 @@ class LobbyModel
                 WHERE P.id_usuario = '$id'";
         return $this->database->query_assoc($sql);
     }
-
-
 }
