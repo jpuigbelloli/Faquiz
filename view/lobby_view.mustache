@@ -7,27 +7,28 @@
 
                 {{#usuario}}
                     <h1 class="me-auto"> Hola {{user_name}} </h1>
-
-                    <h1 class="ms-5">Puntos acumulados: {{puntuacion}}</h1>
-
                 {{/usuario}}
+                {{#datos}}
+                    <h1 class="ms-5">Puntos acumulados: {{total}}</h1>
+                    <h1 class="ms-5">Partidas jugadas: {{partidas}}</h1>
+                {{/datos}}
     </div>
     <main class=" d-flex justify-content-around align-items-center m-3">
             <div  class="card-body flex-lg-grow-1 bg-light-subtle " style="color: gray">
                 <h5 class="card-title text-center mt-2" >Historial de partidas</h5>
-                <table class="card-text  table-bordered mt-3 text-center" style="width: 100% ">
+                <table class="card-text  table-bordered mt-3 text-center" style="width: 100%;color:black;">
                     <tr>
                         <th>Partida</th>
                         <th>Puntaje</th>
                         <th>Fecha</th>
                     </tr>
-                    {{#usuario}}
+                    {{#partidas}}
                         <tr>
-                            <td>{{idPartida}}</td>
+                            <td>{{id_partida}}</td>
                             <td>{{puntaje}}</td>
                             <td>{{fecha}}</td>
                         </tr>
-                    {{/usuario}}
+                    {{/partidas}}
                 </table>
 
             </div>

@@ -1,5 +1,5 @@
 <?php
-
+require_once 'helpers/Usuario.php';
 class LobbyController
 {
     private $usuarioModel;
@@ -23,6 +23,8 @@ class LobbyController
 
         $usuario = $_SESSION['usuario'];
         $data['usuario'] = $this->usuarioModel->getHeader($usuario);
+        $data['partidas'] = $this->lobbyModel->getPartidas(Usuario::getID());
+        $data['datos'] = $this->lobbyModel->getPuntosAcumuladosYPartidasJugadas(Usuario::getID());
         $this->renderer->render('lobby', $data);
     }
 
