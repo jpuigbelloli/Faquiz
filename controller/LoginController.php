@@ -16,6 +16,7 @@ class LoginController
         $this->renderer->render('login',$data);
     }
 
+
     public function irALogin()
     {
         $this->renderer->render('login');
@@ -36,5 +37,11 @@ class LoginController
             header('Location:/login?error=1');
             exit();
         }
+    }
+
+    public function logout(){
+        session_destroy();
+        header('Location:/');
+        exit();
     }
 }

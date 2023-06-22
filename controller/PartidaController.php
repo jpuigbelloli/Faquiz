@@ -1,71 +1,85 @@
 <?php
 
+include_once ('helpers/Partida.php');
+
 class PartidaController{
 
     private $renderer;
     private $partidaModel;
-    private $id;
-    private $respuestaCorrecta;
-    private $puntos;
-    private $puntaje;
-    private $temporizador;
 
     public function __construct($partidaModel,$renderer){
         $this->renderer = $renderer;
         $this->partidaModel = $partidaModel;
-        $this->id =0;
-        $this->puntaje = 0;
-        $this->puntos = 0;
-        $this->tiempoTotal = 10;
     }
 
     public function list()
     {
-        $_SESSION['pregunta']           =   $this->partidaModel->obtenerPregunta();
-        $this->id                   =   $_SESSION['pregunta'][0]['ID'];
-        $_SESSION['respuestas']         =   $this->partidaModel->obtenerRespuestas($this->id);
-        $respuestaCorrecta          = $_SESSION['respuestas']['esCorrecta'];
-        $this->responder($respuestaCorrecta);
-
         if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
-            header('Location: /login');
+            header('Location:/login');
             exit();
         }
 
-        $data["pregunta_respuestas"] = $this->partidaModel->obtenerPreguntasYRespuestas();
-        $this->respuestaCorrecta = $data["pregunta_respuestas"][0]['correcta'];
-//        '<script src="./public/js/reload.js"></script>';
-        $this->renderer->render('partida',$_SESSION );
+        $partida = new Partida();
+        $_SESSION['puntos'] = $partida->getPuntaje();
+        $this->renderer->render('partida');
     }
 
-    public function responder($respuestaCorrecta){
-            $id = $_SESSION['pregunta'][0]['ID'];
-           $this->temporizador= $_SESSION['temporizador'] = time();
+    public function nuevaPregunta(){
+        if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
+            header('Location:/login');
+            exit();
+        }
+        //tiempo actual en ms en el que guardo en session
+        $currentTime = round(microtime(true) * 1000);
+        $_SESSION["tiempo"] = $currentTime;
 
-            $respuesta = isset($_POST['respuesta']) ? $_POST['respuesta'] : '';
+        //Traigo la pregunta al azar
+        $data["pregunta"] = $this->partidaModel->obtenerPregunta();
 
-            if ($_SESSION['pregunta'][0]['ID'] === $id && $respuesta != '') {
-                if ($respuesta == $respuestaCorrecta && $this->temporizador < 10) {
-                    $this->puntos++;
-                    $this->puntaje += $this->puntos;
-                    echo "Correcto!";
-                    header('Location:/partida');
-                } else {
-                    echo "Respuesta Incorrecta";
-                    $this->puntos = 0;
-                    var_dump($respuesta);
-                    '<br>';
-                    var_dump($respuestaCorrecta);
-                    echo $this->temporizador;
-                }
-            }
+        //guardo el id de pregunta
+        $idPregunta = $data["pregunta"][0]["id_pregunta"];
+
+        //traigo respuestas de acuerdo al id de pregunta
+        $data["respuestas"] = $this->partidaModel->obtenerRespuestas($idPregunta);
+
+        echo json_encode($data);
+    }
+    public function responder(){
+        if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
+            header('Location:/login');
+            exit();
+        }
+        $respuesta = $_POST['respuesta'] ?? "";
+        $id_pregunta = $_POST['id_pregunta'] ?? "";
+        $tiempo = $_POST['tiempo'] ?? "";
+
+        $userId = $this->partidaModel->getUserId($_SESSION['usuario']);
+
+//        $correcta = $this->partidaModel->esCorrecta("Thomas Edison","21");
+
+        $diferenciaTiempo = $tiempo - $_SESSION['tiempo'];
+        Logger::info("diferencia de tiempo entre que se mando la pregunta y respuesta en ms ".$diferenciaTiempo);
+        $correcta = $this->partidaModel->esCorrecta($respuesta,$id_pregunta);
+
+        if($correcta[0]["correcta"] == 1 && $diferenciaTiempo <= 10500){
+            $_SESSION['puntos']++;
+            Logger::info($_SESSION['puntos']);
+            $this->partidaModel->guardarPreguntaCorrectaOIncorrecta($id_pregunta,1,$userId[0]["id"]);
+        } else {
+            $this->partidaModel->guardarPreguntaCorrectaOIncorrecta($id_pregunta,0,$userId[0]["id"]);
+            $this->partidaModel->guardarPartida($userId[0]["id"],$_SESSION['puntos']);
         }
 
+        echo json_encode($correcta);
+    }
 
-//                $usuario = $_SESSION['usuario'];
-//                $puntaje= $_GET['puntos'];
-//                $this->partidaModel->crearPartida($usuario,$puntaje);
+    public function fin(){
+        $userId = $this->partidaModel->getUserId($_SESSION['usuario']);
+        $this->partidaModel->guardarPartida($userId[0]["id"],$_SESSION['puntos']);
 
+        $data["puntaje"] = $_SESSION['puntos'];
+        echo json_encode($data);
+    }
 
     public function getId(): int
     {
@@ -75,26 +89,6 @@ class PartidaController{
     {
         return $this->respuestaCorrecta;
     }
-
-
-
-   /* public function esCorrecta($id){
-        $respuesta = $_POST['respuesta'];
-        $correcta = false;
-        $resp_correcta =($this->partidaModel->respuestaCorrecta($id)) ;
-
-
-            if ($respuesta==$resp_correcta) {
-                     $correcta= true;
-
-                }else {
-
-                   var_dump($resp_correcta);
-                    echo($respuesta);
-                }
-        return $correcta;
-    }*/
-
 
 
 

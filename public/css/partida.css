@@ -3,7 +3,6 @@
 }
 a {
     text-decoration: none;
-    color: inherit;
 }
 
 .categoria {
@@ -13,3 +12,77 @@ a {
 .opcion{
     border-color: #0f5132;
 }
+
+.width-card{
+    width: 65%!important;
+}
+
+@media (min-width: 992px) {
+    .width-card{
+        width: 25%!important;
+    }
+}
+
+.deshabilitado{
+    pointer-events:none;
+}
+
+.gris{
+    background-color: gray;
+}
+
+.boton{
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.verde{
+    background-color: green;
+}
+
+.rojo{
+    background-color: red;
+}
+
+.Arte{
+    background-color: deeppink;
+}
+
+.Historia{
+    background-color: blue;
+}
+
+.Geografia{
+    background-color: #39ace7;
+}
+
+.Ciencia{
+    background-color: greenyellow;
+}
+
+.Deportes{
+    background-color: orange;
+}
+
+.Entretenimiento{
+    background-color: yellow;
+}
+
+.modal-dialog.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 1rem);
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+
+
+

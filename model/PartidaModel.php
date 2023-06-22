@@ -8,56 +8,65 @@ class PartidaModel{
         $this->database = $database;
     }
 
-    public function obtenerPregunta(){
-        $sql = "SELECT P.id_pregunta ID,P.pregunta, C.descripcion categoria
+    public function obtenerPreguntasYRespuestas(){
+    $sql = "SELECT id_pregunta,pregunta, respuesta_A AS A,respuesta_B AS B, respuesta_C AS C,respuesta_d AS D, C.descripcion categoria, P.respuesta_Correcta correcta
             FROM pregunta P INNER JOIN 
-                categoria C 
-                ON C.id_categoria = P.id_categoria 
+                categoria C ON P.id_categoria = C.id_categoria
             ORDER BY RAND() LIMIT 1";
+    return $this->database->query_assoc($sql);
+    }
+
+    public function obtenerPregunta(){
+        $sql = "SELECT P.id_pregunta AS id_pregunta, P.pregunta AS pregunta, C.descripcion AS categoria FROM pregunta P
+                JOIN categoria C
+                ON P.id_categoria = C.id_categoria
+                ORDER BY RAND() LIMIT 1";
+
         return $this->database->query_assoc($sql);
     }
-    public function obtenerRespuestas($id_pregunta){
-        $sql = "SELECT  R.respuesta, R.correcta 
-                FROM respuesta R INNER JOIN 
-                    pregunta P ON R.id_pregunta = P.id_pregunta
-                     WHERE P.id_pregunta = $id_pregunta 
-                       AND R.id_respuesta IN (SELECT id_respuesta FROM respuesta)";
 
-        $respuestas = $this->database->query_assoc($sql);
+    public function obtenerRespuestas($id){
+        $sql = "SELECT ROW_NUMBER() OVER (ORDER BY respuesta) AS numero ,R.respuesta AS respuesta
+                FROM respuesta R
+                WHERE R.id_pregunta = '$id'";
 
-            $array['respuestas']= array();
-            $array['A']=$respuestas[0]['respuesta'];
-            $array['B']=$respuestas[1] ['respuesta'];
-            $array['C']=$respuestas[2] ['respuesta'];
-            $array['D']=$respuestas[3] ['respuesta'];
-            $array['esCorrecta'] = $respuestas[0]['respuesta'];
-
-        $respuestaCorrecta = $this->respuestaCorrecta($id_pregunta);
-
-        foreach ($respuestas as $respuesta){
-            if($respuesta == $respuestaCorrecta){
-                $array['esCorrecta'] = $respuesta['i'];
-            }
-        }
-
-
-        return $array;
+        $data = $this->database->query_assoc($sql);
+        //Randomizado del orden de las respuestas
+        shuffle($data);
+        return $data;
     }
 
-    public function agregarPartida($usuario,$anotador){
+    public function esCorrecta($respuesta,$id_pregunta){
+        $sql = "SELECT R.correcta FROM respuesta R
+                WHERE R.respuesta = '$respuesta'
+                AND R.id_pregunta = '$id_pregunta'";
+        //se podria sacar el AND
+        return $this->database->query_assoc($sql);
+    }
+
+    public function agregarPartida($userId,$puntaje){
          $sql = "INSERT INTO partida (id_usuario, puntaje) VALUES 
-                                       ($usuario,$anotador);";
+                                       ('$userId','$puntaje');";
          return$this->database->query($sql);
     }
+    public function guardarPreguntaCorrectaOIncorrecta($id_pregunta,$respuesta,$userId){
+        $sql = "INSERT INTO `estadistica` (`id_pregunta`, `respuesta`,`id_usuario`) 
+                VALUES ('$id_pregunta', '$respuesta','$userId')";
 
-    public function respuestaCorrecta($id_pregunta){
-        $sql = "SELECT R.respuesta 
-                FROM respuesta R  
-                WHERE R.id_pregunta = $id_pregunta AND 
-                      R.correcta = 1";
+        $this->database->query($sql);
+    }
+
+    public function getUserId($username){
+        $sql = "SELECT U.id_usuario AS id
+                FROM usuario U
+                WHERE U.user_name = '$username'";
         return $this->database->query_assoc($sql);
-        }
+    }
 
+    public function guardarPartida($id,$puntaje){
+        $sql = "INSERT INTO partida (id_usuario,puntaje)
+                VALUES('$id','$puntaje')";
 
-
+        $this->database->query($sql);
+    }
 }

@@ -1,21 +1,31 @@
 <?php
+session_start();
+
+//LIBRERIAS EXTERNAS
+include_once('third-party/mustache/src/Mustache/Autoloader.php');
+include_once('third-party/phpqrcode/qrlib.php');
+
+
+//HELPERS
 include_once('helpers/MySqlDatabase.php');
 include_once("helpers/MustacheRender.php");
 include_once('helpers/Router.php');
+include_once('helpers/QRHelper.php');
+include_once('helpers/Logger.php');
 
+//MODELS
 include_once('model/SongsModel.php');
 include_once('model/PerfilModel.php');
 include_once ('model/UsuarioModel.php');
 include_once ('model/PartidaModel.php');
 
+//CONTROLLERS
 include_once('controller/InicioSinLogController.php');
 include_once('controller/RegistroController.php');
 include_once('controller/LoginController.php');
 include_once('controller/PerfilController.php');
 include_once ('controller/LobbyController.php');
 include_once ('controller/PartidaController.php');
-
-include_once('third-party/mustache/src/Mustache/Autoloader.php');
 
 
 class Configuration {

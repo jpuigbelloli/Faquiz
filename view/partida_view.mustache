@@ -1,87 +1,41 @@
 {{> header_sesion}}
-<link rel="stylesheet" href="/public/css/partida.css">
+<head>
+    <link rel="stylesheet" href="/public/css/partida.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/public/js/partida.js"></script>
+</head>
 <body  class="bd-image" style="background-image: url('/public/imgs/Fondo.png')">
-<!--    <div class="container justify-content-center">-->
-<!--        <div class="main-body">-->
-<!--            <div class=" ">-->
-
-<!--                <div class="">-->
-<!--                    <div class="card m-3">-->
-<!--                        <div>-->
-<!--                            {{#pregunta_respuestas}}-->
-<!--                                <h2 class="text-center">{{categoria}}</h2>-->
-<!--                            {{/pregunta_respuestas}}-->
-
-<!--                        </div>-->
-<!--                        <div class="card-body mt-3">-->
-<!--                            <div class=" text-secondary">-->
-<!--                                {{#pregunta_respuestas}}-->
-<!--                                    <h3 class="text-center">{{pregunta}}</h3>-->
-<!--                                {{/pregunta_respuestas}}-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    <div class="d-flex justify-content-xl-around align-content-center " >-->
-<!--                        <div class="">-->
-<!--                            <div class=" card">-->
-<!--                                <div class="card-body flex-lg-row  ">-->
-<!--                                    <div class=" text-secondary">-->
-<!--                                        {{#pregunta_respuestas}}-->
-<!--                                            <button class="btn-outline-secondary rounded-4" formmethod="post" type="submit" name="Ah5> </button>-->
-<!--                                        {{/pregunta_respuestas}}-->
-<!--                                    </div>-->
-<!--                                    <hr>-->
-<!--                                    <div class="flex-lg-grow-1 text-secondary">-->
-<!--                                        {{#pregunta_respuestas}}-->
-<!--                                            <button class="btn-outline-secondary rounded-4" formmethod="post" type="submit" name="Bh5> </button>-->
-<!--                                        {{/pregunta_respuestas}}-->
-<!--                                    </div>-->
-<!--                                    <hr>-->
-<!--                                    <div class="flex-lg-grow-1 text-secondary">-->
-<!--                                        {{#pregunta_respuestas}}-->
-<!--                                            <button class="btn-outline-secondary rounded-4" formmethod="post" type="submit" name="Ch5> </button>-->
-<!--                                        {{/pregunta_respuestas}}-->
-<!--                                    </div>-->
-<!--                                    <hr>-->
-<!--                                    <div class="flex-lg-grow-1 text-secondary">-->
-<!--                                        {{#pregunta_respuestas}}-->
-<!--                                            <button class="btn-outline-secondary rounded-4" formmethod="post" type="submit" name="Dh5> </button>-->
-<!--                                        {{/pregunta_respuestas}}-->
-<!--                                    </div>-->
-
-
-<!--                                </div>-->
-<!--                            </div>-->
-
-<!--                        </div>-->
-
-
-
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
     <div class="container text-center">
-        <div class=" ">
+        <!--<div class="d-inline-flex">
 
-                <span  class="text-md-start">Puntos: {{#pregunta}} {{puntos}} {{/pregunta}} </span>
-            <script src="../public/js/temporizador.js"></script>
-            <span class="text-md-end" id="temporizador">Tiempo:</span>
-
+                <span>Puntos: {{#pregunta_respuesta}} {{puntos}} {{/pregunta_respuesta}} </span>
+            <span id="temporizador">Tiempo:</span>
 
 
+
+        </div>-->
+
+        <div class="row" style="margin-top: 1em;padding: 4em;"  >
+            <div class="col-6 col-lg-6">
+                <div class="card mx-auto p-2 w-auto">
+                    <h4>Tiempo: <span id="tiempo">10</span></h4>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-6">
+                <div class="card mx-auto p-2 w-auto">
+                    <h4>Puntos: <span id="puntos">0</span></h4>
+                </div>
+            </div>
         </div>
+
         <!--Categoria-->
-        <div class="row categoria">
+        <div class="row">
             <div class="col-12 col-lg-12 text-center">
-                <div class="card mx-auto p-2 w-50">
-                    {{#pregunta}}
-                        <h2>{{categoria}}</h2>
-                    {{/pregunta}}
+                <div id="categoria_columna" class="card mx-auto p-2 w-50 m-3">
+
+                        <h2 id="categoria"></h2>
+
                 </div>
             </div>
         </div>
@@ -90,9 +44,7 @@
         <div class="row mt-3">
             <div class="col-12 col-lg-12">
                 <div class="card m-4 p-4">
-                    {{#pregunta}}
-                    <h3>{{pregunta}}</h3>
-                    {{/pregunta}}
+                    <h3 id="pregunta"></h3>
                 </div>
             </div>
         </div>
@@ -100,81 +52,90 @@
 
         <!--Respuestas-->
         <div class="row">
-
-            <div class="">
-                {{#respuestas}}
-                    <form  class=" d-flex justify-content-center align-content-center  col-lg-20" method="post" action="">
-                        <label class="flex-md-fill  opcion{{#esCorrecta}}correcta{{/esCorrecta}}" >
-                            <button class="card m-2 p-2" type="submit" name="respuesta" value="{{A}}" ><h4>A) {{A}}</h4></button>
-                        </label><br>
-                        <label class="flex-md-fill  opcion{{#esCorrecta}}correcta{{/esCorrecta}}">
-                            <button class="card m-2 p-2" type="submit"  name="respuesta" value="{{B}}"><h4>B) {{B}}</h4></button>
-                        </label>
-                        <br>
-                        <label class="flex-md-fill  opcion{{#esCorrecta}}correcta{{/esCorrecta}}">
-                            <button class="card m-2 p-2" type="submit"  name="respuesta" value="{{C}}"><h4>C) {{C}}</h4></button>
-                        </label>
-                        <label class=" flex-md-fill  opcion{{#esCorrecta}}correcta{{/esCorrecta}}">
-                            <button class="card m-2 p-2" type="submit" name="respuesta" value="{{D}}"><h4>D) {{D}}</h4></button>
-                        </label>
-
-
-                    </form>
-                {{/respuestas}}
-            </div>
-<!--
-            <div class="col-12 col-lg-6 opcion{{#esCorrecta}}correcta{{/esCorrecta}}">
-                 {{#respuestas}}
-                <a href="/partida?opcion=B">
-                    <div class="card m-2 p-2">
-
-                            <h4>B) {{B}}</h4>
-
-                    </div>
-                </a>
-                 {{/respuestas}}
-            </div>
-
-            <div class="col-12 col-lg-6 opcion{{#esCorrecta}}correcta{{/esCorrecta}}">
-                {{#respuestas}}
-                <a href="/partida?opcion=C">
+            <div class="col-12 col-lg-6">
                 <div class="card m-2 p-2">
-
-                            <h4>C) {{C}}</h4>
-
-                    </div>
-                </a>
-                {{/respuestas}}
+                    <button class="boton mi-boton"><h4 class="respuesta"></h4></button>
+                </div>
             </div>
-
-            <div class="col-12 col-lg-6 opcion {{#esCorrecta}}correcta{{/esCorrecta}}">
-                {{#respuestas}}
-                <a href="/partida?opcion=D">
+            <div class="col-12 col-lg-6">
                 <div class="card m-2 p-2">
-
-
-                            <h4>D) {{D}}</h4>
-
-
-                    </div>
-                </a>
-                {{/respuestas}}
-            </div>-->
+                    <button class="boton mi-boton"><h4 class="respuesta"></h4></button>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="card m-2 p-2">
+                    <button class="boton mi-boton"><h4 class="respuesta"></h4></button>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="card m-2 p-2">
+                    <button class="boton mi-boton"><h4 class="respuesta"></h4></button>
+                </div>
+            </div>
         </div>
         <!--Fin Respuestas-->
 
         <!--Acciones-->
         <div class="row" style="margin-top: 1em;padding: 4em;">
             <div class="col-6 col-lg-6">
-                <div class="card mx-auto p-2">
-                    <h6>Usar Trampita</h6>
+                <div class="card mx-auto p-2 w-auto">
+                    <button class="boton "><h6><i class="fa-solid fa-bomb"></i>  Usar Trampita</h6></button>
                 </div>
             </div>
             <div class="col-6 col-lg-6">
                 <div class="card mx-auto p-2 w-auto">
-                    <h6>Reportar Pregunta</h6>
+                    <button class="boton reportar"><h6 class="report_pregunta"><i class="fa-solid fa-flag"></i>  Reportar Pregunta</h6></button>
+                </div>
+            </div>
+        </div>
+        <!--Fin Acciones-->
+
+        <!--Partida terminada
+        <div id="termino-partida" class="row">
+            <div class="col-12 col-lg-12">
+                <div class="card mx-auto p-2 w-auto">
+                    <h3>La partida finalizó,mejor suerte la próxima (:<br>
+                    &ndash;&gt; Ir al Lobby <--</h3>
+                </div>
+            </div>
+        </div>
+        Fin Partida terminada-->
+    </div>
+
+    <!-- Modal -->
+    <div id="finPartida" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center" style="text-align: center">
+                    <h5 class="modal-title w-100">Respuesta Incorrecta! ☹️</h5>
+                </div>
+                <div class="modal-body text-center">
+                    <h6>Obtuviste <span id="losPuntos"></span> puntos!!!</h6>
+                    <br>
+                    <br>
+                    <h6><a href="/lobby">Intentalo de vuelta</a></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="finDeTiempo" class="modal fade" tabindex="-2" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center" style="text-align: center">
+                    <h5 class="modal-title w-100">Se te terminó el tiempo ☹️</h5>
+                </div>
+                <div class="modal-body text-center">
+                    <h6>Obtuviste <span id="misPuntos"></span> puntos</h6>
+                    <br>
+                    <br>
+                    <h6><a href="/lobby">Intentalo de vuelta</a></h6>
                 </div>
             </div>
         </div>
     </div>
 </body>
+<script>
+
+
+</script>
