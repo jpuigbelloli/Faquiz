@@ -1,7 +1,7 @@
 <?php
 
 include_once ('helpers/Partida.php');
-
+require_once 'helpers/Usuario.php';
 class PartidaController{
 
     private $renderer;
@@ -34,7 +34,7 @@ class PartidaController{
         $_SESSION["tiempo"] = $currentTime;
 
         //Traigo la pregunta al azar
-        $data["pregunta"] = $this->partidaModel->obtenerPregunta();
+        $data["pregunta"] = $this->partidaModel->obtenerPregunta(Usuario::getID());
 
         //guardo el id de pregunta en sesion
         $idPregunta = $data["pregunta"][0]["id_pregunta"];
