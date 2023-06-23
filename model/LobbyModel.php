@@ -40,4 +40,15 @@ class LobbyModel
                 WHERE P.id_usuario = '$id'";
         return $this->database->query_assoc($sql);
     }
+
+    public function getRankingGlobal(){
+        $sql = "SELECT U.id_usuario AS id, U.user_name AS user, SUM(p.puntaje) AS puntaje, ROW_NUMBER() OVER (ORDER BY puntaje DESC) AS puesto
+                FROM usuario U
+                JOIN partida P
+                ON U.id_usuario = P.id_usuario
+                GROUP BY U.nombre
+                ORDER BY puntaje DESC";
+
+        return $this->database->query_assoc($sql);
+    }
 }

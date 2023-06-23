@@ -39,7 +39,7 @@
             </div>
 
             <div class=" card-body flex-lg-grow-1 bg-light-subtle border border-secundary " style="color: gray">
-                <h5 class="card-title text-center mt-2">Ranking</h5>
+                <h5 class="card-title text-center mt-2">Ranking Global</h5>
                 <table class="mt-3 align-items-center card-text table-bordered text-center" style="width: 100%">
                     <tr class=>
                         <th>Puesto</th>
@@ -47,13 +47,13 @@
                         <th>Usuario</th>
                     </tr>
 
-                    {{#usuario}}
+                    {{#ranking}}
                         <tr>
                             <td>{{puesto}}</td>
                             <td>{{puntaje}}</td>
-                            <td> {{jugador}}</td>
+                            <td><a href="/perfil/{{user}}">{{user}}</a></td>
                         </tr>
-                    {{/usuario}}
+                    {{/ranking}}
                 </table>
             </div>
     </main>

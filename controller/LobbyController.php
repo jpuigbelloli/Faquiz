@@ -25,18 +25,7 @@ class LobbyController
         $data['usuario'] = $this->usuarioModel->getHeader($usuario);
         $data['partidas'] = $this->lobbyModel->getPartidas(Usuario::getID());
         $data['datos'] = $this->lobbyModel->getPuntosAcumuladosYPartidasJugadas(Usuario::getID());
+        $data['ranking'] = $this->lobbyModel->getRankingGlobal();
         $this->renderer->render('lobby', $data);
     }
-
-    /*public function execute(){
-        $usuario = $_SESSION['usuario'];
-        $data['usuario'] = $this->usuarioModel->getHeader($usuario);
-        $this->renderer->render('lobby',$data);
-        if(isset($_POST['jugar'])){
-            $a = array('a');
-            $this->renderer->render('partida',$a);
-        }
-    }*/
-
-
 }
