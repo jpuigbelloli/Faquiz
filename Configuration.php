@@ -18,6 +18,7 @@ include_once('model/SongsModel.php');
 include_once('model/PerfilModel.php');
 include_once ('model/UsuarioModel.php');
 include_once ('model/PartidaModel.php');
+include_once ('model/LobbyModel.php');
 
 //CONTROLLERS
 include_once('controller/InicioSinLogController.php');
@@ -52,6 +53,7 @@ class Configuration {
     public function getLobbyController(){
         return new LobbyController(
             new UsuarioModel($this->getDatabase()),
+            new LobbyModel($this->getDatabase()),
             $this->getRenderer());
     }
 
