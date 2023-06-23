@@ -26,6 +26,7 @@ class LobbyController
         $data['partidas'] = $this->lobbyModel->getPartidas(Usuario::getID());
         $data['datos'] = $this->lobbyModel->getPuntosAcumuladosYPartidasJugadas(Usuario::getID());
         $data['ranking'] = $this->lobbyModel->getRankingGlobal();
+        $data['logueado'] = $_SESSION['logueado'];
         $this->renderer->render('lobby', $data);
     }
 }
