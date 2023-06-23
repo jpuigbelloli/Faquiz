@@ -1,8 +1,12 @@
 $(document).ready(function() {
     var puntos = 0;
-    $('#termino-partida').hide();
 
-    $('#myModal').modal({
+    $('#finPartida').modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+
+    $('#finDeTiempo').modal({
         backdrop: 'static',
         keyboard: false
     });
@@ -28,7 +32,7 @@ $(document).ready(function() {
                 tiempoElement.text(tiempoValue);
             } else {
                 clearInterval(timer);
-                finPartida();
+                finTiempo();
             }
         }, 1000);
     }
@@ -38,6 +42,10 @@ $(document).ready(function() {
         var idPregunta = $(this).data('id-pregunta');
         var id_div = $(this).closest('.card').attr('id');
         mandarRespuesta(respuesta, idPregunta,id_div);
+    });
+
+    $(document).on('click', '.reportar', function(){
+
     });
 
     function checkearCategoria(categoria) {
@@ -94,7 +102,7 @@ $(document).ready(function() {
                     $('#' + id_div).addClass('rojo');
                     $('.boton').prop('disabled',true);
                     clearInterval(timer);
-                    $('#termino-partida').show();
+                    respuestaIncorrecta(correcta.puntos);
                 }
             },
             error: function (xhr, status, error) {
@@ -102,6 +110,10 @@ $(document).ready(function() {
                 console.error(error);
             }
         });
+    }
+
+    function reportarPregunta(param1){
+        console.log("pregunta report"+param1)
     }
 
     function nuevaPregunta(){
@@ -136,6 +148,13 @@ $(document).ready(function() {
                     // button.attr('onclick', 'mandarRespuesta("' + respuesta.respuesta + '", ' + pregunta.id_pregunta + ')');
                 });
 
+                var preguntaAReportar = pregunta.pregunta;
+
+                $('.reportar').on('click', function() {
+
+                    reportarPregunta(preguntaAReportar);
+                });
+
                 //---> FIN SETEO DE LOS CAMPOS <---//
             },
             error: function (xhr, status, error) {
@@ -144,7 +163,12 @@ $(document).ready(function() {
         });
     }
 
-    function finPartida(){
+    function respuestaIncorrecta(puntos){
+        $('#losPuntos').text(puntos);
+        $('#finPartida').modal('show');
+    }
+
+    function finTiempo(){
         $.ajax({
             url: 'http://localhost/partida/fin',
             method: 'GET',
@@ -152,7 +176,7 @@ $(document).ready(function() {
                 var data = JSON.parse(respuesta);
                 var puntaje = data.puntaje;
                 $('#misPuntos').text(puntaje);
-                $('#myModal').modal('show');
+                $('#finDeTiempo').modal('show');
             },
             error: function (xhr, status, error) {
                 console.error(error);
