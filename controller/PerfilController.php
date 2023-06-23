@@ -17,24 +17,20 @@ class PerfilController
         $nombreDeUsuario = $_SESSION['usuario'] ?? $_GET['usuario'];
         $usuario = $this->perfilModel->getData($nombreDeUsuario);
 
-        // Generar el código QR
-        $rutaQR = QRHelper::generarCodigoQR($nombreDeUsuario);
-        $usuario['rutaQR'] = $rutaQR;
+        $usuario['rutaQR'] = $this->perfilModel->getDireccionQR($nombreDeUsuario);
 
 
         if ($usuario) {
             if (isset($_SESSION['logueado']) && $_SESSION['logueado'] === true) {
                 // Usuario logueado
                 $usuario['user_name'] = $_SESSION['usuario'];
-                $usuario['rutaQR'] = $rutaQR;
                 $data['logueado'] = $_SESSION['logueado'];
 
                 $data['usuario'] = $usuario;
                 $this->renderer->render('perfil', $data);
             } else {
                 // Usuario no logueado
-                $usuario['user_name'] = $nombreDeUsuariogit;
-                $usuario['rutaQR'] = $rutaQR;
+                $usuario['user_name'] = $nombreDeUsuario;
 
                 $data['usuario'] = $usuario;
                 $this->renderer->render('perfil', $data);
