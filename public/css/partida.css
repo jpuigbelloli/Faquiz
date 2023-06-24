@@ -1,6 +1,12 @@
-*{
+* {
     opacity: unset;
 }
+
+.bd-image {
+    background-image: url('/public/imgs/Fondo.png');
+    background-size: cover;
+}
+
 a {
     text-decoration: none;
 }
@@ -9,29 +15,29 @@ a {
     margin-top: 0em;
 }
 
-.opcion{
+.opcion {
     border-color: #0f5132;
 }
 
-.width-card{
-    width: 65%!important;
+.width-card {
+    width: 65% !important;
 }
 
 @media (min-width: 992px) {
-    .width-card{
-        width: 25%!important;
+    .width-card {
+        width: 25% !important;
     }
 }
 
-.deshabilitado{
-    pointer-events:none;
+.deshabilitado {
+    pointer-events: none;
 }
 
-.gris{
+.gris {
     background-color: gray;
 }
 
-.boton{
+.boton {
     width: 100%;
     height: 100%;
     border: none;
@@ -39,35 +45,35 @@ a {
     background-color: transparent;
 }
 
-.verde{
+.verde {
     background-color: green;
 }
 
-.rojo{
+.rojo {
     background-color: red;
 }
 
-.Arte{
+.Arte {
     background-color: deeppink;
 }
 
-.Historia{
+.Historia {
     background-color: blue;
 }
 
-.Geografia{
+.Geografia {
     background-color: #39ace7;
 }
 
-.Ciencia{
+.Ciencia {
     background-color: greenyellow;
 }
 
-.Deportes{
+.Deportes {
     background-color: orange;
 }
 
-.Entretenimiento{
+.Entretenimiento {
     background-color: yellow;
 }
 
