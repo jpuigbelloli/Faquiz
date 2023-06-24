@@ -1,0 +1,30 @@
+{{> header}}
+<link rel="stylesheet" href="./public/css/login.css">
+
+<body class="bd-image" style="background-image: url('./public/imgs/Fondo.png')">
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <!-- Icon -->
+            <div class="fadeIn first">
+                <img src="./public/imgs/logo.svg" id="icon" alt="User Icon" height="45" width="45"/>
+                <h3>Faquiz</h3>
+            </div>
+
+        {{#error}}
+            <h2 style="color: red">error al loguearse</h2>
+        {{/error}}
+
+        <!-- Login Form -->
+        <form action="/login/validar" method="POST">
+            <input type="text" id="usuario" name="user_name" class="fadeIn second" name="login" required placeholder="Ingrese su usuario...">
+            <input type="password" id="contrasenia" name="contrasenia" class="fadeIn third" name="login" required placeholder="Ingrese su contraseña...">
+            <input type="submit" class="fadeIn fourth" value="Log In">
+        </form>
+
+            <!-- Remind Passowrd -->
+            <div id="formFooter">
+                <a class="underlineHover" href="#">Te olvidaste la contraseña?</a>
+            </div>
+        </div>
+    </div>
+</body>

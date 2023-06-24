@@ -1,25 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
-<title>W3.CSS Template</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Navbar -->
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <script src="https://kit.fontawesome.com/90ab493dae.js" crossorigin="anonymous"></script>
+    <title>Faquiz</title>
+</head>
 <body>
-
-<!-- Navbar -->
-<div class="w3-top">
-    <div class="w3-bar w3-black w3-card">
-        <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-        <a href="/" class="w3-bar-item w3-button w3-padding-large">La banda</a>
-        <a href="/songs/list" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Canciones</a>
-        <a href="/tours/list" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Presentaciones</a>
-    </div>
-</div>
-
-
-<!-- Page content -->
-<div class="w3-content" style="max-width:2000px;margin-top:46px">
+<header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="/public/imgs/logo.svg" alt="logo" width="40" height="40" class="d-inline-block align-top">
+                Faquiz
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                {{#logueado}}
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a href="/perfil/{{usuario.user_name}}" class="nav-link active" aria-current="page"><i
+                                    class="fa-solid fa-user"></i> Mi Perfil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/lobby" class="nav-link active" aria-current="page"><i
+                                    class="fa-solid fa-house"></i> Lobby</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="/login/logout" class="nav-link active" aria-current="page"><i
+                                    class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a>
+                        </li>
+                    </ul>
+                {{/logueado}}
+            </div>
+        </div>
+    </nav>
+</header>
+<script src="/public/js/bootstrap.min.js"></script>
+</body>
+</html>

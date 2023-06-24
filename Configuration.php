@@ -1,17 +1,35 @@
 <?php
+session_start();
+
+//LIBRERIAS EXTERNAS
+include_once('third-party/mustache/src/Mustache/Autoloader.php');
+include_once('third-party/phpqrcode/qrlib.php');
+
+
+//HELPERS
 include_once('helpers/MySqlDatabase.php');
 include_once("helpers/MustacheRender.php");
 include_once('helpers/Router.php');
+include_once('helpers/QRHelper.php');
+include_once('helpers/Logger.php');
+require_once 'helpers/Usuario.php';
 
-include_once ("model/ToursModel.php");
+//MODELS
 include_once('model/SongsModel.php');
+include_once('model/PerfilModel.php');
+include_once ('model/UsuarioModel.php');
+include_once ('model/PartidaModel.php');
+include_once ('model/LobbyModel.php');
+include_once ('model/SugerirPreguntaModel.php');
 
-include_once('controller/ToursController.php');
-include_once('controller/SongsController.php');
-include_once('controller/LaBandaController.php');
-include_once('controller/UserController.php');
-
-include_once('third-party/mustache/src/Mustache/Autoloader.php');
+//CONTROLLERS
+include_once('controller/InicioSinLogController.php');
+include_once('controller/RegistroController.php');
+include_once('controller/LoginController.php');
+include_once('controller/PerfilController.php');
+include_once ('controller/LobbyController.php');
+include_once ('controller/PartidaController.php');
+include_once ('controller/SugerirPreguntaController.php');
 
 
 class Configuration {
@@ -20,25 +38,46 @@ class Configuration {
     public function __construct() {
     }
 
-    public function getToursController() {
-        return new ToursController(
-            new ToursModel($this->getDatabase()),
-            $this->getRenderer());
-    }
-
-    public function getSongsController() {
-        return new SongsController(
-            new SongsModel($this->getDatabase()),
-            $this->getRenderer());
-    }
-
-    public function getLaBandaController() {
-        return new LaBandaController($this->getRenderer());
+    public function getInicioSinLogController() {
+        return new InicioSinLogController($this->getRenderer());
     }
 
     public function getRegistroController(){
-        return new UserController($this->getRenderer());
+        return new RegistroController(
+            new UsuarioModel($this->getDatabase()),
+                $this->getRenderer());
     }
+
+    public function getLoginController(){
+        return new LoginController(
+            new UsuarioModel($this->getDatabase()),
+            $this->getRenderer());
+    }
+    public function getLobbyController(){
+        return new LobbyController(
+            new UsuarioModel($this->getDatabase()),
+            new LobbyModel($this->getDatabase()),
+            $this->getRenderer());
+    }
+
+    public function getPerfilController(){
+        return new PerfilController(
+            new PerfilModel($this->getDatabase()),
+            $this->getRenderer());
+    }
+
+    public function getPartidaController(){
+        return new PartidaController(
+            new PartidaModel($this->getDatabase()),
+            $this->getRenderer());
+    }
+    public function getSugerirPreguntaController(){
+        return new SugerirPreguntaController(
+            new SugerirPreguntaModel($this->getDatabase()),
+            $this->getRenderer());
+    }
+
+
     private function getArrayConfig() {
         return parse_ini_file($this->configFile);
     }
@@ -59,7 +98,8 @@ class Configuration {
     public function getRouter() {
         return new Router(
             $this,
-            "getLaBandaController",
-            "list");
+            "getInicioSinLogController",
+            "list"
+    );
     }
 }
