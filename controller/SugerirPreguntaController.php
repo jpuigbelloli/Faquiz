@@ -13,10 +13,18 @@ class SugerirPreguntaController
     }
 
     public function list(){
+        if (!isset($_SESSION['logueado'])) {
+            header('Location:/login');
+            exit();
+        }
         $this->renderer->render('sugerirPregunta');
     }
 
     public function agregar(){
+        if (!isset($_SESSION['logueado'])) {
+            header('Location:/login');
+            exit();
+        }
         $pregunta = $_POST["pregunta"];
         $categoria = $_POST["categoria"];
         $respuesta1 = $_POST["respuesta1Text"];

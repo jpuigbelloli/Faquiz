@@ -13,6 +13,10 @@ class RevisarPreguntaController
     }
 
     public function list(){
+        if (!isset($_SESSION['logueado']) || Usuario::getROL()!=='EDITOR') {
+            header('Location:/lobby');
+            exit();
+        }
         $data["preguntas"] = $this->revisarPreguntaModel->getPreguntasARevisar();
 
         foreach ($data["preguntas"] as &$pregunta) {
@@ -30,6 +34,10 @@ class RevisarPreguntaController
     }
 
     public function aprobar(){
+        if (!isset($_SESSION['logueado']) || Usuario::getROL()!=='EDITOR') {
+            header('Location:/lobby');
+            exit();
+        }
         $id_pregunta = $_POST['id'];
 
         $this->revisarPreguntaModel->aprobarPregunta($id_pregunta);
@@ -53,6 +61,10 @@ class RevisarPreguntaController
     }
 
     public function rechazar(){
+        if (!isset($_SESSION['logueado']) || Usuario::getROL()!=='EDITOR') {
+            header('Location:/lobby');
+            exit();
+        }
         $id_pregunta = $_POST['id'];
         $this->revisarPreguntaModel->rechazarPregunta($id_pregunta);
     }
