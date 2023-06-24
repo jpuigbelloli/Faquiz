@@ -1,7 +1,6 @@
 <?php
 
 include_once ('helpers/Partida.php');
-require_once 'helpers/Usuario.php';
 class PartidaController{
 
     private $renderer;

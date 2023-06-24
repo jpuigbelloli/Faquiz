@@ -12,6 +12,7 @@ include_once("helpers/MustacheRender.php");
 include_once('helpers/Router.php');
 include_once('helpers/QRHelper.php');
 include_once('helpers/Logger.php');
+require_once 'helpers/Usuario.php';
 
 //MODELS
 include_once('model/SongsModel.php');
@@ -19,6 +20,7 @@ include_once('model/PerfilModel.php');
 include_once ('model/UsuarioModel.php');
 include_once ('model/PartidaModel.php');
 include_once ('model/LobbyModel.php');
+include_once ('model/SugerirPreguntaModel.php');
 
 //CONTROLLERS
 include_once('controller/InicioSinLogController.php');
@@ -27,6 +29,7 @@ include_once('controller/LoginController.php');
 include_once('controller/PerfilController.php');
 include_once ('controller/LobbyController.php');
 include_once ('controller/PartidaController.php');
+include_once ('controller/SugerirPreguntaController.php');
 
 
 class Configuration {
@@ -66,6 +69,11 @@ class Configuration {
     public function getPartidaController(){
         return new PartidaController(
             new PartidaModel($this->getDatabase()),
+            $this->getRenderer());
+    }
+    public function getSugerirPreguntaController(){
+        return new SugerirPreguntaController(
+            new SugerirPreguntaModel($this->getDatabase()),
             $this->getRenderer());
     }
 
