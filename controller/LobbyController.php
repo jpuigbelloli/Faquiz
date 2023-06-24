@@ -1,5 +1,4 @@
 <?php
-require_once 'helpers/Usuario.php';
 class LobbyController
 {
     private $usuarioModel;
