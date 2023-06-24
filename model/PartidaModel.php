@@ -15,19 +15,14 @@ class PartidaModel{
             ORDER BY RAND() LIMIT 1";
     return $this->database->query_assoc($sql);
     }
-
+    //obtiene las preguntas que el usuario no respondio y las que fueron agregadas
     public function obtenerPregunta($id){
         $sql = "SELECT P.id_pregunta AS id_pregunta, P.pregunta AS pregunta, C.descripcion AS categoria FROM pregunta P
                 JOIN categoria C
                 ON P.id_categoria = C.id_categoria
-                 WHERE P.id_pregunta NOT IN(
-                                            SELECT
-                                                id_pregunta
-                                            FROM
-                                                estadistica E
-                                            WHERE
-                                                E.respuesta = '1' AND E.id_usuario = '$id'
-                                        )  
+                WHERE P.id_pregunta NOT IN( SELECT id_pregunta FROM estadistica E
+                                            WHERE E.respuesta = '1' AND E.id_usuario = '$id')  
+                AND P.agregada = 1
                 ORDER BY RAND() LIMIT 1";
 
         return $this->database->query_assoc($sql);
