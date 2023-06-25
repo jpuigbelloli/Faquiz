@@ -13,9 +13,17 @@
                     <h1 class="ms-5">Partidas jugadas: {{partidas}}</h1>
                 {{/datos}}
     </div>
-    <div   class="mt-2 m-5" style="justify-items: center">
-        <a href="/sugerirPregunta"><button class="btn btn-warning"><i class="fa-solid fa-circle-question"></i>  Sugerir Pregunta</button></a>
-    </div>
+    {{#esJugador}}
+        <div   class="mt-2 m-5" style="justify-items: center">
+            <a href="/sugerirPregunta"><button class="btn btn-warning"><i class="fa-solid fa-circle-question"></i>  Sugerir Pregunta</button></a>
+        </div>
+    {{/esJugador}}
+
+    {{#esEditor}}
+        <div   class="mt-2 m-5" style="justify-items: center">
+            <a href="/revisarPregunta"><button class="btn btn-warning"><i class="fa-solid fa-magnifying-glass"></i>  Revisar preguntas sugeridas</button></a>
+        </div>
+    {{/esEditor}}
 
     <main class=" d-flex justify-content-around align-items-center m-3">
             <div  class="card-body flex-lg-grow-1 bg-light-subtle " style="color: gray">
