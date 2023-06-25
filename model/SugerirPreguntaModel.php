@@ -9,15 +9,9 @@ class SugerirPreguntaModel
         $this->database = $database;
     }
 
-    public function agregarPregunta($categoria,$pregunta){
-        $sql = "INSERT INTO pregunta(id_categoria,pregunta)
-                VALUES ('$categoria','$pregunta')";
-        return $this->database->query_ultimo_id($sql);
-    }
-
-    public function agregarRespuesta($preguntaID,$respuesta,$correcta){
-        $sql = "INSERT INTO respuesta(id_pregunta,respuesta,correcta)
-                VALUES ('$preguntaID','$respuesta','$correcta')";
+    public function agregarPreguntaSugerida($pregunta,$categoria,$respuesta1,$respuesta2,$respuesta3,$respuesta4,$correcta,$id_usuario){
+        $sql = "INSERT INTO pregunta_sugerida(pregunta,id_categoria,respuesta1,respuesta2,respuesta3,respuesta4,correcta,id_usuario)
+                VALUES('$pregunta','$categoria','$respuesta1','$respuesta2','$respuesta3','$respuesta4','$correcta','$id_usuario')";
 
         return $this->database->query($sql);
     }

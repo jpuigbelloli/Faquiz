@@ -21,6 +21,9 @@ class LobbyController
         }
 
         $usuario = $_SESSION['usuario'];
+        $data['esEditor'] = (Usuario::getROL() === 'EDITOR');
+        $data['esAdmin'] = (Usuario::getROL() === 'ADMIN');
+        $data['esJugador'] = (Usuario::getROL() === 'JUGADOR');
         $data['usuario'] = $this->usuarioModel->getHeader($usuario);
         $data['partidas'] = $this->lobbyModel->getPartidas(Usuario::getID());
         $data['datos'] = $this->lobbyModel->getPuntosAcumuladosYPartidasJugadas(Usuario::getID());

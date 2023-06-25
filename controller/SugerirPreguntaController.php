@@ -13,31 +13,30 @@ class SugerirPreguntaController
     }
 
     public function list(){
+        if (!isset($_SESSION['logueado'])) {
+            header('Location:/login');
+            exit();
+        }
         $this->renderer->render('sugerirPregunta');
     }
 
     public function agregar(){
-
+        if (!isset($_SESSION['logueado'])) {
+            header('Location:/login');
+            exit();
+        }
         $pregunta = $_POST["pregunta"];
         $categoria = $_POST["categoria"];
-        $respuestas = [
-            $_POST["respuesta1Text"],
-            $_POST["respuesta2Text"],
-            $_POST["respuesta3Text"],
-            $_POST["respuesta4Text"]
-        ];
-
+        $respuesta1 = $_POST["respuesta1Text"];
+        $respuesta2 = $_POST["respuesta2Text"];
+        $respuesta3 = $_POST["respuesta3Text"];
+        $respuesta4 = $_POST["respuesta4Text"];
         $correcta= $_POST["correcta"];
-        $preguntaID = $this->sugerirPreguntaModel->agregarPregunta($categoria,$pregunta);
 
-        foreach ($respuestas as $respuesta){
-            $esCorrecta = ($respuesta === $correcta) ? true : false;
-            $this->sugerirPreguntaModel->agregarRespuesta($preguntaID,$respuesta,$esCorrecta);
-        }
+        $this->sugerirPreguntaModel->agregarPreguntaSugerida($pregunta,$categoria,$respuesta1,$respuesta2,$respuesta3,$respuesta4,$correcta,Usuario::getID());
 
         header('Location:/lobby');
         exit();
-
     }
 
 }
