@@ -1,7 +1,6 @@
 <?php
 
 include_once ('helpers/Partida.php');
-
 class PartidaController{
 
     private $renderer;
@@ -34,10 +33,12 @@ class PartidaController{
         $_SESSION["tiempo"] = $currentTime;
 
         //Traigo la pregunta al azar
-        $data["pregunta"] = $this->partidaModel->obtenerPregunta();
+        $data["pregunta"] = $this->partidaModel->obtenerPregunta(Usuario::getID());
 
-        //guardo el id de pregunta
+        //guardo el id de pregunta en sesion
         $idPregunta = $data["pregunta"][0]["id_pregunta"];
+        //guardo el id_pregunta actual en sesion
+        $_SESSION["id_pregunta"] = $idPregunta;
 
         //traigo respuestas de acuerdo al id de pregunta
         $data["respuestas"] = $this->partidaModel->obtenerRespuestas($idPregunta);
@@ -53,6 +54,7 @@ class PartidaController{
         $id_pregunta = $_POST['id_pregunta'] ?? "";
         $tiempo = $_POST['tiempo'] ?? "";
 
+        //todo cambiar a una clase para obtener ids?
         $userId = $this->partidaModel->getUserId($_SESSION['usuario']);
 
 //        $correcta = $this->partidaModel->esCorrecta("Thomas Edison","21");
@@ -70,11 +72,13 @@ class PartidaController{
             $this->partidaModel->guardarPartida($userId[0]["id"],$_SESSION['puntos']);
         }
 
+        $correcta["puntos"] = $_SESSION["puntos"];
         echo json_encode($correcta);
     }
 
     public function fin(){
         $userId = $this->partidaModel->getUserId($_SESSION['usuario']);
+        $this->partidaModel->guardarPreguntaCorrectaOIncorrecta($_SESSION["id_pregunta"],0,$userId[0]["id"]);
         $this->partidaModel->guardarPartida($userId[0]["id"],$_SESSION['puntos']);
 
         $data["puntaje"] = $_SESSION['puntos'];

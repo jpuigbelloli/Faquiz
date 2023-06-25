@@ -24,6 +24,15 @@ class PerfilModel
         return null;
     }
 
+    public function getDireccionQR($usuario){
+
+        $directorioQR = 'public/codigosQR/';
+        $nombreArchivoQR = $usuario . ".png";
+
+
+        return $directorioQR . $nombreArchivoQR;
+    }
+
     public function generarArray()
     {
         /*$arrayDatos = [];

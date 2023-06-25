@@ -29,4 +29,14 @@ class MySqlDatabase {
     public function query($sql) {
         return mysqli_query($this->connection, $sql);
     }
+    public function query_fetch_assoc($sql){
+        $result = mysqli_query($this->connection, $sql);
+        return mysqli_fetch_assoc($result);
+    }
+
+    public function query_ultimo_id($sql){
+        mysqli_query($this->connection, $sql);
+        $ultimoID = mysqli_insert_id($this->connection);
+        return $ultimoID;
+    }
 }

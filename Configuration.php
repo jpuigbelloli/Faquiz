@@ -12,12 +12,15 @@ include_once("helpers/MustacheRender.php");
 include_once('helpers/Router.php');
 include_once('helpers/QRHelper.php');
 include_once('helpers/Logger.php');
+require_once 'helpers/Usuario.php';
 
 //MODELS
-include_once('model/SongsModel.php');
 include_once('model/PerfilModel.php');
 include_once ('model/UsuarioModel.php');
 include_once ('model/PartidaModel.php');
+include_once ('model/LobbyModel.php');
+include_once ('model/SugerirPreguntaModel.php');
+include_once('model/RevisarPreguntaModel.php');
 
 //CONTROLLERS
 include_once('controller/InicioSinLogController.php');
@@ -26,6 +29,8 @@ include_once('controller/LoginController.php');
 include_once('controller/PerfilController.php');
 include_once ('controller/LobbyController.php');
 include_once ('controller/PartidaController.php');
+include_once ('controller/SugerirPreguntaController.php');
+include_once('controller/RevisarPreguntaController.php');
 
 
 class Configuration {
@@ -52,6 +57,7 @@ class Configuration {
     public function getLobbyController(){
         return new LobbyController(
             new UsuarioModel($this->getDatabase()),
+            new LobbyModel($this->getDatabase()),
             $this->getRenderer());
     }
 
@@ -64,6 +70,17 @@ class Configuration {
     public function getPartidaController(){
         return new PartidaController(
             new PartidaModel($this->getDatabase()),
+            $this->getRenderer());
+    }
+    public function getSugerirPreguntaController(){
+        return new SugerirPreguntaController(
+            new SugerirPreguntaModel($this->getDatabase()),
+            $this->getRenderer());
+    }
+
+    public function getRevisarPreguntaController(){
+        return new RevisarPreguntaController(
+            new RevisarPreguntaModel($this->getDatabase()),
             $this->getRenderer());
     }
 

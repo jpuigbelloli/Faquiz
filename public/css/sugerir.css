@@ -1,0 +1,24 @@
+body{
+    font-family: 'Roboto',sans-serif;
+}
+
+.input-container {
+    margin: 0;
+    padding: 0;
+}
+
+@media (max-width: 768px) {
+    .categoria-label {
+        font-size: 14px;
+    }
+    select {
+        font-size: 14px;
+    }
+}
+
+.boton{
+    margin-bottom: 3em;
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+}

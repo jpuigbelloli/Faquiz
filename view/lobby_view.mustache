@@ -1,4 +1,4 @@
-{{> header_sesion}}
+{{> header}}
 <link rel="stylesheet" href="./public/css/login.css">
 
 <body class="bd-image " style="background-image: url('/public/imgs/Fondo.png'); color: ghostwhite">
@@ -6,39 +6,52 @@
     <div class="d-inline-flex  m-4 mb-1">
 
                 {{#usuario}}
-                    <h1 class="me-auto"> Hola {{user_name}} </h1>
-
-                    <h1 class="ms-5">Puntos acumulados: {{puntuacion}}</h1>
-
+                    <h1 class="me-auto"> Hola {{user_name}}! </h1>
                 {{/usuario}}
+                {{#datos}}
+                    <h1 class="ms-5">Puntos acumulados: {{total}}</h1>
+                    <h1 class="ms-5">Partidas jugadas: {{partidas}}</h1>
+                {{/datos}}
     </div>
+    {{#esJugador}}
+        <div   class="mt-2 m-5" style="justify-items: center">
+            <a href="/sugerirPregunta"><button class="btn btn-warning"><i class="fa-solid fa-circle-question"></i>  Sugerir Pregunta</button></a>
+        </div>
+    {{/esJugador}}
+
+    {{#esEditor}}
+        <div   class="mt-2 m-5" style="justify-items: center">
+            <a href="/revisarPregunta"><button class="btn btn-warning"><i class="fa-solid fa-magnifying-glass"></i>  Revisar preguntas sugeridas</button></a>
+        </div>
+    {{/esEditor}}
+
     <main class=" d-flex justify-content-around align-items-center m-3">
             <div  class="card-body flex-lg-grow-1 bg-light-subtle " style="color: gray">
-                <h5 class="card-title text-center mt-2" >Historial de partidas</h5>
-                <table class="card-text  table-bordered mt-3 text-center" style="width: 100% ">
+                <h5 class="card-title text-center mt-2" >Historial de últimas 10 partidas</h5>
+                <table class="card-text  table-bordered mt-3 text-center" style="width: 100%;color:black;">
                     <tr>
                         <th>Partida</th>
                         <th>Puntaje</th>
                         <th>Fecha</th>
                     </tr>
-                    {{#usuario}}
+                    {{#partidas}}
                         <tr>
-                            <td>{{idPartida}}</td>
+                            <td>{{id_partida}}</td>
                             <td>{{puntaje}}</td>
                             <td>{{fecha}}</td>
                         </tr>
-                    {{/usuario}}
+                    {{/partidas}}
                 </table>
 
             </div>
 
             <div   class="mt-2 m-5" style="justify-items: center">
 <!--                <button formmethod="POST" type="submit" name="jugar" class="text-center">Jugar Partida</button>-->
-                <a href="/partida"><button>Jugar Partida</button></a>
+                <a href="/partida"><button class="btn btn-success">Jugar</button></a>
             </div>
 
             <div class=" card-body flex-lg-grow-1 bg-light-subtle border border-secundary " style="color: gray">
-                <h5 class="card-title text-center mt-2">Ranking</h5>
+                <h5 class="card-title text-center mt-2">Ranking Global</h5>
                 <table class="mt-3 align-items-center card-text table-bordered text-center" style="width: 100%">
                     <tr class=>
                         <th>Puesto</th>
@@ -46,13 +59,13 @@
                         <th>Usuario</th>
                     </tr>
 
-                    {{#usuario}}
+                    {{#ranking}}
                         <tr>
                             <td>{{puesto}}</td>
                             <td>{{puntaje}}</td>
-                            <td> {{jugador}}</td>
+                            <td><a href="/perfil/{{user}}">{{user}}</a></td>
                         </tr>
-                    {{/usuario}}
+                    {{/ranking}}
                 </table>
             </div>
     </main>

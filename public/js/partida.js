@@ -102,7 +102,7 @@ $(document).ready(function() {
                     $('#' + id_div).addClass('rojo');
                     $('.boton').prop('disabled',true);
                     clearInterval(timer);
-                    respuestaIncorrecta();
+                    respuestaIncorrecta(correcta.puntos);
                 }
             },
             error: function (xhr, status, error) {
@@ -163,20 +163,9 @@ $(document).ready(function() {
         });
     }
 
-    function respuestaIncorrecta(){
-        $.ajax({
-            url: 'http://localhost/partida/fin',
-            method: 'GET',
-            success:function (respuesta){
-                var data = JSON.parse(respuesta);
-                var puntaje = data.puntaje;
-                $('#losPuntos').text(puntaje);
-                $('#finPartida').modal('show');
-            },
-            error: function (xhr, status, error) {
-                console.error(error);
-            }
-        });
+    function respuestaIncorrecta(puntos){
+        $('#losPuntos').text(puntos);
+        $('#finPartida').modal('show');
     }
 
     function finTiempo(){

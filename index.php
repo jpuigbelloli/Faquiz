@@ -6,8 +6,8 @@ $configuration = new Configuration();
 $db=$configuration->getDatabase();
 $router = $configuration->getRouter();
 
-$module = $_GET['module'] ?? 'inicioSinLog';
-$method = $_GET['action'] ?? 'redirigir';
+$module = $_GET['module'] ?? 'getInicioSinLogController';
+$method = $_GET['action'] ?? 'list';
 
 $router->route($module, $method);
 
