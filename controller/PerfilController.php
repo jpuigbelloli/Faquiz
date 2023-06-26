@@ -16,8 +16,9 @@ class PerfilController
     {
         $nombreDeUsuarioSession = $_SESSION['usuario'] ?? null;
         $nombreDeUsuarioGet = $_GET['usuario'] ?? null;
-
-        $data['usuario']['user_logueado'] = $_SESSION['usuario'];
+        $usuario = $_SESSION['usuario'] ?? "";
+        $logueado = $_SESSION['logueado'] ?? "";
+        $data['usuario']['user_logueado'] = $usuario;
 
 
         if (($nombreDeUsuarioSession !== null) && ($_SESSION['logueado'] === true) && ($nombreDeUsuarioGet === $_SESSION['usuario'])) {
@@ -28,10 +29,9 @@ class PerfilController
             $data['usuario'] = $dataUsuario;
             $data['usuario']['user_logueado'] = $_SESSION['usuario'];
 
-            highlight_string("<?php\n\$data =\n" . var_export($data, true) . ";\n?>");
             $this->renderer->render('perfil', $data);
             exit();
-        } elseif (($nombreDeUsuarioGet !== null) && ($_SESSION['logueado'] === true) && ($nombreDeUsuarioGet != $_SESSION['usuario'])) {
+        } elseif (($nombreDeUsuarioGet !== null) && ( $logueado === true) && ($nombreDeUsuarioGet != $_SESSION['usuario'])) {
             $dataUsuario = $this->perfilModel->getData($nombreDeUsuarioGet);
             $dataUsuario['rutaQR'] = $this->perfilModel->getDireccionQR($nombreDeUsuarioGet);
 
@@ -39,7 +39,6 @@ class PerfilController
             $data['usuario'] = $dataUsuario;
             $data['usuario']['user_logueado'] = $_SESSION['usuario'];
 
-            highlight_string("<?php\n\$data =\n" . var_export($data, true) . ";\n?>");
             $this->renderer->render('perfil', $data);
             exit();
         } elseif (($nombreDeUsuarioGet !== null) && empty($_SESSION['logueado'])) {
