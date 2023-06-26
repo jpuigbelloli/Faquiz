@@ -1,5 +1,4 @@
 <?php
-
 include_once ('helpers/Partida.php');
 class PartidaController{
 
@@ -77,6 +76,11 @@ class PartidaController{
     }
 
     public function fin(){
+        if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
+            header('Location:/login');
+            exit();
+        }
+
         $userId = $this->partidaModel->getUserId($_SESSION['usuario']);
         $this->partidaModel->guardarPreguntaCorrectaOIncorrecta($_SESSION["id_pregunta"],0,$userId[0]["id"]);
         $this->partidaModel->guardarPartida($userId[0]["id"],$_SESSION['puntos']);
@@ -86,20 +90,14 @@ class PartidaController{
     }
 
     public function reportar(){
+        if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
+            header('Location:/login');
+            exit();
+        }
         $id_pregunta = $_POST['id_pregunta'];
         $motivo = $_POST['motivo'];
 
         $this->partidaModel->reportarPregunta($id_pregunta,$motivo,Usuario::getID());
 
     }
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-    public function getRespuestaCorrecta()
-    {
-        return $this->respuestaCorrecta;
-    }
-
 }
