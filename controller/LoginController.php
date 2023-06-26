@@ -5,15 +5,16 @@ class LoginController
     private $renderer;
     private $usuarioModel;
 
-    public function __construct($usuarioModel,$renderer)
+    public function __construct($usuarioModel, $renderer)
     {
         $this->renderer = $renderer;
         $this->usuarioModel = $usuarioModel;
     }
 
-    public function list() {
+    public function list()
+    {
         $data["error"] = !empty($_GET["error"]);
-        $this->renderer->render('login',$data);
+        $this->renderer->render('login', $data);
     }
 
 
@@ -22,15 +23,16 @@ class LoginController
         $this->renderer->render('login');
     }
 
-    public function validar(){
+    public function validar()
+    {
         $usuario = $_POST["user_name"] ?? "";
         $contrasenia = $_POST["contrasenia"] ?? "";
 
-        $usuarioValido = $this->usuarioModel->verificarCredenciales($usuario,$contrasenia);
+        $usuarioValido = $this->usuarioModel->verificarCredenciales($usuario, $contrasenia);
 
-        if( $usuarioValido ){
+        if ($usuarioValido) {
             $_SESSION['logueado'] = true;
-            $_SESSION['usuario']=$usuario;
+            $_SESSION['usuario'] = $usuario;
             header('Location:/lobby');
             exit();
         } else {
@@ -39,7 +41,8 @@ class LoginController
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         session_destroy();
         header('Location:/');
         exit();
