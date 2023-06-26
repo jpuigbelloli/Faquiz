@@ -28,7 +28,6 @@ class PerfilController
             $data['usuario'] = $dataUsuario;
             $data['usuario']['user_logueado'] = $_SESSION['usuario'];
 
-            highlight_string("<?php\n\$data =\n" . var_export($data, true) . ";\n?>");
             $this->renderer->render('perfil', $data);
             exit();
         } elseif (($nombreDeUsuarioGet !== null) && ($_SESSION['logueado'] === true) && ($nombreDeUsuarioGet != $_SESSION['usuario'])) {
@@ -39,7 +38,6 @@ class PerfilController
             $data['usuario'] = $dataUsuario;
             $data['usuario']['user_logueado'] = $_SESSION['usuario'];
 
-            highlight_string("<?php\n\$data =\n" . var_export($data, true) . ";\n?>");
             $this->renderer->render('perfil', $data);
             exit();
         } elseif (($nombreDeUsuarioGet !== null) && empty($_SESSION['logueado'])) {
