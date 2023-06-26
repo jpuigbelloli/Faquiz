@@ -3,65 +3,63 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrhbTzWlqIINJqnB_PU7XDMdXC0ObRBh4&callback=initMap" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script src="../public/js/mapa.js"></script>
+    <script src="/public/js/mapa.js"></script>
+    <link rel="stylesheet" href="/public/css/registro.css">
 </head>
 
-<body  class="bd-image" style="background-image: url('public/imgs/Fondo.png')">
+<body>
 
-        <div class='m-auto ' style='max-width:800px' id='registro'>
-            <h2 class='fadeIn first'style="color: ghostwhite"><i>¡Registrate y empezá a jugar!</i></h2>
-                        <p class=''></p>
-                        <div class='cols-sm-12'>
-                            <div>
-                                <form class= 'fadeIn second' style="color: ghostwhite" action="/registro/registrarse" method="post" enctype="multipart/form-data">
-                                    <div>
-                                        <label class='form-label' for="nombre">Nombre</label>
-                                        <input class="form-control-sm" type="text" name="nombre" id="nombre" placeholder="Nombre" required>
-                                        <label class='form-label' for="apellido">Apellido</label>
-                                        <input class="form-control-sm" type="text" name="apellido" id="apellido" placeholder="Apellido" required>
-                                        <br><br>
-                                        <label  class="form-label" for="fecha_nac">Fecha Nacimiento:</label>
-                                        <input class="form-control-sm" type="date" name="fecha_nac" id="fecha_nac" placeholder="Fecha Nacimiento" required>
-                                        <label class="form-label" for="genero">Genero:</label>
-                                        <select class="form-control-sm" name="genero" id="genero" placeholder="Seleccionar" required>
-                                            <option selected value="">Genero</option>
-                                            <option value="1">Femenino</option>
-                                            <option value="2">Masculino</option>
-                                            <option value="3">No especificar</option>
-                                        </select>
-                                        <br><br>
-                                        <label for="email">Email:</label>
-                                        <input type="email" name="email" id="email" placeholder="Email" required>
-                                        <label for="userName">Usuario:</label>
-                                        <input type="text" name="user_name" id="userName" placeholder="Nombre de Usuario" required>
-                                        <br><br>
-                                        <label for="contrasenia">Contraseña:</label>
-                                        <input type="password" name="contrasenia" id="contrasenia" placeholder="Contraseña" required>
-                                        <label for="contrasenia">Repetir </label>
-                                        <input type="password" name="contrasenia_rep" id="contrasenia" placeholder="Repetir Contraseña" required>
-                                        <br><br>
-                                        <label for="fotoPerfil">Foto de perfil:</label>
-                                        <input type="file" name="foto_perfil" id="fotoPerfil" placeholder="Subir Archivo" required>
-                                        <br><br>
+<div class="container">
+    <h2 class="fadeIn first">¡Registrate y empezá a jugar!</h2>
+    <p class=""></p>
+    <div class="cols-sm-12">
+        <div>
+            <form class="fadeIn second" action="/registro/registrarse" method="post" enctype="multipart/form-data">
+                <div>
+                    <label class="form-label" for="nombre">Nombre</label>
+                    <input class="form-control-sm" type="text" name="nombre" id="nombre" placeholder="Nombre" required>
+                    <label class="form-label" for="apellido">Apellido</label>
+                    <input class="form-control-sm" type="text" name="apellido" id="apellido" placeholder="Apellido" required>
+                    <br><br>
+                    <label class="form-label" for="fecha_nac">Fecha Nacimiento:</label>
+                    <input class="form-control-sm" type="date" name="fecha_nac" id="fecha_nac" placeholder="Fecha Nacimiento" required>
+                    <label class="form-label" for="genero">Genero:</label>
+                    <select class="form-control-sm" name="genero" id="genero" placeholder="Seleccionar" required>
+                        <option selected value="">Genero</option>
+                        <option value="1">Femenino</option>
+                        <option value="2">Masculino</option>
+                        <option value="3">No especificar</option>
+                    </select>
+                    <br><br>
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" placeholder="Email" required>
+                    <label for="userName">Usuario:</label>
+                    <input type="text" name="user_name" id="userName" placeholder="Nombre de Usuario" required>
+                    <br><br>
+                    <label for="contrasenia">Contraseña:</label>
+                    <input type="password" name="contrasenia" id="contrasenia" placeholder="Contraseña" required>
+                    <label for="contrasenia">Repetir </label>
+                    <input type="password" name="contrasenia_rep" id="contrasenia" placeholder="Repetir Contraseña" required>
+                    <br><br>
+                    <label for="fotoPerfil">Foto de perfil:</label>
+                    <input type="file" name="foto_perfil" id="fotoPerfil" placeholder="Subir Archivo" required>
+                    <br><br>
 
-                                        <label for="ubicacion" >Ubicacion:</label>
-                                        <div id="map" style="height: 400px;"></div>
-                                        <input type="hidden" name="lat" id="lat">
-                                        <input type="hidden" name="lng" id="lng">
-                                        <br><br>
+                    <label for="ubicacion">Ubicacion:</label>
+                    <div id="map" style="height: 400px;"></div>
+                    <input type="hidden" name="lat" id="lat">
+                    <input type="hidden" name="lng" id="lng">
+                    <br><br>
 
-                                        <button class="wrapper btn-outline-primary" type="submit" name="registrarse">Registrarme</button>
+                    <button type="submit" name="registrarse">Registrarme</button>
 
-                                        {{#error}}
-                                            <h2 style="color: red">Error al registrarse, verifique todos los campos</h2>
-                                        {{/error}}
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                    {{#error}}
+                        <h2 class="error">Error al registrarse, verifique todos los campos</h2>
+                    {{/error}}
+                </div>
+            </form>
         </div>
-</body>
-
-<!-- End Page Content -->
+    </div>
 </div>
-{{> footer}}
+
+</body>
