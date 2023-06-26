@@ -77,16 +77,16 @@
 
         <!--Acciones-->
         <div class="row" style="margin-top: 1em;padding: 4em;">
-            <div class="col-6 col-lg-6">
-                <div class="card mx-auto p-2 w-auto">
+            <div class="col-12 col-lg-12">
+                <div class="card mx-auto p-2 w-50">
                     <button class="boton "><h6><i class="fa-solid fa-bomb"></i>  Usar Trampita</h6></button>
                 </div>
             </div>
-            <div class="col-6 col-lg-6">
+            <!--<div class="col-6 col-lg-6">
                 <div class="card mx-auto p-2 w-auto">
                     <button class="boton reportar"><h6 class="report_pregunta"><i class="fa-solid fa-flag"></i>  Reportar Pregunta</h6></button>
                 </div>
-            </div>
+            </div>-->
         </div>
         <!--Fin Acciones-->
 
@@ -109,11 +109,18 @@
                 <div class="modal-header text-center" style="text-align: center">
                     <h5 class="modal-title w-100">Respuesta Incorrecta! ☹️</h5>
                 </div>
-                <div class="modal-body text-center">
+                <div class="modal-body text-center modal-dialog-centered">
                     <h6>Obtuviste <span id="losPuntos"></span> puntos!!!</h6>
-                    <br>
-                    <br>
-                    <h6><a href="/lobby">Intentalo de vuelta</a></h6>
+                </div>
+                <div class="modal-footer d-flex justify-content-around">
+                    <div class="row">
+                        <div class="col-6">
+                            <button type="button" class="btn btn-primary lobby"><i class="fa-solid fa-house"></i> Al Lobby</button>
+                        </div>
+                        <div class="col-6">
+                            <button type="button" class="btn btn-danger reportar"><i class="fa-solid fa-exclamation"></i> Reportar Pregunta</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -129,7 +136,32 @@
                     <h6>Obtuviste <span id="misPuntos"></span> puntos</h6>
                     <br>
                     <br>
-                    <h6><a href="/lobby">Intentalo de vuelta</a></h6>
+                    <a href="/lobby"><button>Intentalo de vuelta</button></a>
+                    <button class="boton reportar"><h6 class="report_pregunta"><i class="fa-solid fa-flag"></i>  Reportar Pregunta</h6></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!--    OPCIONES REPORTE-->
+    <div id="reportModal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reportar Pregunta</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group">
+                        <button type="button" class="list-group-item list-group-item-action report-option" data-value="1">Respuesta Incorrecta</button>
+                        <button type="button" class="list-group-item list-group-item-action report-option" data-value="2">No se entiende pregunta</button>
+                        <button type="button" class="list-group-item list-group-item-action report-option" data-value="3">Pregunta Ofensiva</button>
+                        <button type="button" class="list-group-item list-group-item-action report-option" data-value="4">Otra razón</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="reportarBtn">Reportar</button>
                 </div>
             </div>
         </div>

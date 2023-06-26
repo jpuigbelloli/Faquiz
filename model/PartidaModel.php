@@ -72,4 +72,10 @@ class PartidaModel{
 
         $this->database->query($sql);
     }
+
+    public function reportarPregunta($id_pregunta,$motivo,$id_usuario){
+        $sql = "INSERT INTO pregunta_reportada(id_pregunta_reportada,id_motivo,id_usuario)
+                VALUES ('$id_pregunta','$motivo','$id_usuario')";
+        $this->database->query($sql);
+    }
 }

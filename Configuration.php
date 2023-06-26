@@ -39,6 +39,7 @@ class Configuration {
     public function __construct() {
     }
 
+
     public function getInicioSinLogController() {
         return new InicioSinLogController($this->getRenderer());
     }

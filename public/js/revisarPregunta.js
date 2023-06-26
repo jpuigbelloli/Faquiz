@@ -7,14 +7,6 @@ function aprobar(id) {
     var respuesta4 = $("#fila" + id + " input[name='respuesta4']").val();
     var correcta = $("#fila" + id + " input[name='correcta']").val();
 
-    console.log("pregunta:", pregunta);
-    console.log("categoria:", categoria);
-    console.log("respuesta1:", respuesta1);
-    console.log("respuesta2:", respuesta2);
-    console.log("respuesta3:", respuesta3);
-    console.log("respuesta4:", respuesta4);
-    console.log("correcta:", correcta);
-
     var button = $("#fila" + id + " button.btn-success");
     button.prop("disabled", true);
 

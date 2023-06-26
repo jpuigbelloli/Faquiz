@@ -14,32 +14,47 @@ class PerfilController
 
     public function list()
     {
-        $nombreDeUsuario = $_SESSION['usuario'] ?? $_GET['usuario'];
-        $usuario = $this->perfilModel->getData($nombreDeUsuario);
+        $nombreDeUsuarioSession = $_SESSION['usuario'] ?? null;
+        $nombreDeUsuarioGet = $_GET['usuario'] ?? null;
 
-        $usuario['rutaQR'] = $this->perfilModel->getDireccionQR($nombreDeUsuario);
+        $data['usuario']['user_logueado'] = $_SESSION['usuario'];
 
 
-        if ($usuario) {
-            if (isset($_SESSION['logueado']) && $_SESSION['logueado'] === true) {
-                // Usuario logueado
-                $usuario['user_name'] = $_SESSION['usuario'];
-                $data['logueado'] = $_SESSION['logueado'];
+        if (($nombreDeUsuarioSession !== null) && ($_SESSION['logueado'] === true) && ($nombreDeUsuarioGet === $_SESSION['usuario'])) {
+            $dataUsuario = $this->perfilModel->getData($nombreDeUsuarioSession);
+            $dataUsuario['rutaQR'] = $this->perfilModel->getDireccionQR($nombreDeUsuarioSession);
 
-                $data['usuario'] = $usuario;
-                $this->renderer->render('perfil', $data);
-            } else {
-                // Usuario no logueado
-                $usuario['user_name'] = $nombreDeUsuario;
+            $data['logueado'] = $_SESSION['logueado'];
+            $data['usuario'] = $dataUsuario;
+            $data['usuario']['user_logueado'] = $_SESSION['usuario'];
 
-                $data['usuario'] = $usuario;
-                $this->renderer->render('perfil', $data);
-            }
+            highlight_string("<?php\n\$data =\n" . var_export($data, true) . ";\n?>");
+            $this->renderer->render('perfil', $data);
+            exit();
+        } elseif (($nombreDeUsuarioGet !== null) && ($_SESSION['logueado'] === true) && ($nombreDeUsuarioGet != $_SESSION['usuario'])) {
+            $dataUsuario = $this->perfilModel->getData($nombreDeUsuarioGet);
+            $dataUsuario['rutaQR'] = $this->perfilModel->getDireccionQR($nombreDeUsuarioGet);
 
+            $data['logueado'] = $_SESSION['logueado'];
+            $data['usuario'] = $dataUsuario;
+            $data['usuario']['user_logueado'] = $_SESSION['usuario'];
+
+            highlight_string("<?php\n\$data =\n" . var_export($data, true) . ";\n?>");
+            $this->renderer->render('perfil', $data);
+            exit();
+        } elseif (($nombreDeUsuarioGet !== null) && empty($_SESSION['logueado'])) {
+            $dataUsuario = $this->perfilModel->getData($nombreDeUsuarioGet);
+            $dataUsuario['rutaQR'] = $this->perfilModel->getDireccionQR($nombreDeUsuarioGet);
+
+            $data['usuario'] = $dataUsuario;
+            $this->renderer->render('perfil', $data);
+            exit();
         } else {
             //HABRIA QUE HACER UNA VISTA ERROR PARA TIRAR TODOS LOS ERRORES A ESA VISTA
             echo "Perfil no encontrado";
         }
+
+
     }
 
 }
