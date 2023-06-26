@@ -1,8 +1,9 @@
 <?php
 include_once "Configuration.php";
-use PHPMailer\PHPMailer\PHPMailer;
-require '';
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 class RegistroController
 {
 
@@ -174,12 +175,12 @@ class RegistroController
         $mailer = new PHPMailer(true);
         try{
             // Configuración del servidor SMTP
+            //$mailer->SMTPDebug = SMTP::DEBUG_SERVER;
             $mailer->isSMTP();
             $mailer->Host = 'smtp.gmail.com';
             $mailer->SMTPAuth = true;
             $mailer->Username = 'faquiz.unlam@gmail.com';
-            $mailer->Password = 'faquiz1234!';
-            //$mailer->SMTPSecure = 'tls';
+            $mailer->Password = 'jnrkzjytfkxfmcof';
             $mailer->Port = 587;
 
             // Configuración del remitente y destinatario
@@ -188,8 +189,8 @@ class RegistroController
 
             // Contenido del correo
             $mailer->isHTML(true);
-            $mailer->Subject = 'Verificación de registro';
-            $mailer->Body = '¡Gracias por registrarte! Por favor, haz clic en el siguiente enlace para verificar tu cuenta: <a href="#' . urlencode($email) . '">Verificar cuenta</a>';
+            $mailer->Subject = 'Verificacion de Registro en Faquiz';
+            $mailer->Body = '¡Gracias por registrarte! <br> Por favor, haz clic en el siguiente enlace para verificar tu cuenta: <a href="#' . urlencode($email) . '">Verificar cuenta</a>';
 
             if($mailer->send()){
                 echo 'El correo se envió correctamente.';
