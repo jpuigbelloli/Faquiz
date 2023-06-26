@@ -7,14 +7,14 @@ class UsuarioModel {
         $this->database = $database;
     }
 
-    public function registrarse($nombre,$apellido,$fecha_nac,$genero, $ubicacion,$email,$user_name,$contrasenia,$foto_perfil){
+    public function registrarse($nombre,$apellido,$fecha_nac,$genero, $ubicacion,$email,$user_name,$contrasenia,$foto_perfil,$token){
        $sql = 'SELECT user_name FROM Usuario';
        $usuarios = $this->database->query($sql);
        if($user_name = $usuarios){
            die('Ya existe un usuario con ese nombre');
         } else {
-           $this->database->query("INSERT INTO Usuario (nombre, apellido, fecha_nac, genero, ubicacion, email, user_name, contrasenia, foto_perfil) 
-             VALUES ('$nombre','$apellido','$fecha_nac','$genero','$ubicacion','$email','$user_name','$contrasenia','$foto_perfil')");
+           $this->database->query("INSERT INTO Usuario (nombre, apellido, fecha_nac, genero, ubicacion, email, user_name, contrasenia, foto_perfil, token) 
+             VALUES ('$nombre','$apellido','$fecha_nac','$genero','$ubicacion','$email','$user_name','$contrasenia','$foto_perfil', '$token')");
        }
 
     }
@@ -22,10 +22,10 @@ class UsuarioModel {
 
     /*INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `fecha_nac`, `genero`, `ubicacion`, `email`, `user_name`, `contrasenia`, `foto_perfil`, `fecha_ingreso`, `id_rol`) VALUES (NULL, 'pedro', 'pika', '2023-05-29 19:24:20.000000', '1', ST_GeomFromText(''), 'email@gmail.com', 'email233', 'lelele', NULL, current_timestamp(), '1')
      * */
-    public function registrar($nombre,$apellido,$fecha_nac,$genero,$ubicacion,$email,$user_name,$hash,$ruta_imagen){
+    public function registrar($nombre,$apellido,$fecha_nac,$genero,$ubicacion,$email,$user_name,$hash,$ruta_imagen,$token){
         $query = $this->database->query(
-            "INSERT INTO usuario (nombre,apellido,fecha_nac,genero,ubicacion,email,user_name,contrasenia,foto_perfil)
-             VALUES ('$nombre','$apellido','$fecha_nac','$genero','$ubicacion','$email','$user_name','$hash','$ruta_imagen')"
+            "INSERT INTO usuario (nombre,apellido,fecha_nac,genero,ubicacion,email,user_name,contrasenia,foto_perfil, token)
+             VALUES ('$nombre','$apellido','$fecha_nac','$genero','$ubicacion','$email','$user_name','$hash','$ruta_imagen', '$token')"
         );
     }
 
@@ -132,7 +132,27 @@ class UsuarioModel {
         }
     }
 */
-    
+    public function verificarUsuario($token, $email){
+
+        $tokenDB = $this->database->query("SELECT token
+        FROM usuario
+        WHERE email = '$email'");
+
+        if($tokenDB == $token){
+            $sql = "UPDATE Usuario 
+                    SET verificado = '1'
+                    WHERE email = '$email'";
+            $this->database->query($sql);
+            header('Location:/autenticacion?verificacion=VERIFICACIONCUENTAEXITOSA');
+            exit();
+        }else{
+            echo "hubo un error en la verificación, intente nuevamente.";
+            var_dump($tokenDB);
+            header('Location:/autenticacion?verificacion=ERRORDB');
+            exit();
+        }
+
+    }
 
 
 
