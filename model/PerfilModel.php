@@ -101,6 +101,15 @@ class PerfilModel
         return "Argentina";
     }
 
+    public function existeUsuario($nombreDeUsuario)
+    {
+        $resultado = $this->database->query("SELECT COUNT(*) AS total FROM usuario WHERE user_name ='$nombreDeUsuario'");
+        $fila = $resultado->fetch_assoc();
+        $totalUsuarios = $fila['total'];
+
+        return $totalUsuarios > 0;
+    }
+
 
 }
 

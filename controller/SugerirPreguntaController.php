@@ -17,7 +17,9 @@ class SugerirPreguntaController
             header('Location:/login');
             exit();
         }
-        $this->renderer->render('sugerirPregunta');
+        $data['usuario']['user_logueado'] = $_SESSION['usuario'];
+        $data['logueado'] = $_SESSION['logueado'];
+        $this->renderer->render('sugerirPregunta', $data);
     }
 
     public function agregar(){
