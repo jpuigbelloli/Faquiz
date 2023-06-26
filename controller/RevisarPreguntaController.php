@@ -29,7 +29,8 @@ class RevisarPreguntaController
                 "Entretenimiento" => ($pregunta["categoria"] === "Entretenimiento")
             );
         }
-
+        $data['usuario']['user_logueado'] = $_SESSION['usuario'];
+        $data['logueado'] = $_SESSION['logueado'];
         $this->renderer->render('revisarPregunta',$data);
     }
 
@@ -94,7 +95,8 @@ class RevisarPreguntaController
         /*echo '<pre>';
         var_dump($data);
         echo '</pre>';*/
-
+        $data['usuario']['user_logueado'] = $_SESSION['usuario'];
+        $data['logueado'] = $_SESSION['logueado'];
         $this->renderer->render('revisarPreguntaReportada',$data);
     }
 
