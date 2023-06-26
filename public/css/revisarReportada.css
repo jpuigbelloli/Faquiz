@@ -1,0 +1,38 @@
+body{
+    font-family: 'Roboto',sans-serif;
+    font-size: 14px;
+}
+
+#contenedor-tabla{
+    margin-top: 6em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 3em;
+    width: 90%;
+    overflow-x: auto;
+    display: block;
+}
+
+@media only screen and (max-width: 768px) {
+    #contenedor-tabla {
+        width: 90%;
+        margin-top: 3em;
+    }
+    #accion{
+        width: 100px;
+    }
+}
+
+.titulo{
+    margin-top: 3em;
+}
+
+#contenedor-tabla button {
+    display: inline-block;
+    width: 80px;
+    margin: 0.5em 0.3em;
+}
+
+.titulo-secundario{
+    margin-top: 3em;
+}

@@ -17,7 +17,7 @@ class RevisarPreguntaController
             header('Location:/lobby');
             exit();
         }
-        $data["preguntas"] = $this->revisarPreguntaModel->getPreguntasARevisar();
+        $data["preguntas"] = $this->revisarPreguntaModel->getPreguntasSugeridasARevisar();
 
         foreach ($data["preguntas"] as &$pregunta) {
             $pregunta["categorias"] = array(
@@ -67,5 +67,75 @@ class RevisarPreguntaController
         }
         $id_pregunta = $_POST['id'];
         $this->revisarPreguntaModel->rechazarPregunta($id_pregunta);
+    }
+
+    public function sugeridas(){
+        $this->list();
+    }
+
+    public function reportadas(){
+        if (!isset($_SESSION['logueado']) || Usuario::getROL()!=='EDITOR') {
+            header('Location:/lobby');
+            exit();
+        }
+        $data["preguntas"] = $this->revisarPreguntaModel->getPreguntasReportadasARevisar();
+
+        foreach ($data["preguntas"] as &$pregunta) {
+            $pregunta["categorias"] = array(
+                "Historia" => ($pregunta["categoria"] === "Historia"),
+                "Geografia" => ($pregunta["categoria"] === "Geografia"),
+                "Ciencia" => ($pregunta["categoria"] === "Ciencia"),
+                "Arte" => ($pregunta["categoria"] === "Arte"),
+                "Deportes" => ($pregunta["categoria"] === "Deportes"),
+                "Entretenimiento" => ($pregunta["categoria"] === "Entretenimiento")
+            );
+        }
+
+        /*echo '<pre>';
+        var_dump($data);
+        echo '</pre>';*/
+
+        $this->renderer->render('revisarPreguntaReportada',$data);
+    }
+
+    public function actualizarPregunta(){
+        if (!isset($_SESSION['logueado']) || Usuario::getROL()!=='EDITOR') {
+            header('Location:/lobby');
+            exit();
+        }
+        $id = $_POST['id'];
+        $this->revisarPreguntaModel->updateEstadoRevisado($id);
+        $id_pregunta_reportada = $_POST['id_pregunta_reportada'];
+        $pregunta = $_POST['pregunta'];
+        $categoria = $_POST['categoria'];
+        $this->revisarPreguntaModel->updatePregunta($id_pregunta_reportada,$pregunta,$categoria);
+
+        $respuestas = $_POST['respuestas'];
+
+        $correcta= $_POST['correcta'];
+
+        foreach ($respuestas as $respuesta){
+            if($respuesta['respuesta'] === $correcta){
+                Logger::info("paso por el true");
+                $this->revisarPreguntaModel->updateRespuestas($respuesta['id_respuesta'],$respuesta['respuesta'],true);
+            } else {
+                Logger::info("paso por el false");
+
+                $this->revisarPreguntaModel->updateRespuestas($respuesta['id_respuesta'],$respuesta['respuesta'],false);
+            }
+        }
+    }
+
+    public function deshabilitarPregunta(){
+        if (!isset($_SESSION['logueado']) || Usuario::getROL()!=='EDITOR') {
+            header('Location:/lobby');
+            exit();
+        }
+        $id = $_POST['id'];
+        $id_pregunta_reportada = $_POST['id_pregunta_reportada'];
+
+        $this->revisarPreguntaModel->updateEstadoRevisado($id);
+
+        $this->revisarPreguntaModel->deshabilitarPregunta($id_pregunta_reportada);
     }
 }
