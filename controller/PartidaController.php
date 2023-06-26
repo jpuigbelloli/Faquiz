@@ -85,6 +85,14 @@ class PartidaController{
         echo json_encode($data);
     }
 
+    public function reportar(){
+        $id_pregunta = $_POST['id_pregunta'];
+        $motivo = $_POST['motivo'];
+
+        $this->partidaModel->reportarPregunta($id_pregunta,$motivo,Usuario::getID());
+
+    }
+
     public function getId(): int
     {
         return $this->id;
@@ -93,8 +101,5 @@ class PartidaController{
     {
         return $this->respuestaCorrecta;
     }
-
-
-
 
 }

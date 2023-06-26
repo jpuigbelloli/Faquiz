@@ -1,0 +1,81 @@
+{{> header}}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/90ab493dae.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/public/css/revisarReportada.css">
+    <script src="/public/js/revisarPreguntaReportada.js"></script>
+    <title>Faquiz</title>
+</head>
+<body style="background-image: url('/public/imgs/Fondo.png'); color: ghostwhite;background-image: url('/public/imgs/Fondo.png');background-size: cover;">
+    <h1 class="text-center titulo">Revisar preguntas reportadas</h1>
+    <h4 class="text-center titulo-secundario">Edite y apruebe o rechace las preguntas reportadas por los usuarios</h4>
+    <div id="contenedor-tabla" class="card-body flex-lg-grow-1 bg-light-subtle " style="color: gray">
+        <table id="tabla" class="card-text table-bordered text-center" style="width: 100%; color: black;">
+            <thead>
+            <tr>
+                <th>Pregunta</th>
+                <th>Categoria</th>
+                <th>Respuesta 1</th>
+                <th>Respuesta 2</th>
+                <th>Respuesta 3</th>
+                <th>Respuesta 4</th>
+                <th>Correcta</th>
+                <th>Motivo</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#preguntas}}
+                <tr id="fila{{id}}">
+                    <td id="pregunta_id{{id_pregunta_reportada}}">
+                        <input type="text" value="{{pregunta}}" name="pregunta" size="40" />
+                    </td>
+                    <td>
+                        <select>
+                            <option value="1" {{#categorias.Historia}}selected{{/categorias.Historia}}>Historia</option>
+                            <option value="2" {{#categorias.Geografia}}selected{{/categorias.Geografia}}>Geografia</option>
+                            <option value="3" {{#categorias.Ciencia}}selected{{/categorias.Ciencia}}>Ciencia</option>
+                            <option value="4" {{#categorias.Arte}}selected{{/categorias.Arte}}>Arte</option>
+                            <option value="5" {{#categorias.Deportes}}selected{{/categorias.Deportes}}>Deportes</option>
+                            <option value="6" {{#categorias.Entretenimiento}}selected{{/categorias.Entretenimiento}}>Entretenimiento</option>
+                        </select>
+                    </td>
+                    <td id="{{respuestas.0.id_respuesta}}">
+                        <input type="text" value="{{respuestas.0.respuesta}}" name="respuesta1" />
+                    </td>
+                    <td id="{{respuestas.1.id_respuesta}}">
+                        <input type="text" value="{{respuestas.1.respuesta}}" name="respuesta2" />
+                    </td>
+                    <td id="{{respuestas.2.id_respuesta}}">
+                        <input type="text" value="{{respuestas.2.respuesta}}" name="respuesta3" />
+                    </td>
+                    <td id="{{respuestas.3.id_respuesta}}">
+                        <input type="text" value="{{respuestas.3.respuesta}}" name="respuesta4" />
+                    </td>
+                    <td>
+                        <input type="text" value="{{correcta}}" name="correcta" />
+                    </td>
+                    <td>{{motivo}}</td>
+                    <td id="accion">
+                        <button onclick="aprobar({{id}});" class="btn btn-success"><i class="fa-solid fa-check"></i>  Dar de alta</button>
+                        <!-- <button onclick="editar({{id}});" class="btn btn-warning"><i class="fa-regular fa-pen-to-square"></i>  Editar</button> -->
+                        <button onclick="rechazar({{id}});" class="btn btn-danger"><i class="fa-solid fa-x"></i>  Dar de baja</button>
+                    </td>
+                </tr>
+            {{/preguntas}}
+            </tbody>
+        </table>
+        {{^preguntas}}
+            <p class="text-center">No hay más preguntas para revisar</p>
+        {{/preguntas}}
+    </div>
+</body>
+</html>
