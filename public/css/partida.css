@@ -89,6 +89,38 @@ a {
     margin: 0 auto;
 }
 
+.modal-footer .btn {
+    height: 100%;
+    width: 100%;
+    font-size: 15px;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-height: calc(100vh - 300px);
+    overflow-y: auto;
+}
+
+.list-group .report-option {
+    border: none;
+    padding: 1rem;
+    background-color: transparent;
+    text-align: left;
+}
+
+.list-group .report-option:hover {
+    background-color: #4d5256;
+}
+
+.list-group .report-option:focus {
+    background-color: #4d5256;
+    outline: none;
+    box-shadow: none;
+}
+
 
 
 
