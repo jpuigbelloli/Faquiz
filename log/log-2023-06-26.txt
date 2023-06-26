@@ -1,0 +1,28 @@
+[2023-06-26][INFO]token6499b57018ac2?email=cabralmartin8@gmail.com
+[2023-06-26][INFO]email
+[2023-06-26][INFO]token6499c04b7669e
+[2023-06-26][INFO]emailcabralmartin8@gmail.com
+[2023-06-26][INFO]token6499c04b7669e
+[2023-06-26][INFO]emailcabralmartin8@gmail.com
+[2023-06-26][INFO]Entre en el else del if
+[2023-06-26][INFO]token6499c04b7669e
+[2023-06-26][INFO]emailcabralmartin8@gmail.com
+[2023-06-26][INFO]Entre en el else del if
+[2023-06-26][INFO]token6499c04b7669e
+[2023-06-26][INFO]emailcabralmartin8@gmail.com
+[2023-06-26][INFO]Entre en el else del if
+[2023-06-26][INFO]token6499c04b7669e
+[2023-06-26][INFO]emailcabralmartin8@gmail.com
+[2023-06-26][INFO]Entre en el else del if
+[2023-06-26][INFO]tokenDB[]:  
+[2023-06-26][INFO]token6499c04b7669e
+[2023-06-26][INFO]emailcabralmartin8@gmail.com
+[2023-06-26][INFO]Entre en el else del if
+[2023-06-26][INFO]tokenDB[]:  Array
+[2023-06-26][INFO]token6499c04b7669e
+[2023-06-26][INFO]emailcabralmartin8@gmail.com
+[2023-06-26][INFO]Entre en el else del if
+[2023-06-26][INFO]tokenDB:  6499c04b7669e
+[2023-06-26][INFO]token6499c04b7669e
+[2023-06-26][INFO]emailcabralmartin8@gmail.com
+[2023-06-26][INFO]Entre en el else del if
