@@ -1,6 +1,9 @@
 <?php
 include_once "Configuration.php";
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 class RegistroController
 {
@@ -38,7 +41,8 @@ class RegistroController
     }*/
 
     public function mailDeValidacion($email)
-    {   include_once 'Faquiz/mail.php';
+    {
+        include_once 'Faquiz/mail.php';
 
         $this->autent();
 //        $claveValidacion = uniqid();
@@ -108,20 +112,31 @@ class RegistroController
             $latitud = $_POST['lat'] ?? "";
             $longitud = $_POST['lng'] ?? "";
 
-            if(empty($nombre) || empty($apellido) || empty($fecha_nac) || empty($genero) || empty($user_name) || empty($email) || empty($clave) || empty($clave_rep) || empty($imagen_nombre) || empty($latitud) || empty($longitud)){
+            if (empty($nombre) || empty($apellido) || empty($fecha_nac) || empty($genero) || empty($user_name) || empty($email) || empty($clave) || empty($clave_rep) || empty($imagen_nombre) || empty($latitud) || empty($longitud)) {
                 header('Location:/registro?error=1');
                 exit();
-            } else{
+            } else {
                 $ubicacion = $latitud . ',' . $longitud;
+                $token = uniqid();
                 if ($this->usuarioModel->validarUsername($user_name) && $this->usuarioModel->validarEmail($email) && $clave === $clave_rep) {
                     $hash = $this->usuarioModel->hashearClave($clave);
+                    $ruta_imagen = $this->usuarioModel->validarImagen($imagen_nombre, $user_name);
+                    $this->usuarioModel->registrar($nombre, $apellido, $fecha_nac, $genero, $ubicacion, $email, $user_name, $hash, $ruta_imagen, $token);
+
+                    if ($this->enviarEmailRegistro($email, $nombre, $token)) {
+                        echo 'Se envió un correo de verificación.';
+                    } else {
+                        echo 'ERROR.';
+                        header('Location:/registro?error=ERROR-EMAIL');
+                        exit();
+                    }
                     $ruta_imagen = $this->usuarioModel->validarImagen($imagen_nombre,$user_name);
                     $rutaQR = QRHelper::generarCodigoQR($user_name);
                     echo $ruta_imagen;
                     $this->usuarioModel->registrar($nombre, $apellido, $fecha_nac, $genero, $ubicacion, $email, $user_name, $hash, $ruta_imagen);
                     header('Location:/autenticacion');
                     exit();
-                }else{
+                } else {
                     header('Location:/registro?error=1');
                     exit();
                 }
@@ -160,4 +175,89 @@ class RegistroController
 //        $this->renderer->render('registro');
 //    }
     }
+
+    public function enviarEmailRegistro($email, $nombre, $token)
+    {
+
+        // Generar enlace verificacion
+        $enlaceVerificacion = 'http://localhost/registro/verificarUsuario?token=' . $token . '&email=' . $email;
+
+        $mailer = new PHPMailer(true);
+        try {
+            // Configuración del servidor SMTP
+            //$mailer->SMTPDebug = SMTP::DEBUG_SERVER;
+            $mailer->isSMTP();
+            $mailer->Host = 'smtp.gmail.com';
+            $mailer->SMTPAuth = true;
+            $mailer->Username = 'faquiz.unlam@gmail.com';
+            $mailer->Password = 'jnrkzjytfkxfmcof';
+            $mailer->Port = 587;
+
+            // Configuración del remitente y destinatario
+            $mailer->setFrom('faquiz.unlam@gmail.com', 'Faquiz');
+            $mailer->addAddress($email, $nombre);
+
+
+            // Contenido del correo
+            $mailer->isHTML(true);
+            $mailer->Subject = 'Verificacion de Registro en Faquiz';
+            $mailer->Body = '<h1>¡Hola ' . $nombre . '!</h1><br> <h3>¡Gracias por registrarte! <br></br> Por favor, haz clic en el siguiente enlace para verificar tu cuenta: <a href="' . $enlaceVerificacion . '">Verificar cuenta</a></h3>';
+
+            if ($mailer->send()) {
+                echo 'El correo se envió correctamente.';
+            } else {
+                echo 'Error al enviar el correo: ' . $mailer->ErrorInfo;
+            }
+
+            // Redirigir a una vista de éxito MODIFICARLA POR VISTA "SE ENVIÓ UN CORREO PARA VERIFICAR TU CUENTA"
+            header('Location:/autenticacion?mail=OK');
+            exit();
+        } catch (Exception $e) {
+            header('Location:/autenticacion?mail=BAD');
+            exit();
+        }
+    }
+
+    public function autenticacion()
+    {
+        $codigo = $_GET['verificacion'];
+
+        if ($codigo === "OK") {
+            header('Location: /login');
+        } else {
+            header('Location: /error');
+        }
+    }
+
+    public function verificarUsuario()
+    {
+
+        $tokenCod = $_GET['token'];
+        $emailCod = $_GET['email'];
+        $token = $tokenCod;
+        $email = $emailCod;
+
+
+        if (empty($token) || empty($email)) {
+            header('Location:/registro/autenticacion?verificacion=ERROREMAIL');
+            exit();
+        } else {
+            $bool = $this->usuarioModel->verificarUsuario($token, $email);
+            if ($bool) {
+                header('Location:/registro/autenticacion?verificacion=OK');
+            } else {
+                header('Location:/registro/autenticacion?verificacion=ERROREMAIL');
+            }
+
+            exit();
+
+
+            /*$a = array($token, $email);*/
+            /*
+            $this->renderer->render('verificarUsuario', $a);
+            */
+        }
+    }
+
+
 }
