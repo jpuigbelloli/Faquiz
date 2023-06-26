@@ -47,7 +47,8 @@ class RegistroController
     }*/
 
     public function mailDeValidacion($email)
-    {   include_once 'Faquiz/mail.php';
+    {
+        include_once 'Faquiz/mail.php';
 
         $this->autent();
 //        $claveValidacion = uniqid();
@@ -68,39 +69,39 @@ class RegistroController
 //        }
     }
 
-   /* function verificarImagen($imagen, $nombre){
-        $uploadOk = 1;
-        $target_dir = "imgsPerfil/";
-        $target_file = $target_dir . basename($imagen['name']);
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-        $new_file_name = $target_dir . $nombre . '.' . $imageFileType;
+    /* function verificarImagen($imagen, $nombre){
+         $uploadOk = 1;
+         $target_dir = "imgsPerfil/";
+         $target_file = $target_dir . basename($imagen['name']);
+         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+         $new_file_name = $target_dir . $nombre . '.' . $imageFileType;
 
-        $extencionesPermitidas = array('jpg', 'jpeg', 'png', 'gif');
-        if (!in_array($imageFileType, $extencionesPermitidas)) {
-            echo "Solo se permiten imágenes en formato JPG, JPEG, PNG o GIF. ";
-            $uploadOk = 0;
-        }
+         $extencionesPermitidas = array('jpg', 'jpeg', 'png', 'gif');
+         if (!in_array($imageFileType, $extencionesPermitidas)) {
+             echo "Solo se permiten imágenes en formato JPG, JPEG, PNG o GIF. ";
+             $uploadOk = 0;
+         }
 
-        if (file_exists($new_file_name)) {
-            echo "Lo siento, ya hay una imagen cargada con ese nombre de archivo. ";
-            $uploadOk = 0;
-        }
+         if (file_exists($new_file_name)) {
+             echo "Lo siento, ya hay una imagen cargada con ese nombre de archivo. ";
+             $uploadOk = 0;
+         }
 
-        if ($uploadOk == 0) {
-            echo "Intente nuevamente más tarde. ";
-            exit();
-        } else {
-            if (move_uploaded_file($imagen['tmp_name'], $new_file_name)) {
-                $this->usuarioModel->actualizarNombreImg($nombre,$imageFileType);
-                echo "Carga exitosa";
-//              header("Location: index.php");
+         if ($uploadOk == 0) {
+             echo "Intente nuevamente más tarde. ";
+             exit();
+         } else {
+             if (move_uploaded_file($imagen['tmp_name'], $new_file_name)) {
+                 $this->usuarioModel->actualizarNombreImg($nombre,$imageFileType);
+                 echo "Carga exitosa";
+ //              header("Location: index.php");
 
-            } else {
-                echo "Lo siento, ha ocurrido un error, intente nuevamente más tarde. ";
-            }
-        }
+             } else {
+                 echo "Lo siento, ha ocurrido un error, intente nuevamente más tarde. ";
+             }
+         }
 
-    }*/
+     }*/
     public function registrarse()
     {
         if (isset($_POST['registrarse'])) {
@@ -117,27 +118,27 @@ class RegistroController
             $latitud = $_POST['lat'] ?? "";
             $longitud = $_POST['lng'] ?? "";
 
-            if(empty($nombre) || empty($apellido) || empty($fecha_nac) || empty($genero) || empty($user_name) || empty($email) || empty($clave) || empty($clave_rep) || empty($imagen_nombre) || empty($latitud) || empty($longitud)){
+            if (empty($nombre) || empty($apellido) || empty($fecha_nac) || empty($genero) || empty($user_name) || empty($email) || empty($clave) || empty($clave_rep) || empty($imagen_nombre) || empty($latitud) || empty($longitud)) {
                 header('Location:/registro?error=1');
                 exit();
-            } else{
+            } else {
                 $ubicacion = $latitud . ',' . $longitud;
                 $token = uniqid();
                 if ($this->usuarioModel->validarUsername($user_name) && $this->usuarioModel->validarEmail($email) && $clave === $clave_rep) {
                     $hash = $this->usuarioModel->hashearClave($clave);
-                    $ruta_imagen = $this->usuarioModel->validarImagen($imagen_nombre,$user_name);
+                    $ruta_imagen = $this->usuarioModel->validarImagen($imagen_nombre, $user_name);
                     $this->usuarioModel->registrar($nombre, $apellido, $fecha_nac, $genero, $ubicacion, $email, $user_name, $hash, $ruta_imagen, $token);
 
-                    if($this->enviarEmailRegistro($email, $nombre, $token)){
+                    if ($this->enviarEmailRegistro($email, $nombre, $token)) {
                         echo 'Se envió un correo de verificación.';
-                    }else{
+                    } else {
                         echo 'ERROR.';
                         header('Location:/registro?error=ERROR-EMAIL');
                         exit();
                     }
                     header('Location:/autenticacion');
                     exit();
-                }else{
+                } else {
                     header('Location:/registro?error=1');
                     exit();
                 }
@@ -177,13 +178,14 @@ class RegistroController
 //    }
     }
 
-    public function enviarEmailRegistro($email, $nombre, $token){
+    public function enviarEmailRegistro($email, $nombre, $token)
+    {
 
         // Generar enlace verificacion
-        $enlaceVerificacion = 'http://localhost/registro/verificarUsuario?token=' . $token . '?email=' . $email;
+        $enlaceVerificacion = 'http://localhost/registro/verificarUsuario?token=' . $token . '&email=' . $email;
 
         $mailer = new PHPMailer(true);
-        try{
+        try {
             // Configuración del servidor SMTP
             //$mailer->SMTPDebug = SMTP::DEBUG_SERVER;
             $mailer->isSMTP();
@@ -198,28 +200,39 @@ class RegistroController
             $mailer->addAddress($email, $nombre);
 
 
-
             // Contenido del correo
             $mailer->isHTML(true);
             $mailer->Subject = 'Verificacion de Registro en Faquiz';
             $mailer->Body = '<h1>¡Hola ' . $nombre . '!</h1><br> <h3>¡Gracias por registrarte! <br></br> Por favor, haz clic en el siguiente enlace para verificar tu cuenta: <a href="' . $enlaceVerificacion . '">Verificar cuenta</a></h3>';
 
-            if($mailer->send()){
+            if ($mailer->send()) {
                 echo 'El correo se envió correctamente.';
-            }else{
+            } else {
                 echo 'Error al enviar el correo: ' . $mailer->ErrorInfo;
             }
 
             // Redirigir a una vista de éxito MODIFICARLA POR VISTA "SE ENVIÓ UN CORREO PARA VERIFICAR TU CUENTA"
             header('Location:/autenticacion?mail=OK');
             exit();
-        } catch(Exception $e){
+        } catch (Exception $e) {
             header('Location:/autenticacion?mail=BAD');
             exit();
         }
     }
 
-    public function verificarUsuario(){
+    public function autenticacion()
+    {
+        $codigo = $_GET['verificacion'];
+
+        if ($codigo === "OK") {
+            header('Location: /login');
+        } else {
+            header('Location: /error');
+        }
+    }
+
+    public function verificarUsuario()
+    {
 
         $tokenCod = $_GET['token'];
         $emailCod = $_GET['email'];
@@ -227,21 +240,26 @@ class RegistroController
         $email = $emailCod;
 
 
-        if(empty($token) || empty($email)){
-            header('Location:/autenticacion?verificacion=ERROREMAIL');
+        if (empty($token) || empty($email)) {
+            header('Location:/registro/autenticacion?verificacion=ERROREMAIL');
             exit();
-        }else{
-            $this->usuarioModel->verificarUsuario($token, $email);
-            $a = array($token, $email);
-            header('Location:/autenticacion?verificacion=OK');
+        } else {
+            $bool = $this->usuarioModel->verificarUsuario($token, $email);
+            if ($bool) {
+                header('Location:/registro/autenticacion?verificacion=OK');
+            } else {
+                header('Location:/registro/autenticacion?verificacion=ERROREMAIL');
+            }
+
             exit();
 
+
+            /*$a = array($token, $email);*/
             /*
             $this->renderer->render('verificarUsuario', $a);
             */
         }
     }
-
 
 
 }

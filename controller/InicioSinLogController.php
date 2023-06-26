@@ -10,6 +10,9 @@ class InicioSinLogController {
 
     public function list() {
         $a = array("a");
+
+        
+
         $this->renderer->render('inicioSinLog', $a);
     }
 

@@ -134,21 +134,22 @@ class UsuarioModel {
 */
     public function verificarUsuario($token, $email){
 
-        $tokenDB = $this->database->query("SELECT token
+        $tokenDB = $this->database->query_assoc("SELECT token
         FROM usuario
         WHERE email = '$email'");
 
-        if($tokenDB == $token){
+
+        if($tokenDB[0]['token'] === $token){
             $sql = "UPDATE Usuario 
                     SET verificado = '1'
                     WHERE email = '$email'";
             $this->database->query($sql);
-            header('Location:/autenticacion?verificacion=VERIFICACIONCUENTAEXITOSA');
+            return true;
             exit();
         }else{
             echo "hubo un error en la verificación, intente nuevamente.";
             var_dump($tokenDB);
-            header('Location:/autenticacion?verificacion=ERRORDB');
+            return false;
             exit();
         }
 
