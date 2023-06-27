@@ -16,7 +16,7 @@
                         <h6>Obtuviste <span id="misPuntos">{{puntos}}</span> puntos</h6>
                         <br>
                         <br>
-                        <a href="/partida/irAlLobby"><button>Ir al lobby</button></a>
+                        <a href="/lobby"><button>Ir al lobby</button></a>
                     </div>
                 </div>
             </div>
@@ -24,172 +24,166 @@
     </body>
 {{/termino}}
 
-
-
-
-
-
-
-    {{^termino}}
-        <head>
-            <link rel="stylesheet" href="/public/css/partida.css">
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="/public/js/partida.js"></script>
-        </head>
-        <body class="bd-image " style="background-image: url('/public/imgs/Fondo.png'); color: ghostwhite">
-        <div class="container text-center">
-            <div class="row" style="margin-top: 1em;padding: 4em;"  >
-                <div class="col-6 col-lg-6">
-                    <div class="card mx-auto p-2 w-auto">
-                        <h4>Tiempo: <span id="tiempo">10</span></h4>
-                    </div>
-                </div>
-
-                <div class="col-6 col-lg-6">
-                    <div class="card mx-auto p-2 w-auto">
-                        <h4>Puntos: <span id="puntos">0</span></h4>
-                    </div>
+{{^termino}}
+    <head>
+        <link rel="stylesheet" href="/public/css/partida.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="/public/js/partida.js"></script>
+    </head>
+    <body class="bd-image " style="background-image: url('/public/imgs/Fondo.png'); color: ghostwhite">
+    <div class="container text-center">
+        <div class="row" style="margin-top: 1em;padding: 4em;"  >
+            <div class="col-6 col-lg-6">
+                <div class="card mx-auto p-2 w-auto">
+                    <h4>Tiempo: <span id="tiempo">10</span></h4>
                 </div>
             </div>
 
-            <!--Categoria-->
-            <div class="row">
-                <div class="col-12 col-lg-12 text-center">
-                    <div id="categoria_columna" class="card mx-auto p-2 w-50 m-3">
-
-                        <h2 id="categoria"></h2>
-
-                    </div>
+            <div class="col-6 col-lg-6">
+                <div class="card mx-auto p-2 w-auto">
+                    <h4>Puntos: <span id="puntos">0</span></h4>
                 </div>
             </div>
-
-            <!--Pregunta-->
-            <div class="row mt-3">
-                <div class="col-12 col-lg-12">
-                    <div class="card m-4 p-4">
-                        <h3 id="pregunta"></h3>
-                    </div>
-                </div>
-            </div>
-            <!--Fin Pregunta-->
-
-            <!--Respuestas-->
-            <div class="row">
-                <div class="col-12 col-lg-6">
-                    <div class="card m-2 p-2">
-                        <button class="boton mi-boton"><h4 class="respuesta"></h4></button>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-6">
-                    <div class="card m-2 p-2">
-                        <button class="boton mi-boton"><h4 class="respuesta"></h4></button>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-6">
-                    <div class="card m-2 p-2">
-                        <button class="boton mi-boton"><h4 class="respuesta"></h4></button>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-6">
-                    <div class="card m-2 p-2">
-                        <button class="boton mi-boton"><h4 class="respuesta"></h4></button>
-                    </div>
-                </div>
-            </div>
-            <!--Fin Respuestas-->
-
-            <!--Acciones-->
-            <div class="row" style="margin-top: 1em;padding: 4em;">
-                <div class="col-12 col-lg-12">
-                    <div class="card mx-auto p-2 w-50">
-                        <button class="boton "><h6><i class="fa-solid fa-bomb"></i>  Usar Trampita</h6></button>
-                    </div>
-                </div>
-                <!--<div class="col-6 col-lg-6">
-                    <div class="card mx-auto p-2 w-auto">
-                        <button class="boton reportar"><h6 class="report_pregunta"><i class="fa-solid fa-flag"></i>  Reportar Pregunta</h6></button>
-                    </div>
-                </div>-->
-            </div>
-            <!--Fin Acciones-->
-
-            <!--Partida terminada
-            <div id="termino-partida" class="row">
-                <div class="col-12 col-lg-12">
-                    <div class="card mx-auto p-2 w-auto">
-                        <h3>La partida finalizó,mejor suerte la próxima (:<br>
-                        &ndash;&gt; Ir al Lobby <--</h3>
-                    </div>
-                </div>
-            </div>
-            Fin Partida terminada-->
         </div>
 
-        <!-- Modal -->
-        <div id="finPartida" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header text-center" style="text-align: center">
-                        <h5 class="modal-title w-100">Respuesta Incorrecta! ☹️</h5>
-                    </div>
-                    <div class="modal-body text-center modal-dialog-centered">
-                        <h6>Obtuviste <span id="losPuntos"></span> puntos!!!</h6>
-                    </div>
-                    <div class="modal-footer d-flex justify-content-around">
-                        <div class="row">
-                            <div class="col-6">
-                                <button type="button" class="btn btn-primary lobby"><i class="fa-solid fa-house"></i> Al Lobby</button>
-                            </div>
-                            <div class="col-6">
-                                <button type="button" class="btn btn-danger reportar"><i class="fa-solid fa-exclamation"></i> Reportar Pregunta</button>
-                            </div>
+        <!--Categoria-->
+        <div class="row">
+            <div class="col-12 col-lg-12 text-center">
+                <div id="categoria_columna" class="card mx-auto p-2 w-50 m-3">
+
+                    <h2 id="categoria"></h2>
+
+                </div>
+            </div>
+        </div>
+
+        <!--Pregunta-->
+        <div class="row mt-3">
+            <div class="col-12 col-lg-12">
+                <div class="card m-4 p-4">
+                    <h3 id="pregunta"></h3>
+                </div>
+            </div>
+        </div>
+        <!--Fin Pregunta-->
+
+        <!--Respuestas-->
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="card m-2 p-2">
+                    <button class="boton mi-boton"><h4 class="respuesta"></h4></button>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="card m-2 p-2">
+                    <button class="boton mi-boton"><h4 class="respuesta"></h4></button>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="card m-2 p-2">
+                    <button class="boton mi-boton"><h4 class="respuesta"></h4></button>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="card m-2 p-2">
+                    <button class="boton mi-boton"><h4 class="respuesta"></h4></button>
+                </div>
+            </div>
+        </div>
+        <!--Fin Respuestas-->
+
+        <!--Acciones-->
+        <div class="row" style="margin-top: 1em;padding: 4em;">
+            <div class="col-12 col-lg-12">
+                <div class="card mx-auto p-2 w-50">
+                    <button class="boton "><h6><i class="fa-solid fa-bomb"></i>  Usar Trampita</h6></button>
+                </div>
+            </div>
+            <!--<div class="col-6 col-lg-6">
+                <div class="card mx-auto p-2 w-auto">
+                    <button class="boton reportar"><h6 class="report_pregunta"><i class="fa-solid fa-flag"></i>  Reportar Pregunta</h6></button>
+                </div>
+            </div>-->
+        </div>
+        <!--Fin Acciones-->
+
+        <!--Partida terminada
+        <div id="termino-partida" class="row">
+            <div class="col-12 col-lg-12">
+                <div class="card mx-auto p-2 w-auto">
+                    <h3>La partida finalizó,mejor suerte la próxima (:<br>
+                    &ndash;&gt; Ir al Lobby <--</h3>
+                </div>
+            </div>
+        </div>
+        Fin Partida terminada-->
+    </div>
+
+    <!-- Modal -->
+    <div id="finPartida" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center" style="text-align: center">
+                    <h5 class="modal-title w-100">Respuesta Incorrecta! ☹️</h5>
+                </div>
+                <div class="modal-body text-center modal-dialog-centered">
+                    <h6>Obtuviste <span id="losPuntos"></span> puntos!!!</h6>
+                </div>
+                <div class="modal-footer d-flex justify-content-around">
+                    <div class="row">
+                        <div class="col-6">
+                            <button type="button" class="btn btn-primary lobby"><i class="fa-solid fa-house"></i> Al Lobby</button>
+                        </div>
+                        <div class="col-6">
+                            <button type="button" class="btn btn-danger reportar"><i class="fa-solid fa-exclamation"></i> Reportar Pregunta</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div id="finDeTiempo" class="modal fade" tabindex="-2" role="dialog" data-backdrop="static" data-keyboard="false">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header text-center" style="text-align: center">
-                        <h5 class="modal-title w-100">Se te terminó el tiempo ☹️</h5>
-                    </div>
-                    <div class="modal-body text-center">
-                        <h6>Obtuviste <span id="misPuntos"></span> puntos</h6>
-                        <br>
-                        <br>
-                        <a href="/lobby"><button>Intentalo de vuelta</button></a>
-                        <button class="boton reportar"><h6 class="report_pregunta"><i class="fa-solid fa-flag"></i>  Reportar Pregunta</h6></button>
-                    </div>
+    <div id="finDeTiempo" class="modal fade" tabindex="-2" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center" style="text-align: center">
+                    <h5 class="modal-title w-100">Se te terminó el tiempo ☹️</h5>
+                </div>
+                <div class="modal-body text-center">
+                    <h6>Obtuviste <span id="misPuntos"></span> puntos</h6>
+                    <br>
+                    <br>
+                    <a href="/lobby"><button>Intentalo de vuelta</button></a>
+                    <button class="boton reportar"><h6 class="report_pregunta"><i class="fa-solid fa-flag"></i>  Reportar Pregunta</h6></button>
                 </div>
             </div>
         </div>
+    </div>
 
 
-        <!--    OPCIONES REPORTE-->
-        <div id="reportModal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Reportar Pregunta</h5>
+    <!--    OPCIONES REPORTE-->
+    <div id="reportModal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reportar Pregunta</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group">
+                        <button type="button" class="list-group-item list-group-item-action report-option" data-value="1">Respuesta Incorrecta</button>
+                        <button type="button" class="list-group-item list-group-item-action report-option" data-value="2">No se entiende pregunta</button>
+                        <button type="button" class="list-group-item list-group-item-action report-option" data-value="3">Pregunta Ofensiva</button>
+                        <button type="button" class="list-group-item list-group-item-action report-option" data-value="4">Otra razón</button>
                     </div>
-                    <div class="modal-body">
-                        <div class="list-group">
-                            <button type="button" class="list-group-item list-group-item-action report-option" data-value="1">Respuesta Incorrecta</button>
-                            <button type="button" class="list-group-item list-group-item-action report-option" data-value="2">No se entiende pregunta</button>
-                            <button type="button" class="list-group-item list-group-item-action report-option" data-value="3">Pregunta Ofensiva</button>
-                            <button type="button" class="list-group-item list-group-item-action report-option" data-value="4">Otra razón</button>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" id="reportarBtn">Reportar</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="reportarBtn">Reportar</button>
                 </div>
             </div>
         </div>
-        </body>
-    {{/termino}}
+    </div>
+    </body>
+{{/termino}}
 
 

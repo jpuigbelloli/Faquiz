@@ -16,7 +16,6 @@ class PartidaController{
             header('Location:/login');
             exit();
         }
-//        unset($_SESSION['id_pregunta']);
         if(isset($_SESSION['id_pregunta']) || $_SESSION['recargo']){
             $this->finPorRecarga();
         }else{
@@ -44,12 +43,6 @@ class PartidaController{
         unset($_SESSION['id_pregunta']);
         $this->renderer->render('partida',$data);
 
-    }
-
-    public function irAlLobby(){
-        unset($_SESSION['recargo']);
-        header('Location:/lobby');
-        exit();
     }
 
     public function nuevaPregunta(){

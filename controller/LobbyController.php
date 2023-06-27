@@ -19,9 +19,9 @@ class LobbyController
             header('Location: /login');
             exit();
         }
-        /*Logger::info('ESTOY UNSETEANDO RECARGO');
-        unset($_SESSION['recargo']);*/
-
+        /*
+        ;*/
+        unset($_SESSION['recargo']);
         Logger::info('estoy pasando por el lobby???');
 
         $usuario = $_SESSION['usuario'];
