@@ -16,10 +16,15 @@ class PartidaController{
             header('Location:/login');
             exit();
         }
+        if(!isset($_SESSION['id_pregunta'])){
+            devolverPregunta($_SESSION['id_pregunta'], $_SESSION["tiempo"]);
+        }else{
+            $partida = new Partida();
+            $_SESSION['puntos'] = $partida->getPuntaje();
+            $this->renderer->render('partida');
+        }
 
-        $partida = new Partida();
-        $_SESSION['puntos'] = $partida->getPuntaje();
-        $this->renderer->render('partida');
+
     }
 
     public function nuevaPregunta(){
@@ -36,6 +41,7 @@ class PartidaController{
 
         //guardo el id de pregunta en sesion
         $idPregunta = $data["pregunta"][0]["id_pregunta"];
+
         //guardo el id_pregunta actual en sesion
         $_SESSION["id_pregunta"] = $idPregunta;
 
