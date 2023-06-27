@@ -10,24 +10,3 @@ $method = $_GET['action'] ?? 'list';
 
 $router->route($module, $method);
 
-
-
-
-
-/*$page=$_GET['page']??'inicioSinLog';
-
-switch ($page){
-
-    case 'iniciarSesion':
-        $songscontoller = $configuration->getSongsController();
-        $songscontoller->list();
-        break;
-    case 'registro':
-        $registroController = $configuration->getUsuarioController();
-        $registroController->registrarUsuario();
-        break;
-    default:
-        $inicioSinLogController = $configuration->getInicioSinLogController();
-        $inicioSinLogController->redirigir();
-}*/
-

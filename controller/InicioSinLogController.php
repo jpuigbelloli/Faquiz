@@ -11,11 +11,12 @@ class InicioSinLogController
     }
 
     public function list() {
-        $a = array("a");
+        if (isset($_SESSION['logueado'])) {
+            header('Location:/lobby');
+            exit();
+        }
 
-
-
-        $this->renderer->render('inicioSinLog', $a);
+        $this->renderer->render('inicioSinLog');
     }
 
     public function getVistaLogin(){

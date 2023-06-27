@@ -19,12 +19,16 @@ class LobbyController
             header('Location: /login');
             exit();
         }
+        /*Logger::info('ESTOY UNSETEANDO RECARGO');
+        unset($_SESSION['recargo']);*/
+
+        Logger::info('estoy pasando por el lobby???');
 
         $usuario = $_SESSION['usuario'];
         $data['esEditor'] = (Usuario::getROL() === 'EDITOR');
         $data['esAdmin'] = (Usuario::getROL() === 'ADMIN');
         $data['esJugador'] = (Usuario::getROL() === 'JUGADOR');
-        $data['usuario'] = $this->usuarioModel->getHeader($usuario);
+//        $data['usuario'] = $this->usuarioModel->getHeader($usuario);
         $data['partidas'] = $this->lobbyModel->getPartidas(Usuario::getID());
         $data['datos'] = $this->lobbyModel->getPuntosAcumuladosYPartidasJugadas(Usuario::getID());
         $data['ranking'] = $this->lobbyModel->getRankingGlobal();

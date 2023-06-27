@@ -16,8 +16,9 @@ class PartidaController{
             header('Location:/login');
             exit();
         }
-        if(!isset($_SESSION['id_pregunta'])){
-            devolverPregunta($_SESSION['id_pregunta'], $_SESSION["tiempo"]);
+//        unset($_SESSION['id_pregunta']);
+        if(isset($_SESSION['id_pregunta']) || $_SESSION['recargo']){
+            $this->finPorRecarga();
         }else{
             $partida = new Partida();
             $_SESSION['puntos'] = $partida->getPuntaje();
@@ -25,6 +26,30 @@ class PartidaController{
         }
 
 
+    }
+    private function finPorRecarga(){
+        if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
+            header('Location:/login');
+            exit();
+        }
+        if(isset($_SESSION['id_pregunta'])){
+            $this->partidaModel->guardarPreguntaCorrectaOIncorrecta($_SESSION["id_pregunta"],0,Usuario::getID());
+            $this->partidaModel->guardarPartida(Usuario::getID(),$_SESSION['puntos']);
+        }
+        $data["puntos"]=$_SESSION['puntos'];
+        $data["termino"] = true;
+
+
+        $_SESSION['recargo'] = true;
+        unset($_SESSION['id_pregunta']);
+        $this->renderer->render('partida',$data);
+
+    }
+
+    public function irAlLobby(){
+        unset($_SESSION['recargo']);
+        header('Location:/lobby');
+        exit();
     }
 
     public function nuevaPregunta(){
@@ -65,12 +90,10 @@ class PartidaController{
 //        $correcta = $this->partidaModel->esCorrecta("Thomas Edison","21");
 
         $diferenciaTiempo = $tiempo - $_SESSION['tiempo'];
-        Logger::info("diferencia de tiempo entre que se mando la pregunta y respuesta en ms ".$diferenciaTiempo);
         $correcta = $this->partidaModel->esCorrecta($respuesta,$id_pregunta);
 
         if($correcta[0]["correcta"] == 1 && $diferenciaTiempo <= 10500){
             $_SESSION['puntos']++;
-            Logger::info($_SESSION['puntos']);
             $this->partidaModel->guardarPreguntaCorrectaOIncorrecta($id_pregunta,1,$userId[0]["id"]);
         } else {
             $this->partidaModel->guardarPreguntaCorrectaOIncorrecta($id_pregunta,0,$userId[0]["id"]);
@@ -90,10 +113,11 @@ class PartidaController{
         $userId = $this->partidaModel->getUserId($_SESSION['usuario']);
         $this->partidaModel->guardarPreguntaCorrectaOIncorrecta($_SESSION["id_pregunta"],0,$userId[0]["id"]);
         $this->partidaModel->guardarPartida($userId[0]["id"],$_SESSION['puntos']);
-
+        unset($_SESSION['id_pregunta']);
         $data["puntaje"] = $_SESSION['puntos'];
         echo json_encode($data);
     }
+
 
     public function reportar(){
         if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
