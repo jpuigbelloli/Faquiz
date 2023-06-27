@@ -1,20 +1,36 @@
 {{> header}}
-<head>
-    <link rel="stylesheet" href="/public/css/partida.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/public/js/partida.js"></script>
-</head>
-<body  class="bd-image" style="background-image: url('/public/imgs/Fondo.png')">
+{{#termino}}
+    <head>
+        <link rel="stylesheet" href="/public/css/partida.css">
+        <link rel="stylesheet" href="/public/css/login.css">
+    </head>
+    <body class="bd-image " style="background-image: url('/public/imgs/Fondo.png'); color: ghostwhite">
+        <div class="card recarga">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center" style="text-align: center">
+                        <h5 class="modal-title w-100">Recargaste la página y perdiste 😔</h5>
+                    </div>
+                    <div class="modal-body text-center">
+                        <h6>Obtuviste <span id="misPuntos">{{puntos}}</span> puntos</h6>
+                        <br>
+                        <br>
+                        <a href="/partida/irAlLobby"><button>Ir al lobby</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+{{/termino}}
+
+{{^termino}}
+    <head>
+        <link rel="stylesheet" href="/public/css/partida.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="/public/js/partida.js"></script>
+    </head>
+    <body class="bd-image " style="background-image: url('/public/imgs/Fondo.png'); color: ghostwhite">
     <div class="container text-center">
-        <!--<div class="d-inline-flex">
-
-                <span>Puntos: {{#pregunta_respuesta}} {{puntos}} {{/pregunta_respuesta}} </span>
-            <span id="temporizador">Tiempo:</span>
-
-
-
-        </div>-->
-
         <div class="row" style="margin-top: 1em;padding: 4em;"  >
             <div class="col-6 col-lg-6">
                 <div class="card mx-auto p-2 w-auto">
@@ -34,7 +50,7 @@
             <div class="col-12 col-lg-12 text-center">
                 <div id="categoria_columna" class="card mx-auto p-2 w-50 m-3">
 
-                        <h2 id="categoria"></h2>
+                    <h2 id="categoria"></h2>
 
                 </div>
             </div>
@@ -144,7 +160,7 @@
     </div>
 
 
-<!--    OPCIONES REPORTE-->
+    <!--    OPCIONES REPORTE-->
     <div id="reportModal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -166,8 +182,7 @@
             </div>
         </div>
     </div>
-</body>
-<script>
+    </body>
+{{/termino}}
 
 
-</script>

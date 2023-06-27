@@ -19,7 +19,6 @@ class LobbyController
             header('Location: /login');
             exit();
         }
-
         $usuario = $_SESSION['usuario'];
         $data['esEditor'] = (Usuario::getROL() === 'EDITOR');
         $data['esAdmin'] = (Usuario::getROL() === 'ADMIN');
