@@ -57,6 +57,10 @@ class PartidaController{
             header('Location:/login');
             exit();
         }
+        if(isset($_SESSION['recargo'])){
+            header('Location:/partida');
+            exit();
+        }
         //tiempo actual en ms en el que guardo en session
         $currentTime = round(microtime(true) * 1000);
         $_SESSION["tiempo"] = $currentTime;
@@ -80,6 +84,10 @@ class PartidaController{
             header('Location:/login');
             exit();
         }
+        if(isset($_SESSION['recargo'])){
+            header('Location:/partida');
+            exit();
+        }
         $respuesta = $_POST['respuesta'] ?? "";
         $id_pregunta = $_POST['id_pregunta'] ?? "";
         $tiempo = $_POST['tiempo'] ?? "";
@@ -95,9 +103,11 @@ class PartidaController{
         if($correcta[0]["correcta"] == 1 && $diferenciaTiempo <= 10500){
             $_SESSION['puntos']++;
             $this->partidaModel->guardarPreguntaCorrectaOIncorrecta($id_pregunta,1,$userId[0]["id"]);
+            unset($_SESSION['id_pregunta']);
         } else {
             $this->partidaModel->guardarPreguntaCorrectaOIncorrecta($id_pregunta,0,$userId[0]["id"]);
             $this->partidaModel->guardarPartida($userId[0]["id"],$_SESSION['puntos']);
+            unset($_SESSION['id_pregunta']);
         }
 
         $correcta["puntos"] = $_SESSION["puntos"];
@@ -107,6 +117,10 @@ class PartidaController{
     public function fin(){
         if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
             header('Location:/login');
+            exit();
+        }
+        if(isset($_SESSION['recargo'])){
+            header('Location:/partida');
             exit();
         }
 
@@ -122,6 +136,10 @@ class PartidaController{
     public function reportar(){
         if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
             header('Location:/login');
+            exit();
+        }
+        if(isset($_SESSION['recargo'])){
+            header('Location:/partida');
             exit();
         }
         $id_pregunta = $_POST['id_pregunta'];

@@ -14,9 +14,13 @@ class LobbyController
 
     public function list()
     {
-
         if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
             header('Location: /login');
+            exit();
+        }
+
+        if(isset($_SESSION['recargo'])){
+            header('Location:/partida');
             exit();
         }
         $usuario = $_SESSION['usuario'];
