@@ -105,6 +105,24 @@ class UsuarioModel {
 
     }
 
+    function obtenerPais($latitud, $longitud){
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" . $latitud . "," . $longitud . "&key=AIzaSyCrhbTzWlqIINJqnB_PU7XDMdXC0ObRBh4";
+        $respuestaURL = file_get_contents($url);
+
+        $datos = json_decode($respuestaURL, true);
+
+        if($datos['status'] === 'OK'){ //chequea si hubo respuesta valida
+            foreach ($datos['results'] as $resultado){
+                foreach($resultado['address_components'] as $componente){
+                    if(in_array('country', $componente['types'])){
+                        return $componente['long_name']; //devuelve el nombre del pais
+                    }
+                }
+            }
+        }
+        return 'ERROR. No se encontró el pais.';
+    }
+
 
 
 }

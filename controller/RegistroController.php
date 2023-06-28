@@ -51,6 +51,7 @@ class RegistroController
                 header('Location:/registro?error=1');
                 exit();
             } else {
+                $pais = obtenerPais($latitud, $longitud);
                 $ubicacion = $latitud . ',' . $longitud;
                 $token = uniqid();
                 if ($this->usuarioModel->validarUsername($user_name) && $this->usuarioModel->validarEmail($email) && $clave === $clave_rep) {
