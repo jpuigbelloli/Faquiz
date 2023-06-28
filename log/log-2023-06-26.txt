@@ -53,3 +53,6 @@
 [2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 4344
 [2023-06-26][INFO]1
 [2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 1155
+[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 1001
+[2023-06-26][INFO]1
+[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 569

@@ -1,7 +1,9 @@
 * {
     opacity: unset;
 }
-
+body {
+    height: 100vh
+}
 .bd-image {
     background-image: url('/public/imgs/Fondo.png');
     background-size: cover;
@@ -121,6 +123,51 @@ a {
     box-shadow: none;
 }
 
+.card.recarga {
+    /* Add the following styles */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 400px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
 
+.lobby{
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #56baed;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 0.9em;
+}
+
+.lobby:hover{
+    background-color: #0d6efd;
+    border-radius: 0.9em;
+}
+
+.reportar{
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #ed5656;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 0.9em;
+}
+
+.reportar:hover{
+    background-color: red;
+    border-radius: 0.9em;
+}
 
 

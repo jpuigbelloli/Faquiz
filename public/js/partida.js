@@ -46,7 +46,6 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '.lobby', function() {
-        // Redirect to "/lobby" page
         window.location.href = '/lobby';
     });
 

@@ -17,14 +17,48 @@ class PartidaController{
             exit();
         }
 
-        $partida = new Partida();
-        $_SESSION['puntos'] = $partida->getPuntaje();
-        $this->renderer->render('partida');
+        if(isset($_SESSION['id_pregunta']) || isset($_SESSION['recargo'])){
+            $this->finPorRecarga();
+        }else{
+            $partida = new Partida();
+            $_SESSION['puntos'] = $partida->getPuntaje();
+            $this->renderer->render('partida');
+        }
+
+
+    }
+    private function finPorRecarga(){
+        if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
+            header('Location:/login');
+            exit();
+        }
+        if(isset($_SESSION['id_pregunta'])){
+            $this->partidaModel->guardarPreguntaCorrectaOIncorrecta($_SESSION["id_pregunta"],0,Usuario::getID());
+            $this->partidaModel->guardarPartida(Usuario::getID(),$_SESSION['puntos']);
+        }
+        $data["puntos"]=$_SESSION['puntos'];
+        $data["termino"] = true;
+
+
+        $_SESSION['recargo'] = true;
+        unset($_SESSION['id_pregunta']);
+        $this->renderer->render('partida',$data);
+
+    }
+
+    public function irAlLobby(){
+        unset($_SESSION['recargo']);
+        header('Location:/lobby');
+        exit();
     }
 
     public function nuevaPregunta(){
         if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
             header('Location:/login');
+            exit();
+        }
+        if(isset($_SESSION['recargo'])){
+            header('Location:/partida');
             exit();
         }
         //tiempo actual en ms en el que guardo en session
@@ -36,6 +70,7 @@ class PartidaController{
 
         //guardo el id de pregunta en sesion
         $idPregunta = $data["pregunta"][0]["id_pregunta"];
+
         //guardo el id_pregunta actual en sesion
         $_SESSION["id_pregunta"] = $idPregunta;
 
@@ -49,6 +84,10 @@ class PartidaController{
             header('Location:/login');
             exit();
         }
+        if(isset($_SESSION['recargo'])){
+            header('Location:/partida');
+            exit();
+        }
         $respuesta = $_POST['respuesta'] ?? "";
         $id_pregunta = $_POST['id_pregunta'] ?? "";
         $tiempo = $_POST['tiempo'] ?? "";
@@ -59,16 +98,16 @@ class PartidaController{
 //        $correcta = $this->partidaModel->esCorrecta("Thomas Edison","21");
 
         $diferenciaTiempo = $tiempo - $_SESSION['tiempo'];
-        Logger::info("diferencia de tiempo entre que se mando la pregunta y respuesta en ms ".$diferenciaTiempo);
         $correcta = $this->partidaModel->esCorrecta($respuesta,$id_pregunta);
 
         if($correcta[0]["correcta"] == 1 && $diferenciaTiempo <= 10500){
             $_SESSION['puntos']++;
-            Logger::info($_SESSION['puntos']);
             $this->partidaModel->guardarPreguntaCorrectaOIncorrecta($id_pregunta,1,$userId[0]["id"]);
+            unset($_SESSION['id_pregunta']);
         } else {
             $this->partidaModel->guardarPreguntaCorrectaOIncorrecta($id_pregunta,0,$userId[0]["id"]);
             $this->partidaModel->guardarPartida($userId[0]["id"],$_SESSION['puntos']);
+            unset($_SESSION['id_pregunta']);
         }
 
         $correcta["puntos"] = $_SESSION["puntos"];
@@ -80,18 +119,27 @@ class PartidaController{
             header('Location:/login');
             exit();
         }
+        if(isset($_SESSION['recargo'])){
+            header('Location:/partida');
+            exit();
+        }
 
         $userId = $this->partidaModel->getUserId($_SESSION['usuario']);
         $this->partidaModel->guardarPreguntaCorrectaOIncorrecta($_SESSION["id_pregunta"],0,$userId[0]["id"]);
         $this->partidaModel->guardarPartida($userId[0]["id"],$_SESSION['puntos']);
-
+        unset($_SESSION['id_pregunta']);
         $data["puntaje"] = $_SESSION['puntos'];
         echo json_encode($data);
     }
 
+
     public function reportar(){
         if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
             header('Location:/login');
+            exit();
+        }
+        if(isset($_SESSION['recargo'])){
+            header('Location:/partida');
             exit();
         }
         $id_pregunta = $_POST['id_pregunta'];
