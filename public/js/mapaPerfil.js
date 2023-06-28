@@ -1,27 +1,23 @@
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrhbTzWlqIINJqnB_PU7XDMdXC0ObRBh4"></script>
-
-// obtener las coordenadas del usuario
-$(document).ready(function() {
-    var coordenadas = $(#coordenadas).val();
-    console.log(coordenadas);
-});
 function initMap() {
-    /*
-            // Crear mapa centrado en las coordenadas
-            var map = new google.maps.Map(document.getElementById('map'), {
-                center: coordenadas,
-                zoom: 15
-            });
+    // Obtener las coordenadas del elemento <p>
+    var coordenadasElement = document.getElementById('coordenadas');
+    var coordenadas = coordenadasElement.textContent.trim().split(',');
 
-            // Agregar marcador en las coordenadas
-            var marker = new google.maps.Marker({
-                position: coordenadas,
-                map: map,
-                title: 'Ubicación del usuario'
-            });
-            */
+    // Verificar que se hayan obtenido las coordenadas
+    if (coordenadas.length === 2) {
+        var latitud = parseFloat(coordenadas[0]);
+        var longitud = parseFloat(coordenadas[1]);
 
+        // Crear mapa
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: latitud, lng: longitud },
+            zoom: 13
+        });
+
+        // Agregar marcador en la coordenada especificada
+        var marker = new google.maps.Marker({
+            position: { lat: latitud, lng: longitud },
+            map: map
+        });
+    }
 }
-
-
-

@@ -4,7 +4,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/public/js/mapaPerfil.js"></script>
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrhbTzWlqIINJqnB_PU7XDMdXC0ObRBh4"></script>
 {{#usuario}}
     <body style="background-image: url('/public/imgs/Fondo.png'); color: ghostwhite;background-image: url('/public/imgs/Fondo.png');background-size: cover;">
     <div class="container">
@@ -78,7 +78,7 @@
                                     <h6 class="mb-0">Pa&iacutes</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <p id="coordenadas" hidden="">{{ubicacion}}</p>
+                                    <p id="coordenadas" hidden="" >{{ubicacion}}</p>
                                     <div id="map" style="height: 250px;"></div>
                                 </div>
                             </div>
@@ -124,11 +124,9 @@
         </div>
     </div>
     </body>
+    <script>
+        initMap();
+    </script>
 {{/usuario}}
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        initMap();
-    });
-</script>
 <!--{{> footer}}-->

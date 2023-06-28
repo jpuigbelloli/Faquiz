@@ -51,9 +51,8 @@ class PerfilController
             $dataUsuario['rutaQR'] = $this->perfilModel->getDireccionQR($nombreDeUsuarioGet);
 
             $data['usuario'] = $dataUsuario;
-            $this->renderer->render('perfil', $data);
             $data['usuario']['ubicacion'] = $ubicacionUsuario;
-
+            $this->renderer->render('perfil', $data);
             exit();
         } else {
             //HABRIA QUE HACER UNA VISTA ERROR PARA TIRAR TODOS LOS ERRORES A ESA VISTA
