@@ -110,6 +110,19 @@ class PerfilModel
         return $totalUsuarios > 0;
     }
 
+    public function getCoordenadasUsuario($usuario){
+        $resultado = $this->database->query("SELECT ubicacion                             
+                                             FROM usuario 
+                                             WHERE user_name ='$usuario'");
+
+        if($resultado && $resultado->num_rows > 0) {
+            $ubicacion = $resultado->fetch_assoc();
+            return $ubicacion;
+        }
+
+        return null;
+    }
+
 
 }
 
