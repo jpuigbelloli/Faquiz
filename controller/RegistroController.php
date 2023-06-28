@@ -51,13 +51,14 @@ class RegistroController
                 header('Location:/registro?error=1');
                 exit();
             } else {
-                $pais = obtenerPais($latitud, $longitud);
+                $pais = $this->usuarioModel->obtenerPais($latitud, $longitud);
+                Logger::info('$pais');
                 $ubicacion = $latitud . ',' . $longitud;
                 $token = uniqid();
                 if ($this->usuarioModel->validarUsername($user_name) && $this->usuarioModel->validarEmail($email) && $clave === $clave_rep) {
                     $hash = $this->usuarioModel->hashearClave($clave);
                     $ruta_imagen = $this->usuarioModel->validarImagen($imagen_nombre, $user_name);
-                    $this->usuarioModel->registrar($nombre, $apellido, $fecha_nac, $genero, $ubicacion, $email, $user_name, $hash, $ruta_imagen, $token);
+                    $this->usuarioModel->registrar($nombre, $apellido, $fecha_nac, $genero, $ubicacion, $email, $user_name, $hash, $ruta_imagen, $token, $pais);
 
                     if ($this->enviarEmailRegistro($email, $nombre, $token)) {
                         echo 'Se envió un correo de verificación.';
