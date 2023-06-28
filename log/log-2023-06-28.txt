@@ -1,0 +1,21 @@
+[2023-06-28][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 8888
+[2023-06-28][INFO]1
+[2023-06-28][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 7134
+[2023-06-28][INFO]2
+[2023-06-28][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 5903
+[2023-06-28][INFO]3
+[2023-06-28][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 5333
+[2023-06-28][INFO]4
+[2023-06-28][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 3573
+[2023-06-28][INFO]5
+[2023-06-28][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 8824
+[2023-06-28][INFO]6
+[2023-06-28][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 8004
+[2023-06-28][INFO]1
+[2023-06-28][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 463
+[2023-06-28][INFO]$pais
+[2023-06-28][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 2775
+[2023-06-28][INFO]1
+[2023-06-28][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 3814
+[2023-06-28][INFO]2
+[2023-06-28][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 3632
