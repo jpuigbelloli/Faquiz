@@ -51,6 +51,7 @@ class PerfilController
         } else {
             //HABRIA QUE HACER UNA VISTA ERROR PARA TIRAR TODOS LOS ERRORES A ESA VISTA
             echo "Perfil no encontrado";
+            $this->renderer->render('error', $data);
         }
 
 
