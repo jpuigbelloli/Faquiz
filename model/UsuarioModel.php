@@ -120,7 +120,7 @@ class UsuarioModel {
                 }
             }
         }
-        return 'ERROR. No se encontró el pais.';
+        return 'ERROR-PAIS';
     }
 
 

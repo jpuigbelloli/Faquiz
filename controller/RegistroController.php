@@ -52,7 +52,10 @@ class RegistroController
                 exit();
             } else {
                 $pais = $this->usuarioModel->obtenerPais($latitud, $longitud);
-                Logger::info('$pais');
+                if(empty($pais) || $pais === 'ERROR-PAIS'){
+                    header('Location:/registro?error=ERROR-PAIS');
+                    exit();
+                }
                 $ubicacion = $latitud . ',' . $longitud;
                 $token = uniqid();
                 if ($this->usuarioModel->validarUsername($user_name) && $this->usuarioModel->validarEmail($email) && $clave === $clave_rep) {
@@ -69,8 +72,8 @@ class RegistroController
                     }
                     $ruta_imagen = $this->usuarioModel->validarImagen($imagen_nombre, $user_name);
                     $rutaQR = QRHelper::generarCodigoQR($user_name);
-                    echo $ruta_imagen;
-                    $this->usuarioModel->registrar($nombre, $apellido, $fecha_nac, $genero, $ubicacion, $email, $user_name, $hash, $ruta_imagen);
+
+                    //$this->usuarioModel->registrar($nombre, $apellido, $fecha_nac, $genero, $ubicacion, $email, $user_name, $hash, $ruta_imagen);
                     header('Location:/autenticacion');
                     exit();
                 } else {
