@@ -57,6 +57,7 @@ class RegistroController
                     $hash = $this->usuarioModel->hashearClave($clave);
                     $ruta_imagen = $this->usuarioModel->validarImagen($imagen_nombre, $user_name);
                     $this->usuarioModel->registrar($nombre, $apellido, $fecha_nac, $genero, $ubicacion, $email, $user_name, $hash, $ruta_imagen, $token);
+                    $rutaQR = QRHelper::generarCodigoQR($user_name);
 
                     if ($this->enviarEmailRegistro($email, $nombre, $token)) {
                         echo 'Se envió un correo de verificación.';
@@ -66,7 +67,6 @@ class RegistroController
                         exit();
                     }
                     $ruta_imagen = $this->usuarioModel->validarImagen($imagen_nombre, $user_name);
-                    $rutaQR = QRHelper::generarCodigoQR($user_name);
                     echo $ruta_imagen;
                     $this->usuarioModel->registrar($nombre, $apellido, $fecha_nac, $genero, $ubicacion, $email, $user_name, $hash, $ruta_imagen);
                     header('Location:/autenticacion');
