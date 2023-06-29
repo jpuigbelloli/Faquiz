@@ -46,7 +46,8 @@ class LobbyModel
                 FROM usuario U
                 JOIN partida P
                 ON U.id_usuario = P.id_usuario
-                GROUP BY U.nombre
+                WHERE P.puntaje > 0
+                GROUP BY U.user_name
                 ORDER BY puntaje DESC";
 
         return $this->database->query_assoc($sql);

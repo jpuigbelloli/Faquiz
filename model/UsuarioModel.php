@@ -7,10 +7,10 @@ class UsuarioModel {
         $this->database = $database;
     }
 
-    public function registrar($nombre,$apellido,$fecha_nac,$genero,$ubicacion,$email,$user_name,$hash,$ruta_imagen,$token){
+    public function registrar($nombre,$apellido,$fecha_nac,$genero,$ubicacion,$email,$user_name,$hash,$ruta_imagen,$token,$pais){
         $query = $this->database->query(
-            "INSERT INTO usuario (nombre,apellido,fecha_nac,genero,ubicacion,email,user_name,contrasenia,foto_perfil, token)
-             VALUES ('$nombre','$apellido','$fecha_nac','$genero','$ubicacion','$email','$user_name','$hash','$ruta_imagen', '$token')"
+            "INSERT INTO usuario (nombre,apellido,fecha_nac,genero,ubicacion,email,user_name,contrasenia,foto_perfil, token, pais)
+             VALUES ('$nombre','$apellido','$fecha_nac','$genero','$ubicacion','$email','$user_name','$hash','$ruta_imagen', '$token', '$pais')"
         );
     }
 
@@ -103,6 +103,24 @@ class UsuarioModel {
             exit();
         }
 
+    }
+
+    function obtenerPais($latitud, $longitud){
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" . $latitud . "," . $longitud . "&key=AIzaSyCrhbTzWlqIINJqnB_PU7XDMdXC0ObRBh4";
+        $respuestaURL = file_get_contents($url);
+
+        $datos = json_decode($respuestaURL, true);
+
+        if($datos['status'] === 'OK'){ //chequea si hubo respuesta valida
+            foreach ($datos['results'] as $resultado){
+                foreach($resultado['address_components'] as $componente){
+                    if(in_array('country', $componente['types'])){
+                        return $componente['long_name']; //devuelve el nombre del pais
+                    }
+                }
+            }
+        }
+        return 'ERROR-PAIS';
     }
 
 
