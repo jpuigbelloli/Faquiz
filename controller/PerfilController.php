@@ -14,48 +14,39 @@ class PerfilController
 
     public function list()
     {
-        $nombreDeUsuarioSession = $_SESSION['usuario'] ?? null;
         $nombreDeUsuarioGet = $_GET['usuario'] ?? null;
-        $usuario = $_SESSION['usuario'] ?? "";
-        $logueado = $_SESSION['logueado'] ?? "";
-        $data['usuario']['user_logueado'] = $usuario;
-        $ubicacionUsuario = $this->perfilModel->getCoordenadasUsuario($nombreDeUsuarioSession);
+        $nombreDeUsuarioSession = $_SESSION['usuario'] ?? null;
 
-        if (($nombreDeUsuarioSession !== null) && ($_SESSION['logueado'] === true) && ($nombreDeUsuarioGet === $_SESSION['usuario'])) {
-            $dataUsuario = $this->perfilModel->getData($nombreDeUsuarioSession);
-            $dataUsuario['rutaQR'] = $this->perfilModel->getDireccionQR($nombreDeUsuarioSession);
-
-
+        if (isset($_SESSION['logueado'])) {
+            // EL USUARIO ESTÁ LOGUEADO CORRECTAMENTE
             $data['logueado'] = $_SESSION['logueado'];
-            $data['usuario'] = $dataUsuario;
-            $data['usuario']['user_logueado'] = $_SESSION['usuario'];
-            $data['usuario']['ubicacion'] = $ubicacionUsuario['ubicacion'];
 
-            $this->renderer->render('perfil', $data);
-        } elseif (($nombreDeUsuarioGet !== null) && ( $logueado === true) && ($nombreDeUsuarioGet != $_SESSION['usuario'])) {
-            $dataUsuario = $this->perfilModel->getData($nombreDeUsuarioGet);
-            $dataUsuario['rutaQR'] = $this->perfilModel->getDireccionQR($nombreDeUsuarioGet);
-
-            $data['logueado'] = $_SESSION['logueado'];
-            $data['usuario'] = $dataUsuario;
-            $data['usuario']['user_logueado'] = $_SESSION['usuario'];
-            $data['usuario']['ubicacion'] = $ubicacionUsuario;
-
-            $this->renderer->render('perfil', $data);
-        } elseif (($nombreDeUsuarioGet !== null) && empty($_SESSION['logueado'])) {
-            $dataUsuario = $this->perfilModel->getData($nombreDeUsuarioGet);
-            $dataUsuario['rutaQR'] = $this->perfilModel->getDireccionQR($nombreDeUsuarioGet);
-
-            $data['usuario'] = $dataUsuario;
-            $data['usuario']['ubicacion'] = $ubicacionUsuario;
-            $this->renderer->render('perfil', $data);
+            if ($nombreDeUsuarioGet !== null && $nombreDeUsuarioGet !== '') {
+                // Si se proporciona un nombre de usuario por GET, se asigna ese valor
+                $nombreDeUsuario = $nombreDeUsuarioGet;
+            } else {
+                // Si no se proporciona un nombre de usuario por GET, se utiliza el nombre de usuario de la sesión
+                $nombreDeUsuario = $nombreDeUsuarioSession;
+            }
         } else {
-            //HABRIA QUE HACER UNA VISTA ERROR PARA TIRAR TODOS LOS ERRORES A ESA VISTA
-            echo "Perfil no encontrado";
+            // EL USUARIO NO ESTÁ LOGUEADO
+            $nombreDeUsuario = $nombreDeUsuarioGet;
         }
 
+        if ($nombreDeUsuario !== null && $nombreDeUsuario !== '') {
+            // SE HA PROPORCIONADO UN NOMBRE DE USUARIO VÁLIDO
+            $data['usuario'] = $this->perfilModel->getArray($nombreDeUsuario);
+            if ($data['usuario'] === null) {
+                // El usuario no existe en la base de datos
+                header('Location:/error?codError=222');
+                exit;
+            }
+            $this->renderer->render('perfil', $data);
+        } else {
+            // NO SE HA PROPORCIONADO UN NOMBRE DE USUARIO VÁLIDO
+            header('Location:/error?codError=222');
+            exit;
+        }
     }
-
-
 }
 
