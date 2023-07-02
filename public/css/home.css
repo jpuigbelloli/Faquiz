@@ -20,6 +20,7 @@ button:hover {
     margin-top: 1em !important;
 }
 
+/* QUERY PARA CELULAR*/
 @media only screen and (max-width : 900px) {
 
     .p-5{
