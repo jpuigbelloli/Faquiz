@@ -1,43 +1,32 @@
-<?php
+    <?php
 
-class ErrorController{
-    private $renderer;
-    public function __construct($renderer)
+    class ErrorController
     {
-        $this->renderer = $renderer;
+
+        private $renderer;
+        private $errorModel;
+
+        public function __construct($renderer, $errorModel)
+        {
+            $this->renderer = $renderer;
+            $this->errorModel = $errorModel;
+        }
+
+        public function list() {
+            $errorCode = $_GET['codError'] ?? null;
+
+            if ($errorCode !== null) {
+                $errorData = $this->errorModel->getErrorData($errorCode);
+            } else {
+                $errorData = [
+                    'title' => 'Error desconocido',
+                    'message' => 'Ha ocurrido un error desconocido.',
+                    'buttonText' => 'Volver a Inicio',
+                    'buttonLink' => '/'
+                ];
+            }
+
+            $this->renderer->render('error', $errorData);
+        }
+
     }
-
-    /*public function list() {
-        $a = array("a");
-        $this->renderer->render('error', $a);
-    }*/
-
-
-    public function gestorDeErrores($errorCode)
-    {
-        $errorMensaje = $this->getMensajeError($errorCode);
-
-        $this->renderer->render('error',$errorMensaje);
-    }
-
-    private function getMensajeError($errorCode)
-    {
-        $errorMessages = [
-            '404' => 'Página no encontrada',
-            '222' => 'Perfil Inexistente',
-            '500' => 'Error interno del servidor',
-        ];
-
-        return $errorMessages[$errorCode] ?? 'Error desconocido';
-    }
-
-    private function renderErrorView($errorCode, $errorMessage)
-    {
-        // Renderiza la vista de error pasando el código de error y el mensaje de error
-        // Puedes usar tu motor de plantillas preferido para renderizar la vista
-        // Aquí hay un ejemplo simple utilizando HTML:
-        include 'views/error.php';
-    }
-
-
-}

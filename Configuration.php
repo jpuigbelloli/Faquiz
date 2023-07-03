@@ -24,6 +24,8 @@ include_once ('model/PartidaModel.php');
 include_once ('model/LobbyModel.php');
 include_once ('model/SugerirPreguntaModel.php');
 include_once('model/RevisarPreguntaModel.php');
+include_once('model/ErrorModel.php');
+
 
 //CONTROLLERS
 include_once('controller/InicioSinLogController.php');
@@ -49,8 +51,10 @@ class Configuration {
                                           $this->getErrorController());
     }
 
-    public function getErrorController() {
-        return new ErrorController($this->getRenderer());
+    public function getErrorController()
+    {
+        $errorModel = new ErrorModel();
+        return new ErrorController($this->getRenderer(), $errorModel);
     }
 
     public function getRegistroController(){
