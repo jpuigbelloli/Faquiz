@@ -34,6 +34,7 @@ include_once ('controller/LobbyController.php');
 include_once ('controller/PartidaController.php');
 include_once ('controller/SugerirPreguntaController.php');
 include_once('controller/RevisarPreguntaController.php');
+include_once('controller/ErrorController.php');
 
 
 class Configuration {
@@ -44,7 +45,12 @@ class Configuration {
 
 
     public function getInicioSinLogController() {
-        return new InicioSinLogController($this->getRenderer());
+        return new InicioSinLogController($this->getRenderer(),
+                                          $this->getErrorController());
+    }
+
+    public function getErrorController() {
+        return new ErrorController($this->getRenderer());
     }
 
     public function getRegistroController(){
@@ -68,7 +74,8 @@ class Configuration {
     public function getPerfilController(){
         return new PerfilController(
             new PerfilModel($this->getDatabase()),
-            $this->getRenderer());
+            $this->getRenderer(),
+            $this->getErrorController());
     }
 
     public function getPartidaController(){

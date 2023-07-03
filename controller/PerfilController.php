@@ -4,12 +4,14 @@ class PerfilController
 {
     private $perfilModel;
     private $renderer;
+    private $manejoError;
 
 
-    public function __construct($perfilModel, $renderer)
+    public function __construct($perfilModel, $renderer, $manejoError)
     {
         $this->perfilModel = $perfilModel;
         $this->renderer = $renderer;
+        $this->manejoError = $manejoError;
     }
 
     public function list()
@@ -38,14 +40,12 @@ class PerfilController
             $data['usuario'] = $this->perfilModel->getArray($nombreDeUsuario);
             if ($data['usuario'] === null) {
                 // El usuario no existe en la base de datos
-                header('Location:/error?codError=222');
-                exit;
+                $this->manejoError->gestorDeErrores('222');
             }
             $this->renderer->render('perfil', $data);
         } else {
             // NO SE HA PROPORCIONADO UN NOMBRE DE USUARIO VÁLIDO
-            header('Location:/error?codError=222');
-            exit;
+            $this->manejoError->gestorDeErrores('222');
         }
     }
 }
