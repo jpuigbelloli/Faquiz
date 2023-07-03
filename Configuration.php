@@ -21,6 +21,7 @@ include_once ('model/PartidaModel.php');
 include_once ('model/LobbyModel.php');
 include_once ('model/SugerirPreguntaModel.php');
 include_once('model/RevisarPreguntaModel.php');
+include_once ('model/ReporteModel.php');
 
 //CONTROLLERS
 include_once('controller/InicioSinLogController.php');
@@ -31,6 +32,7 @@ include_once ('controller/LobbyController.php');
 include_once ('controller/PartidaController.php');
 include_once ('controller/SugerirPreguntaController.php');
 include_once('controller/RevisarPreguntaController.php');
+include_once('controller/ReporteController.php');
 
 
 class Configuration {
@@ -81,6 +83,12 @@ class Configuration {
     public function getRevisarPreguntaController(){
         return new RevisarPreguntaController(
             new RevisarPreguntaModel($this->getDatabase()),
+            $this->getRenderer());
+    }
+
+    public function getReporteController(){
+        return new ReporteController(
+            new ReporteModel($this->getDatabase()),
             $this->getRenderer());
     }
 
