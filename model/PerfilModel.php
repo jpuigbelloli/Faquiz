@@ -10,75 +10,101 @@ class PerfilModel
         $this->database = $database;
     }
 
-    public function getData($nombreDeUsuario) {
-        $resultado = $this->database->query("SELECT user_name, foto_perfil AS fotoPerfil,CONCAT(nombre,SPACE(1),apellido) AS nombre,
-                                        email ,YEAR(current_date()) - YEAR(fecha_nac) AS edad
-                                        FROM usuario 
-                                        WHERE user_name ='$nombreDeUsuario'");
+    /* private function obtenerIDUsuario()
+     {
+         return 32;
+     }*/
 
-        if($resultado && $resultado->num_rows > 0) {
+    public function getData($nombreDeUsuario)
+    {
+        $resultado = $this->database->query("SELECT user_name, foto_perfil AS fotoPerfil, nombre, apellido, email, fecha_nac FROM usuario WHERE user_name = '$nombreDeUsuario'");
+
+        if ($resultado && $resultado->num_rows > 0) {
             $usuario = $resultado->fetch_assoc();
             return $usuario;
         }
-
         return null;
     }
 
-    public function getDireccionQR($usuario){
+
+    public function getArray($nombreDeUsuario)
+    {
+        $usuario = $this->getData($nombreDeUsuario);
+        if (!$usuario) {
+            return null; // Usuario no encontrado
+        }
+
+        $arrayDatos = [
+            'user_name' => $usuario['user_name'],
+            'fotoPerfil' => $usuario['fotoPerfil'],
+            'nombreCompleto' => $this->generarNombreCompleto($usuario['nombre'], $usuario['apellido']),
+            'email' => $usuario['email'],
+            'edad' => $this->calcularEdad($usuario['fecha_nac']),
+            'rutaQR' => $this->getDireccionQR($usuario),
+            'ubicacion' => $this->getCoordenadasUsuario($usuario),
+            'pais' => $this->getPaisUsuario($usuario),
+        ];
+
+        return $arrayDatos;
+    }
+
+    private function generarNombreCompleto($nombre, $apellido)
+    {
+        return $nombre . ' ' . $apellido;
+    }
+
+    private function calcularEdad($fechaNacimiento)
+    {
+        $fechaActual = new DateTime();
+        $fechaNacimiento = new DateTime($fechaNacimiento);
+        $edad = $fechaNacimiento->diff($fechaActual)->y;
+
+        return $edad;
+    }
+
+
+
+    public function getDireccionQR($usuario)
+    {
 
         $directorioQR = 'public/codigosQR/';
-        $nombreArchivoQR = $usuario . ".png";
+        $nombreArchivoQR = $usuario['user_name'] . ".png";
 
 
         return $directorioQR . $nombreArchivoQR;
     }
 
-    public function generarArray()
+    public function existeUsuario($nombreDeUsuario)
     {
-        /*$arrayDatos = [];
-        $user_name = $this->getData('user_name');
-        array_push($arrayDatos, $user_name);
-        $foto_perfil = $this->getData('foto_perfil');
-        array_push($arrayDatos, $foto_perfil);
-        $nombreCompleto = $this->generarNombreCompuesto();
-        array_push($arrayDatos, $nombreCompleto);
-        $email = $this->getData('email');
-        array_push($arrayDatos, $email);
-        $edad = $this->calcularEdad();
-        array_push($arrayDatos, $edad);
-        $pais = $this->obtenerPais();
-        array_push($arrayDatos, $pais);
+        $resultado = $this->database->query("SELECT COUNT(*) AS total FROM usuario WHERE user_name ='$nombreDeUsuario'");
+        $fila = $resultado->fetch_assoc();
+        $totalUsuarios = $fila['total'];
 
-        return $arrayDatos;*/
+        return $totalUsuarios > 0;
     }
 
-    private function generarNombreCompuesto()
+    public function getCoordenadasUsuario($usuario)
     {
-       /* $userID = $this->obtenerIDUsuario();
+        $resultado = $this->database->query("SELECT ubicacion                             
+                                             FROM usuario 
+                                             WHERE user_name ='".$usuario['user_name']."'");
 
-        $nombre = $this->getData('nombre');
-        $apellido = $this->getData('apellido');
+        if ($resultado && $resultado->num_rows > 0) {
+            $ubicacion = $resultado->fetch_assoc();
+            return $ubicacion['ubicacion'];
+        }
 
-        return $nombre . ' ' . $apellido;*/
+        return null;
     }
 
-    private function calcularEdad()
-    {
-//        $userID = $this->obtenerIDUsuario();
-//
-//        $fechaNacimiento = $this->getData($userID, 'fecha_nac');
-//
-//        $fechaActual = new DateTime();
-//        $fechaNacimiento = new DateTime($fechaNacimiento);
-//        $edad = $fechaNacimiento->diff($fechaActual)->y;
-//
-//        return $edad;
-
-    }
-
-    private function obtenerPais()
-    {
-        return "Argentina";
+    public function getPaisUsuario($usuario){
+        $resultado = $this->database->query("SELECT pais
+                                             FROM usuario
+                                             WHERE user_name ='".$usuario['user_name']."'");
+        if($resultado && $resultado->num_rows > 0){
+            $pais = $resultado->fetch_assoc();
+            return $pais['pais'];
+        }
     }
 
 

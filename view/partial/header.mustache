@@ -15,10 +15,13 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">
-                <img src="/public/imgs/logo.svg" alt="logo" width="40" height="40" class="d-inline-block align-top">
-                Faquiz
-            </a>
+            <div>
+                <a class="navbar-brand" href="/">
+                    <img src="/public/imgs/Faquiz-Logo-medium.png" alt="logo" width="75" height="75" class="d-inline-block align-top">
+                </a>
+            </div>
+
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -27,7 +30,7 @@
                 {{#logueado}}
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a href="/perfil/{{usuario.user_name}}" class="nav-link active" aria-current="page"><i
+                            <a href="/perfil/{{usuario.user_logueado}}" class="nav-link active" aria-current="page"><i
                                     class="fa-solid fa-user"></i> Mi Perfil</a>
                         </li>
                         <li class="nav-item">

@@ -4,6 +4,9 @@ session_start();
 //LIBRERIAS EXTERNAS
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
 include_once('third-party/phpqrcode/qrlib.php');
+include_once('third-party/PHPMailer/src/PHPMailer.php');
+include_once('third-party/PHPMailer/src/Exception.php');
+include_once('third-party/PHPMailer/src/SMTP.php');
 
 
 //HELPERS
@@ -40,6 +43,7 @@ class Configuration {
 
     public function __construct() {
     }
+
 
     public function getInicioSinLogController() {
         return new InicioSinLogController($this->getRenderer());

@@ -1,35 +1,58 @@
-[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 7819
-[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 6987
-[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 9755
+[2023-06-26][INFO]token6499b57018ac2?email=cabralmartin8@gmail.com
+[2023-06-26][INFO]email
+[2023-06-26][INFO]token6499c04b7669e
+[2023-06-26][INFO]emailcabralmartin8@gmail.com
+[2023-06-26][INFO]token6499c04b7669e
+[2023-06-26][INFO]emailcabralmartin8@gmail.com
+[2023-06-26][INFO]Entre en el else del if
+[2023-06-26][INFO]token6499c04b7669e
+[2023-06-26][INFO]emailcabralmartin8@gmail.com
+[2023-06-26][INFO]Entre en el else del if
+[2023-06-26][INFO]token6499c04b7669e
+[2023-06-26][INFO]emailcabralmartin8@gmail.com
+[2023-06-26][INFO]Entre en el else del if
+[2023-06-26][INFO]token6499c04b7669e
+[2023-06-26][INFO]emailcabralmartin8@gmail.com
+[2023-06-26][INFO]Entre en el else del if
+[2023-06-26][INFO]tokenDB[]:
+[2023-06-26][INFO]token6499c04b7669e
+[2023-06-26][INFO]emailcabralmartin8@gmail.com
+[2023-06-26][INFO]Entre en el else del if
+[2023-06-26][INFO]tokenDB[]:  Array
+[2023-06-26][INFO]token6499c04b7669e
+[2023-06-26][INFO]emailcabralmartin8@gmail.com
+[2023-06-26][INFO]Entre en el else del if
+[2023-06-26][INFO]tokenDB:  6499c04b7669e
+[2023-06-26][INFO]token6499c04b7669e
+[2023-06-26][INFO]emailcabralmartin8@gmail.com
+[2023-06-26][INFO]Entre en el else del if
+[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 10377
+[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 9751
 [2023-06-26][INFO]1
-[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 4529
-[2023-06-26][INFO]2
-[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 5736
-[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 6293
+[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 9471
+[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 3011
 [2023-06-26][INFO]1
-[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 3495
+[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 4341
 [2023-06-26][INFO]2
-[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 10086
+[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 4058
 [2023-06-26][INFO]3
-[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 5530
-[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 8110
-[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 5486
-[2023-06-26][INFO]1
-[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 4287
-[2023-06-26][INFO]2
-[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 2843
-[2023-06-26][INFO]3
-[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 3549
+[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 6549
 [2023-06-26][INFO]4
-[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 2789
+[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 3598
 [2023-06-26][INFO]5
-[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 5140
-[2023-06-26][INFO]6
-[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 4396
-[2023-06-26][INFO]7
-[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 3357
-[2023-06-26][INFO]8
-[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 4420
-[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 5676
+[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 2069
+[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 5097
 [2023-06-26][INFO]1
-[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 2739
+[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 9420
+[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 6012
+[2023-06-26][INFO]paso por el false
+[2023-06-26][INFO]paso por el false
+[2023-06-26][INFO]paso por el true
+[2023-06-26][INFO]paso por el false
+[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 2049
+[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 4344
+[2023-06-26][INFO]1
+[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 1155
+[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 1001
+[2023-06-26][INFO]1
+[2023-06-26][INFO]diferencia de tiempo entre que se mando la pregunta y respuesta en ms 569

@@ -1,0 +1,84 @@
+body {
+    background-image: url('/public/imgs/Fondo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    color: ghostwhite;
+}
+
+h2 {
+    color: ghostwhite;
+    font-style: italic;
+}
+
+form {
+    color: ghostwhite;
+    margin-top: 20px;
+}
+
+.form-label {
+    color: ghostwhite;
+    margin-top: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    background-color: #f6f6f6;
+    border: 2px solid #f6f6f6;
+}
+
+input[type="file"] {
+    margin-top: 10px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #56baed;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 0.9em;
+}
+
+button:hover {
+    background-color: #0d6efd;
+    border-radius: 0.9em;
+}
+
+
+h2.error {
+    color: red;
+    margin-top: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        background-color: transparent;
+    }
+
+    .container {
+        padding: 10px;
+        background-color: transparent;
+    }
+
+    h2 {
+        font-size: 14px;
+    }
+}
+

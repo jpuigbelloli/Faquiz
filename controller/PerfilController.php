@@ -14,33 +14,39 @@ class PerfilController
 
     public function list()
     {
-        $nombreDeUsuario = $_SESSION['usuario'] ?? $_GET['usuario'];
-        $usuario = $this->perfilModel->getData($nombreDeUsuario);
+        $nombreDeUsuarioGet = $_GET['usuario'] ?? null;
+        $nombreDeUsuarioSession = $_SESSION['usuario'] ?? null;
 
-        $usuario['rutaQR'] = $this->perfilModel->getDireccionQR($nombreDeUsuario);
+        if (isset($_SESSION['logueado'])) {
+            // EL USUARIO ESTÁ LOGUEADO CORRECTAMENTE
+            $data['logueado'] = $_SESSION['logueado'];
 
-
-        if ($usuario) {
-            if (isset($_SESSION['logueado']) && $_SESSION['logueado'] === true) {
-                // Usuario logueado
-                $usuario['user_name'] = $_SESSION['usuario'];
-                $data['logueado'] = $_SESSION['logueado'];
-
-                $data['usuario'] = $usuario;
-                $this->renderer->render('perfil', $data);
+            if ($nombreDeUsuarioGet !== null && $nombreDeUsuarioGet !== '') {
+                // Si se proporciona un nombre de usuario por GET, se asigna ese valor
+                $nombreDeUsuario = $nombreDeUsuarioGet;
             } else {
-                // Usuario no logueado
-                $usuario['user_name'] = $nombreDeUsuario;
-
-                $data['usuario'] = $usuario;
-                $this->renderer->render('perfil', $data);
+                // Si no se proporciona un nombre de usuario por GET, se utiliza el nombre de usuario de la sesión
+                $nombreDeUsuario = $nombreDeUsuarioSession;
             }
-
         } else {
-            //HABRIA QUE HACER UNA VISTA ERROR PARA TIRAR TODOS LOS ERRORES A ESA VISTA
-            echo "Perfil no encontrado";
+            // EL USUARIO NO ESTÁ LOGUEADO
+            $nombreDeUsuario = $nombreDeUsuarioGet;
+        }
+
+        if ($nombreDeUsuario !== null && $nombreDeUsuario !== '') {
+            // SE HA PROPORCIONADO UN NOMBRE DE USUARIO VÁLIDO
+            $data['usuario'] = $this->perfilModel->getArray($nombreDeUsuario);
+            if ($data['usuario'] === null) {
+                // El usuario no existe en la base de datos
+                header('Location:/error?codError=222');
+                exit;
+            }
+            $this->renderer->render('perfil', $data);
+        } else {
+            // NO SE HA PROPORCIONADO UN NOMBRE DE USUARIO VÁLIDO
+            header('Location:/error?codError=222');
+            exit;
         }
     }
-
 }
 

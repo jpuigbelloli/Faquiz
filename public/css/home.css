@@ -1,0 +1,31 @@
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #56baed;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 0.9em;
+}
+
+button:hover {
+    background-color: #0d6efd;
+    border-radius: 0.9em;
+}
+
+.p-5{
+    max-width:50% !important;
+    margin-top: 1em !important;
+}
+
+/* QUERY PARA CELULAR*/
+@media only screen and (max-width : 900px) {
+
+    .p-5{
+        max-width:80% !important;
+        margin-top: 1em !important;
+    }
+
+}
