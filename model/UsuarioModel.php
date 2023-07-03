@@ -98,7 +98,6 @@ class UsuarioModel {
             exit();
         }else{
             echo "hubo un error en la verificación, intente nuevamente.";
-            var_dump($tokenDB);
             return false;
             exit();
         }

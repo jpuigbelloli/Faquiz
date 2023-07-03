@@ -12,6 +12,10 @@ class ReporteController{
     }
 
     public function list(){
+        if(!isset($_SESSION['logueado']) || Usuario::getROL()!=='ADMINISTRADOR'){
+            header('Location:/lobby');
+            exit();
+        }
         if(isset($_POST['filtro']) && isset($_POST['buscar'])){
             $filtro = $_POST['filtro'];
         }
