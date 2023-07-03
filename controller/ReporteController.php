@@ -1,6 +1,6 @@
 <?php
- require_once "./third-party/jpgraph/src/jpgraph.php";
- require_once "./third-party/jpgraph/src/jpgraph_bar.php";
+require_once "./third-party/jpgraph/src/jpgraph.php";
+require_once "./third-party/jpgraph/src/jpgraph_bar.php";
 
 class ReporteController{
     private $reporteModel;
@@ -22,7 +22,6 @@ class ReporteController{
         $data['partidas'] = $this->reporteModel->getCantidadDePartidas($filtro);
         $data['preg_totales'] = $this->reporteModel->getCantPreguntasAdmin();
         $data['preg_nuevas'] = $this->reporteModel->getCantNuevas();
-
 
         $this->renderer->render('admin',$data);
     }

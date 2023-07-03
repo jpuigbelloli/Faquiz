@@ -189,4 +189,6 @@ input[type=password]:placeholder {
 .container{
     margin-top: 1rem;
 }
-
+.table-ranking{
+    color: black;
+}
