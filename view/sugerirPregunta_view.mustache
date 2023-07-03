@@ -16,23 +16,23 @@
 </head>
 <body style="background-image: url('/public/imgs/Fondo.png'); color: ghostwhite;background-image: url('/public/imgs/Fondo.png');background-size: cover;">
 
-        <div class="container-fluid text-center" style="overflow-x: hidden;">
+        <div class="container-fluid text-center form-group" style="overflow-x: hidden;">
             <form id="preguntaForm" action="sugerirPregunta/agregar" method="POST">
-                <div class="row" style="margin-top: 1em;padding: 2em;">
+                <div class="row" style="margin-top: 1em;padding: 1em;">
                     <div class="col-12 col-lg-12">
                         <div class="card m-2 p-2 w-50 mx-auto">
-                            <label for="name">Escriba la pregunta a sugerir:</label>
+                            <label class="form-control" for="name">Escriba la pregunta a sugerir:</label>
                             <input type="text" name="pregunta" id="pregunta" required size="50">
                         </div>
                     </div>
                 </div>
 
-                <div class="row" style="margin-top: 1em;padding: 2em;">
+                <div class="row" style="margin-top: 1em;padding: 1em;">
                     <div class="col-12 col-lg-12">
-                        <div class="card m-2 p-2 w-25 mx-auto">
-                            <label for="categoria" class="categoria-label">Seleccione la categoría de la pregunta</label>
-                            <select class="text-center" name="categoria" id="categoria">
-                                <option value="0">Seleccione</option>
+                        <div class="card m-2 p-2 w-50 mx-auto">
+                            <label for="categoria" class="categoria-label form-control">Seleccione la categoría de la pregunta</label>
+                            <select class="text-center form-control" name="categoria" id="categoria">
+                                <option value="0">Categoría</option>
                                 <option value="1">Historia</option>
                                 <option value="2">Geografia</option>
                                 <option value="3">Ciencia</option>
@@ -44,11 +44,11 @@
                     </div>
                 </div>
 
-                <div class="row" style="margin-top: 0.5em;padding: 4em;">
+                <div class="row" style="margin-top: 0.5em;padding: 1em;">
                     <div class="col-12 col-lg-6">
                         <div class="card m-2 w-50 mx-auto card-chica">
                             <div class="input-container">
-                                <label for="respuesta1">Respuesta 1:</label><br>
+                                <label for="respuesta1" class="form-control">Respuesta 1:</label><br>
                                 <input type="radio" id="respuesta1" name="correcta" value="respuesta1" required>
                                 <input type="text" id="respuesta1Text" name="respuesta1Text" required><br><br>
                             </div>
@@ -57,7 +57,7 @@
                     <div class="col-12 col-lg-6">
                         <div class="card m-2 w-50 mx-auto card-chica">
                             <div class="input-container">
-                                <label for="respuesta2">Respuesta 2:</label><br>
+                                <label for="respuesta2" class="form-control">Respuesta 2:</label><br>
                                 <input type="radio" id="respuesta2" name="correcta" value="respuesta2" required>
                                 <input type="text" id="respuesta2Text" name="respuesta2Text" required><br><br>
                             </div>
@@ -66,7 +66,7 @@
                     <div class="col-12 col-lg-6">
                         <div class="card m-2 w-50 mx-auto card-chica">
                             <div class="input-container">
-                                <label for="respuesta3">Respuesta 3:</label><br>
+                                <label for="respuesta3" class="form-control">Respuesta 3:</label><br>
                                 <input type="radio" id="respuesta3" name="correcta" value="respuesta3" required>
                                 <input type="text" id="respuesta3Text" name="respuesta3Text" required><br><br>
                             </div>
@@ -75,7 +75,7 @@
                     <div class="col-12 col-lg-6">
                         <div class="card m-2 w-50 mx-auto card-chica">
                             <div class="input-container">
-                                <label for="respuesta4">Respuesta 4:</label><br>
+                                <label for="respuesta4" class="form-control">Respuesta 4:</label><br>
                                 <input type="radio" id="respuesta4" name="correcta" value="respuesta4" required>
                                 <input type="text" id="respuesta4Text" name="respuesta4Text" required><br><br>
                             </div>
@@ -84,7 +84,7 @@
                 </div>
                 <div class="row text-center" style="margin-top: 0.5em;">
                     <div class="col-12">
-                        <button class="btn btn-success boton" type="submit">Sugerir!</button>
+                        <button class="btn btn-success boton" type="submit">Sugerir pregunta</button>
                     </div>
                 </div>
             </form>

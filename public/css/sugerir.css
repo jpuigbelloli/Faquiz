@@ -22,3 +22,17 @@ body{
     height: 50px;
     font-size: 20px;
 }
+
+/* QUERY PARA CELULAR*/
+@media only screen and (max-width : 900px) {
+
+    .w-50 {
+        width: 100%!important;
+    }
+    .w-25 {
+        width: 100%!important;
+    }
+
+
+}
+

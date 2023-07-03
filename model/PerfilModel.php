@@ -42,6 +42,7 @@ class PerfilModel
             'edad' => $this->calcularEdad($usuario['fecha_nac']),
             'rutaQR' => $this->getDireccionQR($usuario),
             'ubicacion' => $this->getCoordenadasUsuario($usuario),
+            'pais' => $this->getPaisUsuario($usuario),
         ];
 
         return $arrayDatos;
@@ -96,6 +97,15 @@ class PerfilModel
         return null;
     }
 
+    public function getPaisUsuario($usuario){
+        $resultado = $this->database->query("SELECT pais
+                                             FROM usuario
+                                             WHERE user_name ='".$usuario['user_name']."'");
+        if($resultado && $resultado->num_rows > 0){
+            $pais = $resultado->fetch_assoc();
+            return $pais['pais'];
+        }
+    }
 
 
 }
