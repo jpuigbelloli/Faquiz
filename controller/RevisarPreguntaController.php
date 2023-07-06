@@ -118,11 +118,8 @@ class RevisarPreguntaController
 
         foreach ($respuestas as $respuesta){
             if($respuesta['respuesta'] === $correcta){
-                Logger::info("paso por el true");
                 $this->revisarPreguntaModel->updateRespuestas($respuesta['id_respuesta'],$respuesta['respuesta'],true);
             } else {
-                Logger::info("paso por el false");
-
                 $this->revisarPreguntaModel->updateRespuestas($respuesta['id_respuesta'],$respuesta['respuesta'],false);
             }
         }

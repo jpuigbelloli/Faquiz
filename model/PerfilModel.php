@@ -10,11 +10,6 @@ class PerfilModel
         $this->database = $database;
     }
 
-    /* private function obtenerIDUsuario()
-     {
-         return 32;
-     }*/
-
     public function getData($nombreDeUsuario)
     {
         $resultado = $this->database->query("SELECT user_name, foto_perfil AS fotoPerfil, nombre, apellido, email, fecha_nac FROM usuario WHERE user_name = '$nombreDeUsuario'");
@@ -25,7 +20,6 @@ class PerfilModel
         }
         return null;
     }
-
 
     public function getArray($nombreDeUsuario)
     {
