@@ -1,0 +1,215 @@
+{{> header}}
+<link rel="stylesheet" href="./public/css/login.css">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<body class="bd-image " style="background-image: url('/public/imgs/Fondo.png'); color: ghostwhite">
+
+<div class="container my-5 pt-3 text-center">
+    <h3 class="text-center">Solicitar reporte</h3>
+    <p>Por favor, seleccione el tipo de reporte a generar.</p>
+</div>
+<div class="container w-75 mx-auto py-5 px-4" style="background-color:rgba(0, 0, 0, 0.3);color:white;">
+    <form action="reporte/list" method="POST" novalidate>
+        <div class="row">
+            <div class="col-8">
+                <select class="form-select mb-3" aria-label=".form-select-lg example" name="filtro">
+                    <option selected disabled value="">Seleccione filtro...</option>
+                    <option value="Year">Año</option>
+                    <option value="Month">Mes</option>
+                    <option value="Week">Semana</option>
+                    <option value="Day">Día</option>
+                </select>
+                <br>
+                <label  class="form-label" for="fecha_nac">Ingrese fecha:</label>
+                <input class="form-control-sm" type="date" name="fecha_nac" id="fecha_nac" placeholder="Fecha Nacimiento" required>
+                <!--<select class="form-select mb-3" aria-label=".form-select-lg example" name="reporte">
+                    <option selected disabled value="">Seleccione el tipo de informe...</option>
+                    <option value="1">Cantidad de Jugadores</option>
+                    <option value="2">Cantidad de Jugadores nuevos</option>
+                    <option value="3">Cantidad de Jugadores por pais</option>
+                    <option value="4">Cantidad de Jugadores por Genero</option>
+                    <option value="5">Jugadores por Grupo Etario</option>
+                    <option value="6">Cantidad de Partidas Jugadas</option>
+                    <option value="7">Cantidad de Preguntas</option>
+                    <option value="8">Cantidad de Preguntas Creadas</option>
+                    <option value="9">Respuestas Correctas por Usuario</option>
+                </select>-->
+
+            </div>
+
+            <div class="col-4">
+                <button type="submit" class="btn btn-primary" name="buscar"><i class="fa fa-search"></i> Buscar</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+        <div class="container d-grid w-75 mx-auto py-5 px-4">
+            <div class="col-12">
+                <a href="/lobby"><button class="btn btn-primary" name="volver"><i class="fa fa-arrow-left"></i> Volver</button></a>
+            </div>
+            <h2 class="text-center">GRAFICOS</h2>
+            <div>
+                <table class="row table text-center table-bordered" style="width: 100%;color:ghostwhite;">
+
+                    <tr>
+                        <h6 class="title ">Cantidad Jugadores</h6><button type="submit" value="Generar PDF">Generar PDF</button>
+                        <th>Fecha</th>
+                        <th>Cantidad</th>
+                        <th>Filtro</th>
+                    </tr>
+                    {{#jugador}}
+                        <tr>
+                            <td>{{fecha}}</td>
+                            <td>{{cantidad}}</td>
+                            <td>{{filtro}}</td>
+                        </tr>
+                    {{/jugador}}
+                </table>
+<!--                <img src="../public/graficos/cantidadJugadores.png" alt="Cantidad de Jugadores">-->
+            </div>
+            <div>
+                <table class="row  table text-center table-bordered" style="width: 100%;color:ghostwhite;">
+
+                    <tr>
+                        <h6 class="title ">Cantidad Jugadores Nuevos</h6><button type="submit" value="Generar PDF">Generar PDF</button>
+                        <th>Fecha</th>
+                        <th>Cantidad</th>
+                        <th>Filtro</th>
+                    </tr>
+                    {{#nuevos}}
+                        <tr>
+                            <td>{{fecha}}</td>
+                            <td>{{cantidad}}</td>
+                            <td>{{filtro}}</td>
+                        </tr>
+                    {{/nuevos}}
+                </table>
+                <!--                <img src="../public/graficos/cantidadJugadores.png" alt="Cantidad de Jugadores">-->
+            </div>
+
+            <div>
+                <table class="row  table text-center table-bordered" style="width: 100%;color:ghostwhite;">
+
+                    <tr>
+                        <h6 class="title ">Cantidad Jugadores Por Genero</h6><button type="submit" value="Generar PDF">Generar PDF</button>
+                        <th>Fecha</th>
+                        <th>Cantidad</th>
+                        <th>Genero</th>
+                    </tr>
+                    {{#genero}}
+                        <tr>
+                            <td>{{fecha}}</td>
+                            <td>{{cantidad}}</td>
+                            <td>{{genero}}</td>
+                        </tr>
+                    {{/genero}}
+                </table>
+                <!--                <img src="../public/graficos/cantidadJugadores.png" alt="Cantidad de Jugadores">-->
+
+            </div>
+            <div>
+                <table class="row  table text-center table-bordered" style="width: 100%;color:ghostwhite;">
+
+                    <tr>
+                        <h6 class="title ">Cantidad Jugadores Por Grupo Etario</h6><button type="submit" value="Generar PDF">Generar PDF</button>
+                        <th>Cantidad</th>
+                        <th>Grupo Etario</th>
+                    </tr>
+                    {{#edad}}
+                        <tr>
+
+                            <td>{{cantidad}}</td>
+                            <td>{{grupoEtario}}</td>
+                        </tr>
+                    {{/edad}}
+                </table>
+                <!--                <img src="../public/graficos/cantidadJugadores.png" alt="Cantidad de Jugadores">-->
+
+            </div>
+            <div>
+                <table class="row  table text-center table-bordered" style="width: 100%;color:ghostwhite;">
+
+                    <tr>
+                        <h6 class="title ">Cantidad Jugadores Por Grupo Etario</h6><button type="submit" value="Generar PDF">Generar PDF</button>
+                        <th>Cantidad</th>
+                        <th>Grupo Etario</th>
+                    </tr>
+                    {{#edad}}
+                        <tr>
+
+                            <td>{{cantidad}}</td>
+                            <td>{{grupoEtario}}</td>
+                        </tr>
+                    {{/edad}}
+                </table>
+                <!--                <img src="../public/graficos/cantidadJugadores.png" alt="Cantidad de Jugadores">-->
+
+            </div>
+            <div>
+                <table class="row  table text-center table-bordered" style="width: 100%;color:ghostwhite;">
+
+                    <tr>
+                        <h6 class="title ">Cantidad de Partidas Jugadas</h6><button type="submit" value="Generar PDF">Generar PDF</button>
+                        <th>Fecha</th>
+                        <th>Cantidad</th>
+                        <th>Filtro</th>
+                    </tr>
+                    {{#partidas}}
+                        <tr>
+
+                            <td>{{fecha}}</td>
+                            <td>{{cant_partidas}}</td>
+                            <td>{{filtro}}</td>
+                        </tr>
+                    {{/partidas}}
+                </table>
+                <!--                <img src="../public/graficos/cantidadJugadores.png" alt="Cantidad de Jugadores">-->
+
+            </div>
+            <div>
+                <table class="row  table text-center table-bordered" style="width: 100%;color:ghostwhite;">
+
+                    <tr>
+                        <h6 class="title ">Cantidad de Preguntas en el Juego</h6><button type="submit" value="Generar PDF">Generar PDF</button>
+                        <th>Cantidad</th>
+
+                    </tr>
+                    {{#preg_totales}}
+                        <tr>
+                            <td>{{cant_preguntas}}</td>
+                        </tr>
+                    {{/preg_totales}}
+                </table>
+                <!--                <img src="../public/graficos/cantidadJugadores.png" alt="Cantidad de Jugadores">-->
+
+            </div>
+            <div>
+                <table class="row  table text-center table-bordered" style="width: 100%;color:ghostwhite;">
+
+                    <tr>
+                        <h6 class="title ">Cantidad de Preguntas Creadas</h6><button type="submit" value="Generar PDF">Generar PDF</button>
+                        <th>Cantidad</th>
+
+                    </tr>
+                    {{#preg_nuevas}}
+                        <tr>
+                            <td>{{cant_preguntas}}</td>
+                        </tr>
+                    {{/preg_nuevas}}
+                </table>
+                <!--                <img src="../public/graficos/cantidadJugadores.png" alt="Cantidad de Jugadores">-->
+
+            </div>
+            <div>
+
+            </div>
+
+
+        </div>
+
+
+
+
+</body>

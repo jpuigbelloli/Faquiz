@@ -36,3 +36,7 @@ body{
 .titulo-secundario{
     margin-top: 3em;
 }
+
+.table>:not(caption)>*>* {
+    padding: 0.5rem 0.2em !important;
+}

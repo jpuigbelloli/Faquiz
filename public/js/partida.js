@@ -76,6 +76,8 @@ $(document).ready(function() {
     });
 
     function checkearCategoria(categoria) {
+        // le saco las clases a categoria en cada iteacion
+        $('#categoria_columna').removeClass('Arte Historia Deportes Entretenimiento Ciencia Geografia');
         var categoria_columna = '#categoria_columna';
 
         switch (categoria) {

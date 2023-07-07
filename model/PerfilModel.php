@@ -10,11 +10,6 @@ class PerfilModel
         $this->database = $database;
     }
 
-    /* private function obtenerIDUsuario()
-     {
-         return 32;
-     }*/
-
     public function getData($nombreDeUsuario)
     {
         $resultado = $this->database->query("SELECT user_name, foto_perfil AS fotoPerfil, nombre, apellido, email, fecha_nac FROM usuario WHERE user_name = '$nombreDeUsuario'");
@@ -25,7 +20,6 @@ class PerfilModel
         }
         return null;
     }
-
 
     public function getArray($nombreDeUsuario)
     {
@@ -42,6 +36,7 @@ class PerfilModel
             'edad' => $this->calcularEdad($usuario['fecha_nac']),
             'rutaQR' => $this->getDireccionQR($usuario),
             'ubicacion' => $this->getCoordenadasUsuario($usuario),
+            'pais' => $this->getPaisUsuario($usuario),
         ];
 
         return $arrayDatos;
@@ -96,6 +91,15 @@ class PerfilModel
         return null;
     }
 
+    public function getPaisUsuario($usuario){
+        $resultado = $this->database->query("SELECT pais
+                                             FROM usuario
+                                             WHERE user_name ='".$usuario['user_name']."'");
+        if($resultado && $resultado->num_rows > 0){
+            $pais = $resultado->fetch_assoc();
+            return $pais['pais'];
+        }
+    }
 
 
 }

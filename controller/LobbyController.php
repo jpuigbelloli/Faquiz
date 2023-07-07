@@ -1,6 +1,8 @@
 <?php
+
 class LobbyController
 {
+
     private $usuarioModel;
     private $lobbyModel;
     private $renderer;
