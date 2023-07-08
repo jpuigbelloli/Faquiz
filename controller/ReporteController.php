@@ -19,12 +19,7 @@ class ReporteController{
             exit();
         }
 
-        if(isset($_POST['filtro']) && isset($_POST['buscar'])){
-            $filtro = $_POST['filtro'];
-        }
-        else {
-            $filtro = "Month";
-        }
+        $filtro = $_POST['filtro'] ?? "Month";
 
         $data['jugador'] = $this->reporteModel->cantidadDeUsuarios($filtro);
         $data['nuevos'] = $this->reporteModel->cantidadDeUsuariosNuevos($filtro);
@@ -33,8 +28,10 @@ class ReporteController{
         $data['pais'] = $this->reporteModel->jugadoresPorPais();
         $data['partidas'] = $this->reporteModel->getCantidadDePartidas($filtro);
         $data['preg_totales'] = $this->reporteModel->getCantPreguntasAdmin($filtro);
-        $data['preg_nuevas'] = $this->reporteModel->getCantNuevas($filtro);
+        $data['preg_nuevas'] = $this->reporteModel->getCantNuevas();
         $data['preg_usr']   = $this->reporteModel->getRespuestaPorUsuario();
+
+        if(isset($_POST['buscar'])){
 
        $this->getGraficoBarra($data['jugador'],'cantidadJugadores.png','Cantidad de Jugadores');
        $this->getGraficoBarra($data['nuevos'],'cantidadJugadoresNuevos.png','Cantidad de Jugadores Nuevos');
@@ -45,7 +42,7 @@ class ReporteController{
        $this->getGraficoBarra($data['preg_totales'],'preguntasTotales.png','Preguntas Totales');
        $this->getGraficoBarra($data['preg_nuevas'],'preguntasNuevas.png','Cantidad de Preguntas nuevas');
        $this->getGraficoBarra($data['preg_usr'], 'porcentajeUsuario.png','Porcentaje Correctas por Usuario');
-
+        }
        $this->renderer->render('admin',$data);
     }
 
