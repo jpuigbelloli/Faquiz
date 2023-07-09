@@ -1,5 +1,5 @@
 {{> header}}
-<link rel="stylesheet" href="./public/css/login.css">
+<link rel="stylesheet" href="/public/css/login.css">
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <body class="bd-image " style="background-image: url('/public/imgs/Fondo.png'); color: ghostwhite">
@@ -19,19 +19,6 @@
                         <option value="Week">Semana</option>
                         <option value="Day">Día</option>
                     </select>
-                    <!--<select class="form-select mb-3" aria-label=".form-select-lg example" name="reporte">
-                        <option selected disabled value="">Seleccione el tipo de informe...</option>
-                        <option value="1">Cantidad de Jugadores</option>
-                        <option value="2">Cantidad de Jugadores nuevos</option>
-                        <option value="3">Cantidad de Jugadores por pais</option>
-                        <option value="4">Cantidad de Jugadores por Genero</option>
-                        <option value="5">Jugadores por Grupo Etario</option>
-                        <option value="6">Cantidad de Partidas Jugadas</option>
-                        <option value="7">Cantidad de Preguntas</option>
-                        <option value="8">Cantidad de Preguntas Creadas</option>
-                        <option value="9">Respuestas Correctas por Usuario</option>
-                    </select>-->
-
                 </div>
 
                 <div class="col-4">
@@ -46,186 +33,50 @@
         <h2 class="text-center">GRAFICOS</h2>
 
         <div class="justify-content-between">
-            <!--<table class="row table text-center table-bordered" style="width: 100%;color:ghostwhite;">
-
-                <tr>
-                    <h6 class="title ">Cantidad Jugadores</h6>
-                    <th>Fecha</th>
-                    <th>Cantidad</th>
-                    <th>Filtro</th>
-                </tr>
-                {{#jugador}}
-                    <tr>
-                        <td>{{fecha}}</td>
-                        <td>{{cantidad}}</td>
-                        <td>{{filtro}}</td>
-                    </tr>
-                {{/jugador}}
-            </table>-->
             <img src="/public/graficos/cantidadJugadores.png" alt="Cantidad de Jugadores">
-            <a id="generarPDF" type="submit" target="_blank" value="Generar PDF">Generar PDF</a>
+            <button><a href="/reporte/generarPDF?src=/public/graficos/cantidadJugadores.png&name=cantidadJugadores.pdf" target="_blank">Generar PDF</a></button>
         </div>
         <br>
         <div class="justify-content-between">
-            <!--<table class="row  table text-center table-bordered" style="width: 100%;color:ghostwhite;">
-
-                <tr>
-                    <h6 class="title ">Cantidad Jugadores Nuevos</h6>
-                    <th>Fecha</th>
-                    <th>Cantidad</th>
-                    <th>Filtro</th>
-                </tr>
-                {{#nuevos}}
-                    <tr>
-                        <td>{{fecha}}</td>
-                        <td>{{cantidad}}</td>
-                        <td>{{filtro}}</td>
-                    </tr>
-                {{/nuevos}}
-            </table>-->
             <img src="/public/graficos/cantidadJugadoresNuevos.png" alt="Cantidad Jugadores Nuevos">
-            <button type="submit" value="Generar PDF">Generar PDF</button>
+            <button><a href="/reporte/generarPDF?src=/public/graficos/cantidadJugadoresNuevos.png&name=cantidadJugadoresNuevos.pdf" target="_blank">Generar PDF</a></button>
         </div><br>
 
         <div>
-            <!--<table class="row  table text-center table-bordered" style="width: 100%;color:ghostwhite;">
-
-                <tr>
-                    <h6 class="title ">Cantidad Jugadores Por Genero</h6>
-                    <th>Fecha</th>
-                    <th>Cantidad</th>
-                    <th>Genero</th>
-                </tr>
-                {{#genero}}
-                    <tr>
-                        <td>{{fecha}}</td>
-                        <td>{{cantidad}}</td>
-                        <td>{{genero}}</td>
-                    </tr>
-                {{/genero}}
-            </table>-->
-            <img src="/public/graficos/cantidadPorGenero.png" alt="Cantidad de Jugadores Genero">
-            <button type="submit" value="Generar PDF">Generar PDF</button>
+            <img src="/public/graficos/cantidadPorGenero.png" alt="Cantidad Jugadores Nuevos">
+            <button><a href="/reporte/generarPDF?src=/public/graficos/cantidadPorGenero.png&name=cantidadPorGenero.pdf" target="_blank">Generar PDF</a></button>
         </div><br>
         <div>
-           <!-- <table class="row  table text-center table-bordered" style="width: 100%;color:ghostwhite;">
-
-                <tr>
-                    <h6 class="title ">Cantidad Jugadores Por Grupo Etario</h6>
-                    <th>Cantidad</th>
-                    <th>Grupo Etario</th>
-                </tr>
-                {{#edad}}
-                    <tr>
-
-                        <td>{{cantidad}}</td>
-                        <td>{{grupoEtario}}</td>
-                    </tr>
-                {{/edad}}
-            </table>-->
-            <img src="/public/graficos/cantidadPorGrupoEtario.png" alt="Cantidad de Jugadores por edad">
-            <button type="submit" value="Generar PDF">Generar PDF</button>
+            <img src="/public/graficos/cantidadPorGrupoEtario.png" alt="Cantidad Jugadores Nuevos">
+            <button><a href="/reporte/generarPDF?src=/public/graficos/cantidadPorGrupoEtario.png&name=cantidadPorGrupoEtario.pdf" target="_blank">Generar PDF</a></button>
         </div>
         <br>
         <div>
-           <!-- <table class="row  table text-center table-bordered" style="width: 100%;color:ghostwhite;">
-
-                <tr>
-                    <h6 class="title ">Cantidad Jugadores Por Pais</h6>
-                    <th>Cantidad</th>
-                    <th>Pais</th>
-                </tr>
-                {{#pais}}
-                    <tr>
-
-                        <td>{{cantidad}}</td>
-                        <td>{{pais}}</td>
-                    </tr>
-                {{/pais}}
-            </table>-->
-            <img src="/public/graficos/cantidadPorPais.png" alt="Cantidad de Jugadores por Pais">
-            <button type="submit" value="Generar PDF">Generar PDF</button>
+            <img src="/public/graficos/cantidadPorPais.png" alt="Cantidad Jugadores Nuevos">
+            <button><a href="/reporte/generarPDF?src=/public/graficos/cantidadPorPais.png&name=cantidadPorPais.pdf" target="_blank">Generar PDF</a></button>
         </div>
         <br>
         <div>
-           <!-- <table class="row  table text-center table-bordered" style="width: 100%;color:ghostwhite;">
-
-                <tr>
-                    <h6 class="title ">Cantidad de Partidas Jugadas</h6>
-                    <th>Fecha</th>
-                    <th>Cantidad</th>
-                    <th>Filtro</th>
-                </tr>
-                {{#partidas}}
-                    <tr>
-
-                        <td>{{fecha}}</td>
-                        <td>{{cant_partidas}}</td>
-                        <td>{{filtro}}</td>
-                    </tr>
-                {{/partidas}}
-            </table>-->
-            <img src="/public/graficos/cantidadPartidas.png" alt="Cantidad Partidas">
-            <button type="submit" value="Generar PDF">Generar PDF</button>
+            <img src="/public/graficos/cantidadPartidas.png" alt="Cantidad Jugadores Nuevos">
+            <button><a href="/reporte/generarPDF?src=/public/graficos/cantidadPartidas.png&name=cantidadPartidas.pdf" target="_blank">Generar PDF</a></button>
         </div>
         <br>
         <div>
-            <!--<table class="row  table text-center table-bordered" style="width: 100%;color:ghostwhite;">
-
-                <tr>
-                    <h6 class="title ">Cantidad de Preguntas en el Juego</h6>
-                    <th>Cantidad</th>
-
-                </tr>
-                {{#preg_totales}}
-                    <tr>
-                        <td>{{cant_preguntas}}</td>
-                    </tr>
-                {{/preg_totales}}
-            </table>-->
-            <img src="/public/graficos/preguntasTotales.png" alt="Preguntas Totales">
-            <button type="submit" value="Generar PDF">Generar PDF</button>
+            <img src="/public/graficos/preguntasTotales.png" alt="Cantidad Jugadores Nuevos">
+            <button><a href="/reporte/generarPDF?src=/public/graficos/preguntasTotales.png&name=preguntasTotales.pdf" target="_blank">Generar PDF</a></button>
         </div>
         <br>
         <div>
-            <!--<table class="row  table text-center table-bordered" style="width: 100%;color:ghostwhite;">
-
-                <tr>
-                    <h6 class="title ">Cantidad de Preguntas Creadas</h6>
-                    <th>Cantidad</th>
-
-                </tr>
-                {{#preg_nuevas}}
-                    <tr>
-                        <td>{{cant_preguntas}}</td>
-                    </tr>
-                {{/preg_nuevas}}
-            </table>-->
-            <img src="/public/graficos/preguntasNuevas.png" alt="Cantidad de Preguntas Nuevas">
-            <button type="submit" value="Generar PDF">Generar PDF</button>
+            <img src="/public/graficos/preguntasNuevas.png" alt="Cantidad Jugadores Nuevos">
+            <button><a href="/reporte/generarPDF?src=/public/graficos/preguntasNuevas.png&name=preguntasNuevas.pdf" target="_blank">Generar PDF</a></button>
         </div>
         <br>
         <div>
-        <!--    <table class="row  table text-center table-bordered" style="width: 100%;color:ghostwhite;">
-
-                <tr>
-                        <h6 class="title ">Porcentaje correctas por Usuario</h6>
-                        <th>Usuario</th>
-                        <th>Porcentaje</th>
-                </tr>
-                {{#preg_usr}}
-                    <tr>
-                        <td>{{usuario}}</td>
-                        <td>{{porcentaje}}</td>
-
-                    </tr>
-                {{/preg_usr}}
-            </table>-->
-            <img src="/public/graficos/porcentajeUsuario.png" alt="Porcentaje respuestas correctas">
-            <button type="submit" value="Generar PDF">Generar PDF</button>
+            <img src="/public/graficos/porcentajeUsuario.png" alt="Cantidad Jugadores Nuevos">
+            <button><a href="/reporte/generarPDF?src=/public/graficos/porcentajeUsuario.png&name=porcentajeUsuario.pdf" target="_blank">Generar PDF</a></button>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#generarPDF').click(function() {
@@ -245,5 +96,5 @@
                 });
             });
         });
-    </script>
+    </script>-->
 </body>
