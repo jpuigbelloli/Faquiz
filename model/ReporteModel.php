@@ -10,7 +10,7 @@ class ReporteModel{
     }
 
     public function cantidadDeUsuarios($filtro){
-        $sql = "SELECT DATE_FORMAT(DATE(fecha_ingreso),'%d-%m-%y') fecha,COUNT(id_usuario) cantidad,
+        $sql = "SELECT COUNT(id_usuario) cantidad,
                 CASE 
                     WHEN '$filtro' ='Month' THEN MONTH(fecha_ingreso) 
                     WHEN '$filtro' ='Year' THEN YEAR(fecha_ingreso) 
@@ -25,7 +25,7 @@ class ReporteModel{
     }
 
     public function cantidadDeUsuariosNuevos($filtro){
-        $sql = "SELECT DATE_FORMAT(DATE(fecha_ingreso),'%d-%m-%y') fecha,COUNT(id_usuario) cantidad,
+        $sql = "SELECT COUNT(id_usuario) cantidad,
                 CASE 
                     WHEN '$filtro' ='Month' THEN MONTH(fecha_ingreso) 
                     WHEN '$filtro' ='Year' THEN YEAR(fecha_ingreso) 
@@ -40,62 +40,88 @@ class ReporteModel{
         return $this->database->query_assoc($sql);
     }
 
-    public function cantidadJugadoresPorGenero(){
-        $sql = "SELECT COUNT(id_usuario) cantidad, CASE 
+    public function cantidadJugadoresPorGenero($filtro){
+        $sql = "SELECT COUNT(id_usuario) cantidad, 
+                CASE 
                                             WHEN genero = 1 THEN 'Femenino'
                                             WHEN genero = 2 THEN 'Masculino'
                                             ELSE 'Sin Especificar' 
-                                          END filtro
+                END filtro1,
+                CASE 
+                    WHEN '$filtro' ='Month' THEN MONTH(fecha_ingreso) 
+                    WHEN '$filtro' ='Year' THEN YEAR(fecha_ingreso) 
+                    WHEN '$filtro' ='Day'  THEN DAY(fecha_ingreso) 
+                    WHEN '$filtro' ='Week' THEN WEEK(fecha_ingreso) 
+                END filtro
+            
                 FROM usuario
-                GROUP BY filtro;
+                GROUP BY filtro1, filtro;
                 ";
 
        return $this->database->query_assoc($sql);
     }
 
-    public function cantidadJugadoresPorEdad(){
-        $sql = "SELECT   COUNT(id_usuario) cantidad, CASE 
-                                            WHEN YEAR(current_date()) - YEAR(fecha_nac) <18 THEN 'Menor'
-                                            WHEN YEAR(current_date()) - YEAR(fecha_nac)>18 && YEAR(current_date()) - YEAR(fecha_nac) <60 THEN 'Medio'
-                                            WHEN YEAR(current_date()) - YEAR(fecha_nac) > 60 THEN 'Jubilado' 
-                                          END filtro
+    public function cantidadJugadoresPorEdad($filtro){
+        $sql = "SELECT   COUNT(id_usuario) cantidad, 
+                CASE 
+                    WHEN YEAR(current_date()) - YEAR(fecha_nac) <18 THEN 'Menor'
+                    WHEN YEAR(current_date()) - YEAR(fecha_nac)>18 && YEAR(current_date()) - YEAR(fecha_nac) <60 THEN 'Medio'
+                    WHEN YEAR(current_date()) - YEAR(fecha_nac) > 60 THEN 'Jubilado' 
+                END filtro1,
+                CASE 
+                    WHEN '$filtro' ='Month' THEN MONTH(fecha_ingreso) 
+                    WHEN '$filtro' ='Year' THEN YEAR(fecha_ingreso) 
+                    WHEN '$filtro' ='Day'  THEN DAY(fecha_ingreso) 
+                    WHEN '$filtro' ='Week' THEN WEEK(fecha_ingreso) 
+                END filtro
                 FROM usuario
-                GROUP BY filtro;";
+                GROUP BY filtro1,filtro;";
 
         return $this->database->query_assoc($sql);
     }
 
-    public function jugadoresPorPais(){
-        $sql = "SELECT COUNT(id_usuario) cantidad , pais filtro
+    public function jugadoresPorPais($filtro){
+        $sql = "SELECT COUNT(id_usuario) cantidad , pais filtro1,
+                CASE 
+                    WHEN '$filtro' ='Month' THEN MONTH(fecha_ingreso) 
+                    WHEN '$filtro' ='Year' THEN YEAR(fecha_ingreso) 
+                    WHEN '$filtro' ='Day'  THEN DAY(fecha_ingreso) 
+                    WHEN '$filtro' ='Week' THEN WEEK(fecha_ingreso) 
+                END filtro
                 FROM usuario
-                GROUP by filtro;";
+                GROUP by filtro1,filtro;";
         return $this->database->query_assoc($sql);
     }
-
-    public function getCantPreguntasAdmin(){
-        $sql = "SELECT COUNT(id_pregunta) cantidad, C.descripcion filtro 
-                FROM pregunta P INNER JOIN
-                    categoria C 
-                        ON P.id_categoria = C.id_categoria
-                GROUP BY filtro
-                ";
-        return $this->database->query_assoc($sql);
+    public function getCantPreguntasAdmin($filtro){
+        $sql = "SELECT COUNT(id_pregunta) cantidad,
+                CASE 
+                    WHEN $filtro ='Month'THEN MONTH(fecha_pregunta) 
+                    WHEN $filtro ='Year' THEN YEAR(fecha_pregunta) 
+                    WHEN $filtro ='Day'  THEN DAY(fecha_pregunta) 
+                    WHEN $filtro ='Week' THEN WEEK(fecha_pregunta) 
+                END filtro
+                FROM pregunta 
+                GROUP BY filtro";
+        return $this->database->query_fetch_assoc($sql);
     }
 
-    public function getCantNuevas(){
-        $sql = "SELECT COUNT(id_pregunta_sugerida) cantidad, C.descripcion filtro
-                FROM pregunta_sugerida P  INNER JOIN
-                    categoria C
-                        ON P.id_categoria = C.id_categoria
-                WHERE P.id_estado = 2
+    public function getCantNuevas($filtro){
+        $sql = "SELECT COUNT(id_pregunta_sugerida) cantidad,
+                CASE 
+                    WHEN $filtro ='Month' THEN MONTH(fecha_pregunta) 
+                    WHEN $filtro ='Year' THEN YEAR(fecha_pregunta) 
+                    WHEN $filtro ='Day'  THEN DAY(fecha_pregunta) 
+                    WHEN $filtro ='Week' THEN WEEK(fecha_pregunta) 
+                END filtro
+                FROM pregunta_sugerida 
+                WHERE id_estado = 1
                 GROUP BY filtro;
                 ";
         return $this->database->query_assoc($sql);
     }
 
     public function getCantidadDePartidas($filtro){
-        $sql = "SELECT  DATE_FORMAT(DATE (fecha),'%d-%m-%y') fecha, COUNT(id_partida) cantidad, 
-        
+        $sql = "SELECT COUNT(id_partida) cantidad, 
                 CASE 
                     WHEN '$filtro' ='Month' THEN MONTH(fecha) 
                     WHEN '$filtro' ='Year' THEN YEAR(fecha) 
@@ -108,13 +134,12 @@ class ReporteModel{
 
     }
     public function getRespuestaPorUsuario(){
-        $sql = "SELECT U.user_name filtro, (SUM(CASE WHEN respuesta = '1' THEN 1 ELSE 0 END) / COUNT(*) * 100) AS cantidad 
+        $sql = "SELECT U.user_name filtro, ROUND((SUM(CASE WHEN respuesta = '1' THEN 1 ELSE 0 END) / COUNT(*) * 100)) cantidad 
                 FROM estadistica E INNER JOIN 
                     usuario U 
                         ON E.id_usuario = U.id_usuario 
-                GROUP BY id_pregunta 
+                GROUP BY filtro
                 ORDER BY cantidad DESC;";
-
         return $this->database->query_assoc($sql);
     }
 }
