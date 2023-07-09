@@ -17,6 +17,12 @@ class ErrorModel
                 $errorData['buttonText'] = 'Volver al Inicio';
                 $errorData['buttonLink'] = '/index';
                 break;
+            case '333':
+                $errorData['title'] = 'Error de Validacion';
+                $errorData['message'] = 'Hubo un Error al validar el e-mail. Intentelo nuevamente en unos minutos.';
+                $errorData['buttonText'] = 'Volver al Inicio';
+                $errorData['buttonLink'] = '/index';
+                break;
             case '222':
                 $errorData['title'] = 'Perfil Inexistente';
                 $errorData['message'] = 'El perfil que estás buscando no existe.';

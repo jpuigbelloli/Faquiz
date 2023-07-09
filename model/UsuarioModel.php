@@ -97,7 +97,6 @@ class UsuarioModel {
             return true;
             exit();
         }else{
-            echo "hubo un error en la verificación, intente nuevamente.";
             return false;
             exit();
         }
@@ -121,6 +120,14 @@ class UsuarioModel {
         }
         return 'ERROR-PAIS';
     }
+
+    public function esUsuarioVerificado($usuario)
+    {
+        $query = $this->database->query_assoc("SELECT verificado FROM usuario WHERE user_name = '$usuario'");
+
+        return $query[0]['verificado'] == 1;
+    }
+
 
 
 

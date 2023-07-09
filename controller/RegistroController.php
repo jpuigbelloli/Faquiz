@@ -123,7 +123,7 @@ class RegistroController
             exit();
         }
     }
-
+/*
     public function autenticacion()
     {
         $codigo = $_GET['verificacion'];
@@ -134,31 +134,30 @@ class RegistroController
             header('Location: /error');
         }
     }
+*/
 
     public function verificarUsuario()
     {
-
         $tokenCod = $_GET['token'];
         $emailCod = $_GET['email'];
         $token = $tokenCod;
         $email = $emailCod;
 
-
         if (empty($token) || empty($email)) {
-            header('Location:/registro/autenticacion?verificacion=ERROREMAIL');
+            header('Location:/error?codError=333');
             exit();
         } else {
-            $bool = $this->usuarioModel->verificarUsuario($token, $email);
-            if ($bool) {
-                header('Location:/registro/autenticacion?verificacion=OK');
+            $usuarioVerificado = $this->usuarioModel->verificarUsuario($token, $email);
+            if ($usuarioVerificado) {
+
+                header('Location: /login?EXITO=1');;
             } else {
-                header('Location:/registro/autenticacion?verificacion=ERROREMAIL');
+                header('Location:/error?codError=333');
             }
-
             exit();
-
         }
     }
+
 
 
 }
