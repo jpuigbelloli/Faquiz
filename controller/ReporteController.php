@@ -30,6 +30,9 @@ class ReporteController{
        $this->renderer->render('admin',$data);
     }
 
+    public function getGrafico(){
+        return $this->reporteModel->graficox();
+    }
     public function generarGraficos()
     {
         if(isset($_POST['filtro']) && $_POST['buscar']){

@@ -3,10 +3,17 @@
 class ReporteModel{
 
     private $database;
+    private $grafico;
 
-    public function __construct($database)
+    public function __construct($database,$grafico)
     {
         $this->database = $database;
+        $this->grafico = $grafico;
+    }
+
+
+    public function graficox(){
+        return $this->grafico->grafico();
     }
 
     public function cantidadDeUsuarios($filtro){

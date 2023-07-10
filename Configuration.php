@@ -17,6 +17,7 @@ include_once('helpers/QRHelper.php');
 include_once('helpers/Logger.php');
 require_once 'helpers/Usuario.php';
 require_once 'helpers/PDF.php';
+include_once ('helpers/GeneradorGrafico.php');
 
 //MODELS
 include_once('model/PerfilModel.php');
@@ -103,7 +104,7 @@ class Configuration {
 
     public function getReporteController(){
         return new ReporteController(
-            new ReporteModel($this->getDatabase()),
+            new ReporteModel($this->getDatabase(),$this->getGrafico()),
             $this->getRenderer(),
             $this->getPDFGenerator());
     }
@@ -136,5 +137,9 @@ class Configuration {
 
     private function getPDFGenerator(){
         return new PDF();
+    }
+
+    public function getGrafico(){
+        return new GeneradorGrafico();
     }
 }

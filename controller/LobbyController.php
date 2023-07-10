@@ -25,11 +25,10 @@ class LobbyController
             header('Location:/partida');
             exit();
         }
-        $usuario = $_SESSION['usuario'];
         $data['esEditor'] = (Usuario::getROL() === 'EDITOR');
         $data['esAdmin'] = (Usuario::getROL() === 'ADMINISTRADOR');
         $data['esJugador'] = (Usuario::getROL() === 'JUGADOR');
-        $data['usuario'] = $this->usuarioModel->getHeader($usuario);
+        $data['usuario'] = $this->usuarioModel->getHeader($_SESSION['usuario']);
         $data['partidas'] = $this->lobbyModel->getPartidas(Usuario::getID());
         $data['datos'] = $this->lobbyModel->getPuntosAcumuladosYPartidasJugadas(Usuario::getID());
         $data['ranking'] = $this->lobbyModel->getRankingGlobal();

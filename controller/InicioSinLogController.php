@@ -28,7 +28,7 @@ class InicioSinLogController
     public function redirigir(){   /*Falta llamarla*/
 
          if(isset($_POST['registro'])){
-            $this->getVistaResgistro();
+            $this->getVistaRegistro();
         } else if(isset($_POST['iniciarSesion'])){
             $this->getVistaLogin();
         }
@@ -38,7 +38,7 @@ class InicioSinLogController
 
     }
 
-    public function getVistaResgistro()
+    public function getVistaRegistro()
     {
         $this->renderer->render('registro');
 
