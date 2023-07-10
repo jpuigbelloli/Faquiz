@@ -1,0 +1,2 @@
+[2023-07-10][INFO]<img src="http://localhost/public/graficos/cantidadJugadores.png">
+[2023-07-10][INFO]<img src="http://localhost/public/graficos/preguntasTotales.png">
