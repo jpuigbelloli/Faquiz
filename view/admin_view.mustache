@@ -1,6 +1,5 @@
 {{> header}}
 <link rel="stylesheet" href="./public/css/login.css">
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <body class="bd-image " style="background-image: url('/public/imgs/Fondo.png'); color: ghostwhite">
 
@@ -62,7 +61,7 @@
                     </tr>
                 {{/jugador}}
             </table>-->
-            <img src="/public/graficos/cantidadJugadores.png" alt="Cantidad de Jugadores">
+            <img id="grafico1" src="/public/graficos/cantidadJugadores.png" alt="Cantidad de Jugadores">
             <a id="generarPDF" type="submit" target="_blank" value="Generar PDF">Generar PDF</a>
         </div>
         <br>
@@ -83,7 +82,7 @@
                     </tr>
                 {{/nuevos}}
             </table>-->
-            <img src="/public/graficos/cantidadJugadoresNuevos.png" alt="Cantidad Jugadores Nuevos">
+            <img id="grafico2" src="/public/graficos/cantidadJugadoresNuevos.png" alt="Cantidad Jugadores Nuevos">
             <button type="submit" value="Generar PDF">Generar PDF</button>
         </div><br>
 
@@ -104,7 +103,7 @@
                     </tr>
                 {{/genero}}
             </table>-->
-            <img src="/public/graficos/cantidadPorGenero.png" alt="Cantidad de Jugadores Genero">
+            <img id="grafico3" src="/public/graficos/cantidadPorGenero.png" alt="Cantidad de Jugadores Genero">
             <button type="submit" value="Generar PDF">Generar PDF</button>
         </div><br>
         <div>
@@ -123,7 +122,7 @@
                     </tr>
                 {{/edad}}
             </table>-->
-            <img src="/public/graficos/cantidadPorGrupoEtario.png" alt="Cantidad de Jugadores por edad">
+            <img id="grafico4" src="/public/graficos/cantidadPorGrupoEtario.png" alt="Cantidad de Jugadores por edad">
             <button type="submit" value="Generar PDF">Generar PDF</button>
         </div>
         <br>
@@ -143,7 +142,7 @@
                     </tr>
                 {{/pais}}
             </table>-->
-            <img src="/public/graficos/cantidadPorPais.png" alt="Cantidad de Jugadores por Pais">
+            <img id="grafico5" src="/public/graficos/cantidadPorPais.png" alt="Cantidad de Jugadores por Pais">
             <button type="submit" value="Generar PDF">Generar PDF</button>
         </div>
         <br>
@@ -165,7 +164,7 @@
                     </tr>
                 {{/partidas}}
             </table>-->
-            <img src="/public/graficos/cantidadPartidas.png" alt="Cantidad Partidas">
+            <img id="grafico6" src="/public/graficos/cantidadPartidas.png" alt="Cantidad Partidas">
             <button type="submit" value="Generar PDF">Generar PDF</button>
         </div>
         <br>
@@ -183,7 +182,7 @@
                     </tr>
                 {{/preg_totales}}
             </table>-->
-            <img src="/public/graficos/preguntasTotales.png" alt="Preguntas Totales">
+            <img id="grafico7" src="/public/graficos/preguntasTotales.png" alt="Preguntas Totales">
             <button type="submit" value="Generar PDF">Generar PDF</button>
         </div>
         <br>
@@ -201,7 +200,7 @@
                     </tr>
                 {{/preg_nuevas}}
             </table>-->
-            <img src="/public/graficos/preguntasNuevas.png" alt="Cantidad de Preguntas Nuevas">
+            <img id="grafico8" src="/public/graficos/preguntasNuevas.png" alt="Cantidad de Preguntas Nuevas">
             <button type="submit" value="Generar PDF">Generar PDF</button>
         </div>
         <br>
@@ -221,29 +220,138 @@
                     </tr>
                 {{/preg_usr}}
             </table>-->
-            <img src="/public/graficos/porcentajeUsuario.png" alt="Porcentaje respuestas correctas">
+            <img id="grafico9" src="/public/graficos/porcentajeUsuario.png" alt="Porcentaje respuestas correctas">
             <button type="submit" value="Generar PDF">Generar PDF</button>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
+    <script type="text/javascript">
         $(document).ready(function() {
-            $('#generarPDF').click(function() {
-                var imagenSrc = $('img').attr('src');
-                var imagenNombre = imagenSrc.substring(imagenSrc.lastIndexOf('/') + 1, imagenSrc.lastIndexOf('.'));
+            $('form').submit(function(e) {
+                e.preventDefault(); // Prevenir la acción predeterminada del formulario
+                // Obtener el valor seleccionado del filtro
+                var filtro = $('select[name="filtro"]').val();
+                // Actualizar los gráficos llamando a la función correspondiente
+                actualizarGraficos(filtro);
+            });
 
+        $(document).ready(function() {
+            $('#filtro').change(function () {
+                actualizarGraficos($(this).val());
+            });
+
+            function actualizarGraficos(filtro) {
                 $.ajax({
-                    url: '/reporte/generar_pdf',
-                    method: 'POST',
-                    data: { imagenNombre: imagenNombre },
-                    success: function(response) {
-                        alert('PDF generado exitosamente');
+                    url: '/reporte/mostrarGrafico1',
+                    method: 'GET',
+                    data: { filtro: filtro },
+                    success: function(data) {
+                        // Actualizar la imagen del gráfico
+                        $('#grafico1').attr('src', data.imageUrl);
                     },
                     error: function() {
-                        alert('Error al generar el PDF');
+                        console.log('Error al obtener los datos del gráfico 1');
                     }
                 });
-            });
-        });
+                $.ajax({
+                    url: '/reporte/mostrarGrafico2',
+                    method: 'GET',
+                    data: { filtro: filtro },
+                    success: function(data) {
+                        // Actualizar la imagen del gráfico
+                        $('#grafico1').attr('src', data.imageUrl);
+                    },
+                    error: function() {
+                        console.log('Error al obtener los datos del gráfico 1');
+                    }
+                });
+                $.ajax({
+                    url: '/reporte/mostrarGrafico3',
+                    method: 'GET',
+                    data: { filtro: filtro },
+                    success: function(data) {
+                        // Actualizar la imagen del gráfico
+                        $('#grafico1').attr('src', data.imageUrl);
+                    },
+                    error: function() {
+                        console.log('Error al obtener los datos del gráfico 1');
+                    }
+                });
+                $.ajax({
+                    url: '/reporte/mostrarGrafico4',
+                    method: 'GET',
+                    data: { filtro: filtro },
+                    success: function(data) {
+                        // Actualizar la imagen del gráfico
+                        $('#grafico1').attr('src', data.imageUrl);
+                    },
+                    error: function() {
+                        console.log('Error al obtener los datos del gráfico 1');
+                    }
+                });
+                $.ajax({
+                    url: '/reporte/mostrarGrafico5',
+                    method: 'GET',
+                    data: { filtro: filtro },
+                    success: function(data) {
+                        // Actualizar la imagen del gráfico
+                        $('#grafico1').attr('src', data.imageUrl);
+                    },
+                    error: function() {
+                        console.log('Error al obtener los datos del gráfico 1');
+                    }
+                });
+                $.ajax({
+                    url: '/reporte/mostrarGrafico6',
+                    method: 'GET',
+                    data: { filtro: filtro },
+                    success: function(data) {
+                        // Actualizar la imagen del gráfico
+                        $('#grafico1').attr('src', data.imageUrl);
+                    },
+                    error: function() {
+                        console.log('Error al obtener los datos del gráfico 1');
+                    }
+                });
+                $.ajax({
+                    url: '/reporte/mostrarGrafico7',
+                    method: 'GET',
+                    data: { filtro: filtro },
+                    success: function(data) {
+                        // Actualizar la imagen del gráfico
+                        $('#grafico1').attr('src', data.imageUrl);
+                    },
+                    error: function() {
+                        console.log('Error al obtener los datos del gráfico 1');
+                    }
+                });
+                $.ajax({
+                    url: '/reporte/mostrarGrafico8',
+                    method: 'GET',
+                    data: { filtro: filtro },
+                    success: function(data) {
+                        // Actualizar la imagen del gráfico
+                        $('#grafico1').attr('src', data.imageUrl);
+                    },
+                    error: function() {
+                        console.log('Error al obtener los datos del gráfico 1');
+                    }
+                });
+                $.ajax({
+                    url: '/reporte/mostrarGrafico9',
+                    method: 'GET',
+                    data: { filtro: filtro },
+                    success: function(data) {
+                        // Actualizar la imagen del gráfico
+                        $('#grafico1').attr('src', data.imageUrl);
+                    },
+                    error: function() {
+                        console.log('Error al obtener los datos del gráfico 1');
+                    }
+                });
+            }
+        })
+    })
     </script>
+
 </body>

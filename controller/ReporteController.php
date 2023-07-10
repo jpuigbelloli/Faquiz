@@ -21,17 +21,19 @@ class ReporteController{
             header('Location:/lobby');
             exit();
         }
+
        $data ['vistaReporte'] = true;
        $this->renderer->render('admin',$data);
     }
 
     public function generarGraficos()
     {
-        if(isset($_POST['filtro']) && isset($_POST['buscar'])){
+        if(isset($_POST['filtro']) && $_POST['buscar']){
             $filtro = $_POST['filtro'];
-        } else{
-            $filtro = 'Month';
+        }else{
+            $filtro = 'month' ;
         }
+
 
         $data['jugador']= $this->reporteModel->cantidadDeUsuarios($filtro);
         $data['nuevos']= $this->reporteModel->cantidadDeUsuariosNuevos($filtro);
@@ -43,113 +45,129 @@ class ReporteController{
         $data['preg_nuevas']= $this->reporteModel->getCantNuevas($filtro);
         $data['preg_usr']= $this->reporteModel->getRespuestaPorUsuario();
 
-        $this->getGraficoBarra($data['jugador'],'cantidadJugadores.png','Cantidad de Jugadores');
-        $this->getGraficoBarra($data['nuevos'],'cantidadJugadoresNuevos.png','Cantidad de Jugadores Nuevos');
-        $this->getGraficoPie($data['genero'], 'cantidadPorGenero.png', 'Jugadores por genero');
-        $this->getGraficoPie($data['edad'],'cantidadPorGrupoEtario.png','Cantidad por Grupo Etario');
-        $this->getGraficoPie($data['pais'],'cantidadPorPais.png','Cantidad de Jugadores por Pais');
-        $this->getGraficoBarra($data['partidas'],'cantidadPartidas.png','Cantidad de Partidas');
-        $this->getGraficoBarra($data['preg_totales'],'preguntasTotales.png','Preguntas Totales');
-        $this->getGraficoBarra($data['preg_nuevas'],'preguntasNuevas.png','Cantidad de Preguntas nuevas');
-        $this->getGraficoBarra($data['preg_usr'], 'porcentajeUsuario.png','Porcentaje Correctas por Usuario');
+        $data['grafico1'] =  $this->getGraficoBarra($data['jugador'],'cantidadJugadores.png','Cantidad de Jugadores');
+        $data['grafico2'] =  $this->getGraficoBarra($data['nuevos'],'cantidadJugadoresNuevos.png','Cantidad de Jugadores Nuevos');
+        $data['grafico3'] =$this->getGraficoPie($data['genero'], 'cantidadPorGenero.png', 'Jugadores por genero');
+        $data['grafico4'] =$this->getGraficoPie($data['edad'],'cantidadPorGrupoEtario.png','Cantidad por Grupo Etario');
+        $data['grafico5'] =$this->getGraficoPie($data['pais'],'cantidadPorPais.png','Cantidad de Jugadores por Pais');
+        $data['grafico6'] =$this->getGraficoBarra($data['partidas'],'cantidadPartidas.png','Cantidad de Partidas');
+        $data['grafico7'] =$this->getGraficoBarra($data['preg_totales'],'preguntasTotales.png','Preguntas Totales');
+        $data['grafico8'] =$this->getGraficoBarra($data['preg_nuevas'],'preguntasNuevas.png','Cantidad de Preguntas nuevas');
+        $data['grafico9'] = $this->getGraficoBarra($data['preg_usr'], 'porcentajeUsuario.png','Porcentaje Correctas por Usuario');
 
-
+        $this->load->view('admin',$data);
     }
 
-    public function mostrarGrafico1(){
-        if(isset($_POST['filtro']) && isset($_POST['buscar'])){
-            $filtro = $_POST['filtro'];
-        } else{
-            $filtro = 'Year';
-        }
+    public function mostrarGrafico1(Request $request){
+        $filtro = $request->input('filtro');
         $dataGraf1= $this->reporteModel->cantidadDeUsuarios($filtro);
         $this->getGraficoBarra($dataGraf1,'cantidadJugadores.png','Cantidad de Jugadores');
+        $rutaGrafico = 'public/graficos/cantidadJugadores.png';
+
+        return response()->json([
+            'imageUrl' => $rutaGrafico
+        ]);
     }
-    public function mostrarGrafico2(){
-        if(isset($_POST['filtro']) && isset($_POST['buscar'])){
-            $filtro = $_POST['filtro'];
-        } else{
-            $filtro = 'Year';
-        }
+
+    public function mostrarGrafico2(Request $request){
+        $filtro = $request->input('filtro');
+
         $dataGraf2= $this->reporteModel->cantidadDeUsuariosNuevos($filtro);
         $this->getGraficoBarra($dataGraf2,'cantidadJugadoresNuevos.png','Cantidad de Jugadores Nuevos');
 
+        $rutaGrafico = 'public/graficos/cantidadJugadoresNuevos.png';
+
+        return response()->json([
+            'imageUrl' => $rutaGrafico
+        ]);
+
     }
 
-    public function mostrarGrafico3(){
-        if(isset($_POST['filtro']) && isset($_POST['buscar'])){
-            $filtro = $_POST['filtro'];
-        } else{
-            $filtro = 'Year';
-        }
-        $dataGraf3= $this->reporteModel->cantidadJugadoresPorGenero();
+    public function mostrarGrafico3(Request $request){
+        $filtro = $request->input('filtro');
+        $dataGraf3= $this->reporteModel->cantidadJugadoresPorGenero($filtro);
         $this->getGraficoPie($dataGraf3, 'cantidadPorGenero.png', 'Jugadores por genero');
 
+        $rutaGrafico = 'public/graficos/cantidadPorGenero.png';
+
+        return response()->json([
+            'imageUrl' => $rutaGrafico
+        ]);
+
     }
 
-    public function mostrarGrafico4(){
-        if(isset($_POST['filtro']) && isset($_POST['buscar'])){
-            $filtro = $_POST['filtro'];
-        } else{
-            $filtro = 'Year';
-        }
-        $dataGraf4= $this->reporteModel->cantidadJugadoresPorEdad();
+    public function mostrarGrafico4(Request $request){
+        $filtro = $request->input('filtro');
+        $dataGraf4= $this->reporteModel->cantidadJugadoresPorEdad($filtro);
         $this->getGraficoPie($dataGraf4,'cantidadPorGrupoEtario.png','Cantidad por Grupo Etario');
 
+        $rutaGrafico = 'public/graficos/cantidadPorGrupoEtario.png';
+
+        return response()->json([
+            'imageUrl' => $rutaGrafico
+        ]);
+
     }
-    public function mostrarGrafico5()
+    public function mostrarGrafico5(Request $request)
     {
-        if (isset($_POST['filtro']) && isset($_POST['buscar'])) {
-            $filtro = $_POST['filtro'];
-        } else {
-            $filtro = 'Year';
-        }
-        $dataGraf5= $this->reporteModel->jugadoresPorPais();
+        $filtro = $request->input('filtro');
+        $dataGraf5= $this->reporteModel->jugadoresPorPais($filtro);
         $this->getGraficoPie($dataGraf5,'cantidadPorPais.png','Cantidad de Jugadores por Pais');
 
+        $rutaGrafico = 'public/graficos/cantidadPorPais.png';
+
+        return response()->json([
+            'imageUrl' => $rutaGrafico
+        ]);
     }
 
-    public function mostrarGrafico6()
+    public function mostrarGrafico6(Request $request)
     {
-        if (isset($_POST['filtro']) && isset($_POST['buscar'])) {
-            $filtro = $_POST['filtro'];
-        } else {
-            $filtro = 'Year';
-        }
+        $filtro = $request->input('filtro');
         $dataGraf6= $this->reporteModel->getCantidadDePartidas($filtro);
         $this->getGraficoBarra($dataGraf6,'cantidadPartidas.png','Cantidad de Partidas');
 
+        $rutaGrafico = 'public/graficos/cantidadPartidas.png';
+
+        return response()->json([
+            'imageUrl' => $rutaGrafico
+        ]);
     }
 
-    public function mostrarGrafico7(){
-        if (isset($_POST['filtro']) && isset($_POST['buscar'])) {
-            $filtro = $_POST['filtro'];
-        } else {
-            $filtro = 'Year';
-        }
+    public function mostrarGrafico7(Request $request){
+        $filtro = $request->input('filtro');
         $dataGraf7= $this->reporteModel->getCantPreguntasAdmin($filtro);
         $this->getGraficoBarra($dataGraf7,'preguntasTotales.png','Preguntas Totales');
 
+        $rutaGrafico = 'public/graficos/preguntasTotales.png';
+
+        return response()->json([
+            'imageUrl' => $rutaGrafico
+        ]);
+
     }
-    public function mostrarGrafico8(){
-        if (isset($_POST['filtro']) && isset($_POST['buscar'])) {
-            $filtro = $_POST['filtro'];
-        } else {
-            $filtro = 'Year';
-        }
+    public function mostrarGrafico8(Request $request){
+        $filtro = $request->input('filtro');
         $dataGraf8= $this->reporteModel->getCantNuevas();
         $this->getGraficoBarra($dataGraf8,'preguntasNuevas.png','Cantidad de Preguntas nuevas');
+
+
+        $rutaGrafico = 'public/graficos/preguntasNuevas.png';
+
+        return response()->json([
+            'imageUrl' => $rutaGrafico
+        ]);
     }
 
     public function mostrarGrafico9()
     {
-        if (isset($_POST['filtro']) && isset($_POST['buscar'])) {
-            $filtro = $_POST['filtro'];
-        } else {
-            $filtro = 'Year';
-        }
         $datatGraf9 = $this->reporteModel->getRespuestaPorUsuario();
         $this->getGraficoBarra($datatGraf9, 'porcentajeUsuario.png', 'Porcentaje Correctas por Usuario');
+        $rutaGrafico = 'public/graficos/porcentajeUsuario.png';
+
+        return response()->json([
+            'imageUrl' => $rutaGrafico
+        ]);
     }
 
     public function getGraficoBarra($data,$filename,$titulo){
@@ -172,7 +190,10 @@ class ReporteController{
         $nombreImg = 'public/graficos/'.$filename;
         $this->getImagenGrafico($graph,$nombreImg);
        // $nombreImg = 'public/graficos/'.$filename;
-        return $this->getImagenGrafico($graph,$nombreImg);
+        $img =  $this->getImagenGrafico($graph,$nombreImg);
+        $graph->img->Headers();
+        $graph->img->Stream();
+        return $img;
 
     }
 
@@ -205,8 +226,11 @@ class ReporteController{
 
         $graph->title->Set($titulo);
         $nombreImg = 'public/graficos/'.$filename;
-       return $this->getImagenGrafico($graph,$nombreImg);
+       $img= $this->getImagenGrafico($graph,$nombreImg);
 
+       $graph->img->Headers();
+       $graph->img->Stream();
+        return $img;
     }
 
     public function getGraph(){
