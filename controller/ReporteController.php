@@ -33,7 +33,8 @@ class ReporteController{
         if(isset($_POST['filtro']) && $_POST['buscar']){
             $filtro = $_POST['filtro'];
         }else{
-            $filtro = 'month' ;
+            $filtro = 'month';
+            Logger::info($filtro);
         }
 
 
