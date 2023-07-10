@@ -1,17 +1,17 @@
 {{> header}}
-<link rel="stylesheet" href="/public/css/login.css">
+<link rel="stylesheet" href="/public/css/admin.css">
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-<body class="bd-image " style="background-image: url('/public/imgs/Fondo.png'); color: ghostwhite">
+<body class="bd-image" style="background-image: url('/public/imgs/Fondo.png'); color: ghostwhite">
 
     <div class="container my-5 pt-3 text-center">
-        <h3 class="text-center">Solicitar reporte</h3>
+        <h1 class="text-center">Reportes de Administrador</h1>
         <p>Por favor, seleccione el tipo de reporte a generar.</p>
     </div>
-    <div class="container w-75 mx-auto py-5 px-4" style="background-color:rgba(0, 0, 0, 0.3);color:white;">
+    <div class="container container2" style="background-color:rgba(0, 0, 0, 0.3);color:white;">
         <form action="/reporte" method="POST" >
-            <div class="row">
-                <div class="col-8">
+            <div class="row justify-content-center">
+                <div>
                     <select class="form-select mb-3" aria-label=".form-select-lg example" name="filtro">
                         <option selected disabled value="">Seleccione filtro...</option>
                         <option value="Year">Año</option>
@@ -31,63 +31,54 @@
                         <option value="8">Cantidad de Preguntas Creadas</option>
                         <option value="9">Respuestas Correctas por Usuario</option>
                     </select>-->
-
                 </div>
-
-                <div class="col-4">
+                <div>
                     <button type="submit" class="btn btn-primary" name="buscar"><i class="fa fa-search"></i> Buscar</button>
                 </div>
             </div>
-
         </form>
     </div>
 
-    <div class="container d-grid w-75 mx-auto py-5 px-4">
-        <h2 class="text-center">GRAFICOS</h2>
-
-        <div class="justify-content-between">
-            <img src="/public/graficos/cantidadJugadores.png" alt="Cantidad de Jugadores">
-            <button><a href="/reporte/generarPDF?src=/public/graficos/cantidadJugadores.png&name=cantidadJugadores.pdf" target="_blank">Generar PDF <i class="fa-solid fa-file-pdf"></i></a></button>
-        </div>
-        <br>
-        <div class="justify-content-between">
-            <img src="/public/graficos/cantidadJugadoresNuevos.png" alt="Cantidad Jugadores Nuevos">
-            <button><a href="/reporte/generarPDF?src=/public/graficos/cantidadJugadoresNuevos.png&name=cantidadJugadoresNuevos.pdf" target="_blank">Generar PDF <i class="fa-solid fa-file-pdf"></i></a></button>
-        </div><br>
-
-        <div>
-            <img src="/public/graficos/cantidadPorGenero.png" alt="Cantidad Jugadores Nuevos">
-            <button><a href="/reporte/generarPDF?src=/public/graficos/cantidadPorGenero.png&name=cantidadPorGenero.pdf" target="_blank">Generar PDF <i class="fa-solid fa-file-pdf"></i></a></button>
-        </div><br>
-        <div>
-            <img src="/public/graficos/cantidadPorGrupoEtario.png" alt="Cantidad Jugadores Nuevos">
-            <button><a href="/reporte/generarPDF?src=/public/graficos/cantidadPorGrupoEtario.png&name=cantidadPorGrupoEtario.pdf" target="_blank">Generar PDF <i class="fa-solid fa-file-pdf"></i></a></button>
-        </div>
-        <br>
-        <div>
-            <img src="/public/graficos/cantidadPorPais.png" alt="Cantidad Jugadores Nuevos">
-            <button><a href="/reporte/generarPDF?src=/public/graficos/cantidadPorPais.png&name=cantidadPorPais.pdf" target="_blank">Generar PDF <i class="fa-solid fa-file-pdf"></i></a></button>
-        </div>
-        <br>
-        <div>
-            <img src="/public/graficos/cantidadPartidas.png" alt="Cantidad Jugadores Nuevos">
-            <button><a href="/reporte/generarPDF?src=/public/graficos/cantidadPartidas.png&name=cantidadPartidas.pdf" target="_blank">Generar PDF <i class="fa-solid fa-file-pdf"></i></a></button>
-        </div>
-        <br>
-        <div>
-            <img src="/public/graficos/preguntasTotales.png" alt="Cantidad Jugadores Nuevos">
-            <button><a href="/reporte/generarPDF?src=/public/graficos/preguntasTotales.png&name=preguntasTotales.pdf" target="_blank">Generar PDF <i class="fa-solid fa-file-pdf"></i></a></button>
-        </div>
-        <br>
-        <div>
-            <img src="/public/graficos/preguntasNuevas.png" alt="Cantidad Jugadores Nuevos">
-            <button><a href="/reporte/generarPDF?src=/public/graficos/preguntasNuevas.png&name=preguntasNuevas.pdf" target="_blank">Generar PDF <i class="fa-solid fa-file-pdf"></i></a></button>
-        </div>
-        <br>
-        <div>
-            <img src="/public/graficos/porcentajeUsuario.png" alt="Cantidad Jugadores Nuevos">
-            <button><a href="/reporte/generarPDF?src=/public/graficos/porcentajeUsuario.png&name=porcentajeUsuario.pdf" target="_blank">Generar PDF <i class="fa-solid fa-file-pdf"></i></a></button>
-        </div>
+    <div class="container d-flex flex-column align-items-center">
+        <h2 class="title-admin">Gráficos</h2>
+            <div class="card">
+                <img src="/public/graficos/cantidadJugadores.png" alt="Cantidad de Jugadores" class="img-fluid card-img-top">
+                <div class="card-body">
+                    <button><a class="btn btn-primary" href="/reporte/generarPDF?src=/public/graficos/cantidadJugadores.png&name=cantidadJugadores.pdf" target="_blank">Generar PDF <i class="fa-solid fa-file-pdf"></i></a></button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="/public/graficos/cantidadJugadoresNuevos.png" alt="Cantidad Jugadores Nuevos" class="img-fluid">
+                <button><a class="btn btn-primary" href="/reporte/generarPDF?src=/public/graficos/cantidadJugadoresNuevos.png&name=cantidadJugadoresNuevos.pdf" target="_blank">Generar PDF <i class="fa-solid fa-file-pdf"></i></a></button>
+            </div>
+            <div class="card">
+                <img src="/public/graficos/cantidadPorGenero.png" alt="Cantidad Jugadores Nuevos" class="img-fluid">
+                <button><a class="btn btn-primary" href="/reporte/generarPDF?src=/public/graficos/cantidadPorGenero.png&name=cantidadPorGenero.pdf" target="_blank">Generar PDF <i class="fa-solid fa-file-pdf"></i></a></button>
+            </div>
+            <div class="card">
+                <img src="/public/graficos/cantidadPorGrupoEtario.png" alt="Cantidad Jugadores Nuevos" class="img-fluid">
+                <button><a class="btn btn-primary" href="/reporte/generarPDF?src=/public/graficos/cantidadPorGrupoEtario.png&name=cantidadPorGrupoEtario.pdf" target="_blank">Generar PDF <i class="fa-solid fa-file-pdf"></i></a></button>
+            </div>
+            <div class="card">
+                <img src="/public/graficos/cantidadPorPais.png" alt="Cantidad Jugadores Nuevos" class="img-fluid">
+                <button><a class="btn btn-primary" href="/reporte/generarPDF?src=/public/graficos/cantidadPorPais.png&name=cantidadPorPais.pdf" target="_blank">Generar PDF <i class="fa-solid fa-file-pdf"></i></a></button>
+            </div>
+            <div class="card">
+                <img src="/public/graficos/cantidadPartidas.png" alt="Cantidad Jugadores Nuevos" class="img-fluid">
+                <button><a class="btn btn-primary" href="/reporte/generarPDF?src=/public/graficos/cantidadPartidas.png&name=cantidadPartidas.pdf" target="_blank">Generar PDF <i class="fa-solid fa-file-pdf"></i></a></button>
+            </div>
+            <div class="card">
+                <img src="/public/graficos/preguntasTotales.png" alt="Cantidad Jugadores Nuevos" class="img-fluid">
+                <button><a class="btn btn-primary" href="/reporte/generarPDF?src=/public/graficos/preguntasTotales.png&name=preguntasTotales.pdf" target="_blank">Generar PDF <i class="fa-solid fa-file-pdf"></i></a></button>
+            </div>
+            <div class="card">
+                <img src="/public/graficos/preguntasNuevas.png" alt="Cantidad Jugadores Nuevos" class="img-fluid">
+                <button><a class="btn btn-primary" href="/reporte/generarPDF?src=/public/graficos/preguntasNuevas.png&name=preguntasNuevas.pdf" target="_blank">Generar PDF <i class="fa-solid fa-file-pdf"></i></a></button>
+            </div>
+            <div class="card">
+                <img src="/public/graficos/porcentajeUsuario.png" alt="Cantidad Jugadores Nuevos" class="img-fluid">
+                <button><a class="btn btn-primary" href="/reporte/generarPDF?src=/public/graficos/porcentajeUsuario.png&name=porcentajeUsuario.pdf" target="_blank">Generar PDF <i class="fa-solid fa-file-pdf"></i></a></button>
+            </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
