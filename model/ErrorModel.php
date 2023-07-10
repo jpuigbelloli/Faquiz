@@ -26,7 +26,7 @@ class ErrorModel
             case '222':
                 $errorData['title'] = 'Perfil Inexistente';
                 $errorData['message'] = 'El perfil que estás buscando no existe.';
-                $errorData['buttonText'] = 'Ir al Lobby';
+                $errorData['buttonText'] = 'Volver al Lobby';
                 $errorData['buttonLink'] = '/lobby';
                 break;
             case '500':

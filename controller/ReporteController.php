@@ -2,28 +2,24 @@
 require_once "third-party/jpgraph/src/jpgraph.php";
 require_once "third-party/jpgraph/src/jpgraph_bar.php";
 require_once 'third-party/jpgraph/src/jpgraph_pie.php';
-require_once 'third-party/jpgraph/src/jpgraph_line.php';
 require_once 'third-party/dompdf/autoload.inc.php';
 
 use Dompdf\Dompdf;
 
-class ReporteController
-{
+class ReporteController{
     private $reporteModel;
     private $renderer;
     private $pdf;
 
-    public function __construct($reporteModel, $renderer, $pdf)
-    {
+    public function __construct($reporteModel, $renderer, $pdf){
         $this->reporteModel = $reporteModel;
-        $this->renderer = $renderer;
+        $this->renderer     = $renderer;
         $this->pdf = $pdf;
     }
 
-    public function list()
-    {
+    public function list(){
 
-        if (!isset($_SESSION['logueado']) || Usuario::getROL() !== 'ADMINISTRADOR') {
+        if(!isset($_SESSION['logueado']) || Usuario::getROL()!=='ADMINISTRADOR'){
             header('Location:/lobby');
             exit();
         }
@@ -85,10 +81,9 @@ class ReporteController
 
     }
 
-    public function mostrarGrafico3(Request $request)
-    {
+    public function mostrarGrafico3(Request $request){
         $filtro = $request->input('filtro');
-        $dataGraf3 = $this->reporteModel->cantidadJugadoresPorGenero($filtro);
+        $dataGraf3= $this->reporteModel->cantidadJugadoresPorGenero($filtro);
         $this->getGraficoPie($dataGraf3, 'cantidadPorGenero.png', 'Jugadores por genero');
 
         $rutaGrafico = 'public/graficos/cantidadPorGenero.png';
@@ -99,11 +94,10 @@ class ReporteController
 
     }
 
-    public function mostrarGrafico4(Request $request)
-    {
+    public function mostrarGrafico4(Request $request){
         $filtro = $request->input('filtro');
-        $dataGraf4 = $this->reporteModel->cantidadJugadoresPorEdad($filtro);
-        $this->getGraficoPie($dataGraf4, 'cantidadPorGrupoEtario.png', 'Cantidad por Grupo Etario');
+        $dataGraf4= $this->reporteModel->cantidadJugadoresPorEdad($filtro);
+        $this->getGraficoPie($dataGraf4,'cantidadPorGrupoEtario.png','Cantidad por Grupo Etario');
 
         $rutaGrafico = 'public/graficos/cantidadPorGrupoEtario.png';
 
@@ -116,8 +110,8 @@ class ReporteController
     public function mostrarGrafico5(Request $request)
     {
         $filtro = $request->input('filtro');
-        $dataGraf5 = $this->reporteModel->jugadoresPorPais($filtro);
-        $this->getGraficoPie($dataGraf5, 'cantidadPorPais.png', 'Cantidad de Jugadores por Pais');
+        $dataGraf5= $this->reporteModel->jugadoresPorPais($filtro);
+        $this->getGraficoPie($dataGraf5,'cantidadPorPais.png','Cantidad de Jugadores por Pais');
 
         $rutaGrafico = 'public/graficos/cantidadPorPais.png';
 
@@ -129,8 +123,8 @@ class ReporteController
     public function mostrarGrafico6(Request $request)
     {
         $filtro = $request->input('filtro');
-        $dataGraf6 = $this->reporteModel->getCantidadDePartidas($filtro);
-        $this->getGraficoBarra($dataGraf6, 'cantidadPartidas.png', 'Cantidad de Partidas');
+        $dataGraf6= $this->reporteModel->getCantidadDePartidas($filtro);
+        $this->getGraficoBarra($dataGraf6,'cantidadPartidas.png','Cantidad de Partidas');
 
         $rutaGrafico = 'public/graficos/cantidadPartidas.png';
 
@@ -139,11 +133,10 @@ class ReporteController
         ]);
     }
 
-    public function mostrarGrafico7(Request $request)
-    {
+    public function mostrarGrafico7(Request $request){
         $filtro = $request->input('filtro');
-        $dataGraf7 = $this->reporteModel->getCantPreguntasAdmin($filtro);
-        $this->getGraficoBarra($dataGraf7, 'preguntasTotales.png', 'Preguntas Totales');
+        $dataGraf7= $this->reporteModel->getCantPreguntasAdmin($filtro);
+        $this->getGraficoBarra($dataGraf7,'preguntasTotales.png','Preguntas Totales');
 
         $rutaGrafico = 'public/graficos/preguntasTotales.png';
 
@@ -152,12 +145,10 @@ class ReporteController
         ]);
 
     }
-
-    public function mostrarGrafico8(Request $request)
-    {
+    public function mostrarGrafico8(Request $request){
         $filtro = $request->input('filtro');
-        $dataGraf8 = $this->reporteModel->getCantNuevas();
-        $this->getGraficoBarra($dataGraf8, 'preguntasNuevas.png', 'Cantidad de Preguntas nuevas');
+        $dataGraf8= $this->reporteModel->getCantNuevas();
+        $this->getGraficoBarra($dataGraf8,'preguntasNuevas.png','Cantidad de Preguntas nuevas');
 
 
         $rutaGrafico = 'public/graficos/preguntasNuevas.png';
@@ -178,8 +169,7 @@ class ReporteController
         ]);
     }
 
-    public function getGraficoBarra($data, $filename, $titulo)
-    {
+    public function getGraficoBarra($data,$filename,$titulo){
 
         $data1y = array();
         $dataName = array();
@@ -189,7 +179,6 @@ class ReporteController
         for ($i = 0; $i < count($data); $i++) {
             $data1y[] = $data[$i]["cantidad"];
             $dataName[] = $data[$i]["filtro"];
-
         }
 
         $graph = $this->getGraph();
@@ -317,8 +306,7 @@ class ReporteController
 
     }
 
-    public function getGraph()
-    {
+    public function getGraph(){
         $graph = new Graph(350, 200, 'auto');
         $graph->SetScale("textlin");
         $theme_class = new UniversalTheme;
@@ -327,16 +315,14 @@ class ReporteController
         return $graph;
     }
 
-    public function getConfigGraph($graph, $dataName)
-    {
+    public function getConfigGraph($graph, $dataName){
         $graph->SetBox(false);
         $graph->ygrid->SetFill(false);
         $graph->xaxis->SetTickLabels($dataName);
         return $graph;
     }
 
-    public function getBarPlot($data1y)
-    {
+    public function getBarPlot($data1y){
         $b1plot = new BarPlot($data1y);
         $b1plot->SetColor("white");
         $b1plot->SetFillColor("#cc1111");
@@ -345,15 +331,13 @@ class ReporteController
         return $b1plot;
     }
 
-    public function getImagenGrafico($graph, $fileName)
-    {
+    public function getImagenGrafico($graph,$fileName){
         $graph->Stroke(_IMG_HANDLER);
         $image = $graph->img->Stream($fileName);
         return $image;
     }
 
-    public function generarPDF()
-    {
+    public function generarPDF(){
         $localhost = $_SERVER['HTTP_HOST'];
         $ruta = $_GET['src'];
         $nombrePDF = $_GET['name'];
@@ -365,4 +349,3 @@ class ReporteController
     }
 
 }
-
