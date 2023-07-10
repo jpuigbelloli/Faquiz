@@ -95,10 +95,10 @@ class ReporteModel{
     public function getCantPreguntasAdmin($filtro){
         $sql = "SELECT COUNT(id_pregunta) cantidad,
                 CASE 
-                    WHEN $filtro ='Month'THEN MONTH(fecha_pregunta) 
-                    WHEN $filtro ='Year' THEN YEAR(fecha_pregunta) 
-                    WHEN $filtro ='Day'  THEN DAY(fecha_pregunta) 
-                    WHEN $filtro ='Week' THEN WEEK(fecha_pregunta) 
+                    WHEN '$filtro' ='Month'THEN MONTH(fecha_pregunta) 
+                    WHEN '$filtro' ='Year' THEN YEAR(fecha_pregunta) 
+                    WHEN '$filtro' ='Day'  THEN DAY(fecha_pregunta) 
+                    WHEN '$filtro' ='Week' THEN WEEK(fecha_pregunta) 
                 END filtro
                 FROM pregunta 
                 GROUP BY filtro";
@@ -108,10 +108,10 @@ class ReporteModel{
     public function getCantNuevas($filtro){
         $sql = "SELECT COUNT(id_pregunta_sugerida) cantidad,
                 CASE 
-                    WHEN $filtro ='Month' THEN MONTH(fecha_pregunta) 
-                    WHEN $filtro ='Year' THEN YEAR(fecha_pregunta) 
-                    WHEN $filtro ='Day'  THEN DAY(fecha_pregunta) 
-                    WHEN $filtro ='Week' THEN WEEK(fecha_pregunta) 
+                    WHEN '$filtro' ='Month' THEN MONTH(fecha_pregunta) 
+                    WHEN '$filtro' ='Year' THEN YEAR(fecha_pregunta) 
+                    WHEN '$filtro' ='Day'  THEN DAY(fecha_pregunta) 
+                    WHEN '$filtro' ='Week' THEN WEEK(fecha_pregunta) 
                 END filtro
                 FROM pregunta_sugerida 
                 WHERE id_estado = 1

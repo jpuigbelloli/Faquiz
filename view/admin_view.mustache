@@ -89,59 +89,121 @@
             <button><a href="/reporte/generarPDF?src=/public/graficos/porcentajeUsuario.png&name=porcentajeUsuario.pdf" target="_blank">Generar PDF <i class="fa-solid fa-file-pdf"></i></a></button>
         </div>
     </div>
-    <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#filtro').change(function () {
                 actualizarGraficos($(this).val());
             });
 
+        });
+
             function actualizarGraficos(filtro) {
                 $.ajax({
                     url: '/reporte/mostrarGrafico1',
                     method: 'GET',
-                    data: { filtro: filtro },
-                    success: function(data) {
+                    data: {filtro: filtro},
+                    success: function (data) {
                         // Actualizar la imagen del gráfico
                         $('#grafico1').attr('src', data.imageUrl);
                     },
-                    error: function() {
+                    error: function () {
                         console.log('Error al obtener los datos del gráfico 1');
                     }
                 });
                 $.ajax({
                     url: '/reporte/mostrarGrafico2',
                     method: 'GET',
-                    data: { filtro: filtro },
-                    success: function(data) {
+                    data: {filtro: filtro},
+                    success: function (data) {
                         // Actualizar la imagen del gráfico
-                        $('#grafico1').attr('src', data.imageUrl);
+                        $('#grafico2').attr('src', data.imageUrl);
                     },
-                    error: function() {
+                    error: function () {
                         console.log('Error al obtener los datos del gráfico 1');
                     }
                 });
                 $.ajax({
                     url: '/reporte/mostrarGrafico3',
                     method: 'GET',
-                    data: { filtro: filtro },
-                    success: function(data) {
+                    data: {filtro: filtro},
+                    success: function (data) {
                         // Actualizar la imagen del gráfico
-                        $('#grafico1').attr('src', data.imageUrl);
+                        $('#grafico3').attr('src', data.imageUrl);
                     },
-                    error: function() {
+                    error: function () {
                         console.log('Error al obtener los datos del gráfico 1');
                     }
                 });
                 $.ajax({
                     url: '/reporte/mostrarGrafico4',
                     method: 'GET',
-                    data: { filtro: filtro },
-                    success: function(data) {
+                    data: {filtro: filtro},
+                    success: function (data) {
                         // Actualizar la imagen del gráfico
-                        $('#grafico1').attr('src', data.imageUrl);
+                        $('#grafico4').attr('src', data.imageUrl);
                     },
-                    error: function() {
+                    error: function () {
+                        console.log('Error al obtener los datos del gráfico 1');
+                    }
+                });
+                $.ajax({
+                    url: '/reporte/mostrarGrafico5',
+                    method: 'GET',
+                    data: {filtro: filtro},
+                    success: function (data) {
+                        // Actualizar la imagen del gráfico
+                        $('#grafico5').attr('src', data.imageUrl);
+                    },
+                    error: function () {
+                        console.log('Error al obtener los datos del gráfico 1');
+                    }
+                });
+                $.ajax({
+                    url: '/reporte/mostrarGrafico6',
+                    method: 'GET',
+                    data: {filtro: filtro},
+                    success: function (data) {
+                        // Actualizar la imagen del gráfico
+                        $('#grafico6').attr('src', data.imageUrl);
+                    },
+                    error: function () {
+                        console.log('Error al obtener los datos del gráfico 1');
+                    }
+                });
+                $.ajax({
+                    url: '/reporte/mostrarGrafico7',
+                    method: 'GET',
+                    data: {filtro: filtro},
+                    success: function (data) {
+                        // Actualizar la imagen del gráfico
+                        $('#grafico7').attr('src', data.imageUrl);
+                    },
+                    error: function () {
+                        console.log('Error al obtener los datos del gráfico 1');
+                    }
+                });
+                $.ajax({
+                    url: '/reporte/mostrarGrafico8',
+                    method: 'GET',
+                    data: {filtro: filtro},
+                    success: function (data) {
+                        // Actualizar la imagen del gráfico
+                        $('#grafico8').attr('src', data.imageUrl);
+                    },
+                    error: function () {
+                        console.log('Error al obtener los datos del gráfico 1');
+                    }
+                });
+                $.ajax({
+                    url: '/reporte/mostrarGrafico9',
+                    method: 'GET',
+                    data: {filtro: filtro},
+                    success: function (data) {
+                        // Actualizar la imagen del gráfico
+                        $('#grafico9').attr('src', data.imageUrl);
+                    },
+                    error: function () {
                         console.log('Error al obtener los datos del gráfico 1');
                     }
                 });
