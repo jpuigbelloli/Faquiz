@@ -25,6 +25,8 @@ class ReporteController{
         }
 
        $data ['vistaReporte'] = true;
+       $data ['logueado'] = true;
+       $data ['usuario']['user_logueado'] = $_SESSION['usuario'];
        $this->renderer->render('admin',$data);
     }
 
@@ -272,7 +274,6 @@ class ReporteController{
         $ruta = $_GET['src'];
         $nombrePDF = $_GET['name'];
         $imagen = '<img src="http://'.$localhost.$ruta.'">';
-        Logger::info($imagen);
         $this->pdf->output($imagen,$nombrePDF);
 
     }
