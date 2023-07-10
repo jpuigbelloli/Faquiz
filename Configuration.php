@@ -16,6 +16,7 @@ include_once('helpers/Router.php');
 include_once('helpers/QRHelper.php');
 include_once('helpers/Logger.php');
 require_once 'helpers/Usuario.php';
+require_once 'helpers/PDF.php';
 
 //MODELS
 include_once('model/PerfilModel.php');
@@ -49,7 +50,7 @@ class Configuration {
 
     public function getInicioSinLogController() {
         return new InicioSinLogController($this->getRenderer(),
-                                          $this->getErrorController());
+            $this->getErrorController());
     }
 
     public function getErrorController()
@@ -61,7 +62,7 @@ class Configuration {
     public function getRegistroController(){
         return new RegistroController(
             new UsuarioModel($this->getDatabase()),
-                $this->getRenderer());
+            $this->getRenderer());
     }
 
     public function getLoginController(){
@@ -103,7 +104,8 @@ class Configuration {
     public function getReporteController(){
         return new ReporteController(
             new ReporteModel($this->getDatabase()),
-            $this->getRenderer());
+            $this->getRenderer(),
+            $this->getPDFGenerator());
     }
 
 
@@ -129,6 +131,10 @@ class Configuration {
             $this,
             "getInicioSinLogController",
             "list"
-    );
+        );
+    }
+
+    private function getPDFGenerator(){
+        return new PDF();
     }
 }

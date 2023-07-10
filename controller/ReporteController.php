@@ -1,18 +1,20 @@
 <?php
-require_once "./third-party/jpgraph/src/jpgraph.php";
-require_once "./third-party/jpgraph/src/jpgraph_bar.php";
-require_once './third-party/jpgraph/src/jpgraph_pie.php';
-require_once './third-party/dompdf/autoload.inc.php';
+require_once "third-party/jpgraph/src/jpgraph.php";
+require_once "third-party/jpgraph/src/jpgraph_bar.php";
+require_once 'third-party/jpgraph/src/jpgraph_pie.php';
+require_once 'third-party/dompdf/autoload.inc.php';
 
 use Dompdf\Dompdf;
 
 class ReporteController{
     private $reporteModel;
     private $renderer;
+    private $pdf;
 
-    public function __construct($reporteModel, $renderer){
+    public function __construct($reporteModel, $renderer, $pdf){
         $this->reporteModel = $reporteModel;
         $this->renderer     = $renderer;
+        $this->pdf = $pdf;
     }
 
     public function list(){
@@ -264,30 +266,14 @@ class ReporteController{
         return $image;
     }
 
-    public function generar_pdf()
-    {
-        $imagenNombre = $_POST['imagenNombre'];
-        $imagenPath = 'public/graficos/' . $imagenNombre . '.png';
+    public function generarPDF(){
+        $localhost = $_SERVER['HTTP_HOST'];
+        $ruta = $_GET['src'];
+        $nombrePDF = $_GET['name'];
+        $imagen = '<img src="http://'.$localhost.$ruta.'">';
+        Logger::info($imagen);
+        $this->pdf->output($imagen,$nombrePDF);
 
-        $dompdf = new Dompdf();
-        $dompdf->loadHtml('<img src="' . $imagenPath . '">');
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
-
-        $dompdf->stream($imagenNombre.".pdf" , ['Attachment' => 0]);
-
-        // Devolver una respuesta al cliente
-        header('Content-Type: application/pdf');
-        header ('Content-Disposition:inline; filename ='.$imagenNombre.'.pdf');
-        $dompdf->output();
-        //echo json_encode(['success' => true]);
-        //header('Location: ' . $pdfPath);
-        //exit();
     }
-
-
-
-
-
 
 }
