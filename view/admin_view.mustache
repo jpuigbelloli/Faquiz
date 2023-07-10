@@ -2,15 +2,14 @@
 <link rel="stylesheet" href="/public/css/admin.css">
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-<body class="bd-image" style="background-image: url('/public/imgs/Fondo.png'); color: ghostwhite">
-
+<body class="bd-image">
     <div class="container my-5 pt-3 text-center">
         <h1 class="text-center">Reportes de Administrador</h1>
         <p>Por favor, seleccione el tipo de reporte a generar.</p>
     </div>
-    <div class="container container2" style="background-color:rgba(0, 0, 0, 0.3);color:white;">
+    <div class="container container2">
         <form action="/reporte" method="POST" >
-            <div class="row justify-content-center">
+            <div class="row justify-content-center card">
                 <div>
                     <select class="form-select mb-3" aria-label=".form-select-lg example" name="filtro">
                         <option selected disabled value="">Seleccione filtro...</option>
