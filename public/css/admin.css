@@ -1,0 +1,186 @@
+/* IMAGEN DE FONDO */
+.bd-image {
+    background-image: url('/public/imgs/fondo-textura.jpg');
+    background-size: cover;
+}
+
+/* BASIC */
+body {
+    height: 100vh;
+    text-color: black;
+}
+
+a {
+    color: #92badd;
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+/* STRUCTURE */
+.wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    min-height: 100%;
+    padding: 20px;
+}
+
+#formContent {
+    border-radius: 10px;
+    background: #fff;
+    padding: 30px;
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+    padding: 0px;
+    margin-top: 1em;
+    box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+#formFooter {
+    background-color: #f6f6f6;
+    border-top: 1px solid #dce8f1;
+    padding: 25px;
+    text-align: center;
+    border-radius: 0 0 10px 10px;
+}
+
+/* TABS */
+h2.inactive {
+    color: #cccccc;
+}
+
+h2.active {
+    color: #0d0d0d;
+    border-bottom: 2px solid #5fbae9;
+}
+
+/* FORM TYPOGRAPHY
+input[type=button],
+input[type=submit],
+input[type=reset] {
+    background-color: #56baed;
+    border: none;
+    color: white;
+    padding: 15px 80px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 13px;
+    box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
+    border-radius: 5px;
+    margin: 5px 20px 40px 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+input[type=button]:hover,
+input[type=submit]:hover,
+input[type=reset]:hover {
+    background-color: #39ace7;
+}
+
+input[type=button]:active,
+input[type=submit]:active,
+input[type=reset]:active {
+    transform: scale(0.95);
+}
+
+input[type=text],
+input[type=password] {
+    background-color: #f6f6f6;
+    border: none;
+    color: #0d0d0d;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    width: 85%;
+    border: 2px solid #f6f6f6;
+    transition: all 0.5s ease-in-out;
+    border-radius: 5px;
+}
+
+input[type=text]:focus,
+input[type=password]:focus {
+    background-color: #fff;
+    border-bottom: 2px solid #5fbae9;
+}
+
+input[type=text]:placeholder,
+input[type=password]:placeholder {
+    color: #cccccc;
+}
+*/
+
+/* ANIMATIONS */
+/* Simple CSS3 Fade-in-down Animation */
+.fadeInDown {
+    animation: fadeInDown 0.5s ease-in-out;
+    animation-fill-mode: both;
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* OTHERS */
+*:focus {
+    outline: none;
+}
+
+#icon {
+    margin-top: 5px;
+    width: 50%;
+}
+
+.container{
+    margin-top: 1rem;
+    text-align: center;
+    justify-content: center;
+}
+.container2{
+    max-width: 40%!important;
+    justify-content: center!important;
+}
+
+.title-admin{
+    font-size: 2rem;
+    text-align: center;
+}
+.card{
+    max-width: 100%;
+    margin-top: 1rem;
+    margin: 10px;
+    padding: 10px;
+}
+
+.card button{
+    border: none!important;
+}
+
+
+/* QUERY PARA CELULAR*/
+@media only screen and (max-width : 900px) {
+
+    .container2{
+        max-width: 80%!important;
+        justify-content: center!important;
+    }
+
+}
+
+

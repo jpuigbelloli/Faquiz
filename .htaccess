@@ -12,9 +12,7 @@ Options -Indexes
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
-
     RewriteRule ^(public|foto_perfil)($|/) - [L,NC]
-
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^perfil/(.*)$ index.php?module=perfil&action=list&usuario=$1 [L,QSA]

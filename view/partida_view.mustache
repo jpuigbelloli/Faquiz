@@ -47,7 +47,7 @@
                     </div>
                 </div>
             </div>
-
+            <button id="toggleSonidoButton" class="sound-button sound-enabled">Sonido ON <i class="fa-solid fa-volume-low"></i></button>
             <!--Categoria-->
             <div class="row">
                 <div class="col-12 col-lg-12 text-center">
@@ -164,7 +164,7 @@
                     <div class="modal-body">
                         <div class="list-group">
                             <button type="button" class="list-group-item list-group-item-action report-option" data-value="1">Respuesta Incorrecta</button>
-                            <button type="button" class="list-group-item list-group-item-action report-option" data-value="2">No se entiende pregunta</button>
+                            <button type="button" class="list-group-item list-group-item-action report-option" data-value="2">No se entiende la pregunta</button>
                             <button type="button" class="list-group-item list-group-item-action report-option" data-value="3">Pregunta Ofensiva</button>
                             <button type="button" class="list-group-item list-group-item-action report-option" data-value="4">Otra razón</button>
                         </div>
@@ -177,6 +177,8 @@
             </div>
         </div>
     </body>
+    <audio id="correcta" src="/public/audio/correcta.wav"></audio>
+    <audio id="incorrecta" src="/public/audio/incorrecta.wav"></audio>
 {{/termino}}
 
 

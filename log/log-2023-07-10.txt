@@ -1,0 +1,8 @@
+[2023-07-10][INFO]month
+[2023-07-10][INFO]month
+[2023-07-10][INFO]month
+[2023-07-10][INFO]<img src="http://localhost/public/graficos/cantidadJugadores.png">
+[2023-07-10][INFO]<img src="http://localhost/public/graficos/cantidadJugadores.png">
+[2023-07-10][INFO]Mi nivel es 0
+[2023-07-10][INFO]ME DIERON PREGUNTA FACIL
+[2023-07-10][INFO]<img src="http://localhost/public/graficos/cantidadJugadores.png">

@@ -76,6 +76,8 @@ $(document).ready(function() {
     });
 
     function checkearCategoria(categoria) {
+        // le saco las clases a categoria en cada iteacion
+        $('#categoria_columna').removeClass('Arte Historia Deportes Entretenimiento Ciencia Geografia');
         var categoria_columna = '#categoria_columna';
 
         switch (categoria) {
@@ -118,7 +120,7 @@ $(document).ready(function() {
                     $('#' + id_div).addClass('verde');
                     puntos++;
                     $('#puntos').text(puntos);
-
+                    correctaSonido();
                     //pasan 500 milisegundos te muestra la opcion correcta en verde
                     setTimeout(function() {
                         $('#' + id_div).removeClass('verde');
@@ -127,6 +129,7 @@ $(document).ready(function() {
                     }, 500);
                 } else {
                     $('#' + id_div).addClass('rojo');
+                    incorrectaSonido();
                     $('.boton').prop('disabled', true);
                     clearInterval(timer);
                     respuestaIncorrecta(correcta.puntos);
@@ -138,6 +141,33 @@ $(document).ready(function() {
             }
         });
     }
+
+    var sonido = true;
+
+    $('#toggleSonidoButton').click(function() {
+        sonido = !sonido;
+        updateSoundButton();
+    });
+
+    function updateSoundButton() {
+        var buttonText = sonido ? 'Sound ON <i class="fa-solid fa-volume-low"></i>' : 'Sound OFF <i class="fa-solid fa-volume-xmark"></i>';
+        $('#toggleSonidoButton').html(buttonText);
+        $('#toggleSonidoButton').toggleClass('sound-enabled', sonido);
+    }
+
+    function correctaSonido() {
+        if (sonido) {
+            var audio = $('#correcta')[0];
+            audio.play();
+        }
+    }
+    function incorrectaSonido() {
+        if (sonido) {
+            var audio = $('#incorrecta')[0];
+            audio.play();
+        }
+    }
+
 
     function showReportModal(idPregunta) {
         $('#reportModal').modal('show');

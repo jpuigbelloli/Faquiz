@@ -29,8 +29,9 @@ class LoginController
         $contrasenia = $_POST["contrasenia"] ?? "";
 
         $usuarioValido = $this->usuarioModel->verificarCredenciales($usuario, $contrasenia);
+        $emailVerificado = $this->usuarioModel->esUsuarioVerificado($usuario);
 
-        if ($usuarioValido) {
+        if ($usuarioValido && $emailVerificado) {
             $_SESSION['logueado'] = true;
             $_SESSION['usuario'] = $usuario;
             header('Location:/lobby');

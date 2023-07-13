@@ -16,6 +16,7 @@ include_once('helpers/Router.php');
 include_once('helpers/QRHelper.php');
 include_once('helpers/Logger.php');
 require_once 'helpers/Usuario.php';
+require_once 'helpers/PDF.php';
 
 //MODELS
 include_once('model/PerfilModel.php');
@@ -24,6 +25,8 @@ include_once ('model/PartidaModel.php');
 include_once ('model/LobbyModel.php');
 include_once ('model/SugerirPreguntaModel.php');
 include_once('model/RevisarPreguntaModel.php');
+include_once('model/ErrorModel.php');
+include_once ('model/ReporteModel.php');
 
 //CONTROLLERS
 include_once('controller/InicioSinLogController.php');
@@ -34,6 +37,8 @@ include_once ('controller/LobbyController.php');
 include_once ('controller/PartidaController.php');
 include_once ('controller/SugerirPreguntaController.php');
 include_once('controller/RevisarPreguntaController.php');
+include_once('controller/ReporteController.php');
+include_once('controller/ErrorController.php');
 
 
 class Configuration {
@@ -44,13 +49,20 @@ class Configuration {
 
 
     public function getInicioSinLogController() {
-        return new InicioSinLogController($this->getRenderer());
+        return new InicioSinLogController($this->getRenderer(),
+            $this->getErrorController());
+    }
+
+    public function getErrorController()
+    {
+        $errorModel = new ErrorModel();
+        return new ErrorController($this->getRenderer(), $errorModel);
     }
 
     public function getRegistroController(){
         return new RegistroController(
             new UsuarioModel($this->getDatabase()),
-                $this->getRenderer());
+            $this->getRenderer());
     }
 
     public function getLoginController(){
@@ -68,7 +80,8 @@ class Configuration {
     public function getPerfilController(){
         return new PerfilController(
             new PerfilModel($this->getDatabase()),
-            $this->getRenderer());
+            $this->getRenderer(),
+            $this->getErrorController());
     }
 
     public function getPartidaController(){
@@ -86,6 +99,13 @@ class Configuration {
         return new RevisarPreguntaController(
             new RevisarPreguntaModel($this->getDatabase()),
             $this->getRenderer());
+    }
+
+    public function getReporteController(){
+        return new ReporteController(
+            new ReporteModel($this->getDatabase()),
+            $this->getRenderer(),
+            $this->getPDFGenerator());
     }
 
 
@@ -111,6 +131,10 @@ class Configuration {
             $this,
             "getInicioSinLogController",
             "list"
-    );
+        );
+    }
+
+    private function getPDFGenerator(){
+        return new PDF();
     }
 }

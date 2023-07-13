@@ -6,8 +6,7 @@
         <div id="formContent">
             <!-- Icon -->
             <div class="fadeIn first">
-                <img src="./public/imgs/logo.svg" id="icon" alt="User Icon" height="45" width="45"/>
-                <h3>Faquiz</h3>
+                <img src="./public/imgs/Faquiz-Logo-small.png" id="icon" alt="User Icon"/>
             </div>
 
         {{#error}}
@@ -18,13 +17,16 @@
         <form action="/login/validar" method="POST">
             <input type="text" id="usuario" name="user_name" class="fadeIn second" name="login" required placeholder="Ingrese su usuario...">
             <input type="password" id="contrasenia" name="contrasenia" class="fadeIn third" name="login" required placeholder="Ingrese su contraseña...">
-            <input type="submit" class="fadeIn fourth" value="Log In">
+            <input type="submit" class="fadeIn fourth" value="Iniciar sesión">
         </form>
 
             <!-- Remind Passowrd -->
             <div id="formFooter">
-                <a class="underlineHover" href="#">Te olvidaste la contraseña?</a>
+                <a class="underlineHover" href="#">¿Te olvidaste la contraseña?</a>
+                <hr>
+                <a class="underlineHover" href="/registro">¡Quiero registrarme!</a>
             </div>
+
         </div>
     </div>
 </body>
